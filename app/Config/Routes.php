@@ -33,12 +33,14 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 
 //categorias
-$routes->get('/categorias','Categoria\categorias::index');
+$routes->get('/categorias','Categoria\Ccategorias::index');
 
 //ubicaciones
-$routes->get('/ubicacion','Ubicacion\ubicacion::index');
+$routes->get('/ubicacion','Ubicacion\C_ubicacion::index');
+$routes->post('/ubicacion/registrar_ubicacion','Ubicacion\C_ubicacion::registrar_ubicacion');
+
 $routes->get('/ubicacion2','ubicacion::index');
-$routes->get('/ubicacion3','ubicacion::dos');
+$routes->get('/ubicacion3','Ubicacion\ubicacion::index');
 
 /*
  * --------------------------------------------------------------------
