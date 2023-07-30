@@ -1,5 +1,7 @@
 <?php
-
+/*
+    AyrtonGuevaraMontaño 30/07/2023 
+*/
 namespace Config;
 
 // Create a new instance of our RouteCollection class.
@@ -38,9 +40,10 @@ $routes->get('/categorias','Categoria\Ccategorias::index');
 //ubicaciones
 $routes->get('/ubicacion','Ubicacion\C_ubicacion::index');
 $routes->post('/ubicacion/registrar_ubicacion','Ubicacion\C_ubicacion::registrar_ubicacion');
+$routes->post('/ubicacion/mostrar_ubicacion', 'Ubicacion\C_ubicacion::mostrar_ubicacion');
+$routes->post('/ubicacion/molificar_ubicacion','Ubicacion\C_ubicacion::modificar_ubicacion');
+$routes->post('ubicacion/eliminar_ubicacion','Ubicacion\C_ubicacion::eliminar_ubicacion');
 
-$routes->get('/ubicacion2','ubicacion::index');
-$routes->get('/ubicacion3','Ubicacion\ubicacion::index');
 
 /*
  * --------------------------------------------------------------------
