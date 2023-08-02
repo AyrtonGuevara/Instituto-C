@@ -37,6 +37,13 @@ $routes->get('/', 'Home::index');
 //categorias
 $routes->get('/categorias','Categoria\Ccategorias::index');
 
+//Personal
+$routes->get('/personal','Personal\C_personal::index');
+$routes->post('/personal/agregar_personal','Personal\C_personal::registrar_personal');
+$routes->post('/personal/mostrar_personal','Personal\C_personal::mostrar_personal');
+$routes->post('/personal/modificar_personal','Personal\C_personal::modificar_personal');
+$routes->post('/personal/eliminar_personal','Personal\C_personal::eliminar_personal');
+
 //ubicaciones
 $routes->get('/ubicacion','Ubicacion\C_ubicacion::index');
 $routes->post('/ubicacion/registrar_ubicacion','Ubicacion\C_ubicacion::registrar_ubicacion');

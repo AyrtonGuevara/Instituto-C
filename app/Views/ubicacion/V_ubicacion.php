@@ -209,10 +209,10 @@
 					Swal.fire({
 						title:'Seguro que quiere borrar el registro de :',
 						text: inf,
-						icon:'warning',
+						icon:'question',
 						denyButtonText: 'No',
 						confirmButtonText:'Si',
-						showDenyButton:true,
+						showDenyButton:true
 					}).then((result)=>{
 						if (result.isConfirmed) {
 							$.ajax({
@@ -236,7 +236,7 @@
 								}
 							});
 						}else if(result.isDenied){
-							Swal.fire('No se elimino el registro','','info')
+							Swal.fire('No se elimino el registro','','warning')
 						}
 					});
 				}//mensaje de la bdd
@@ -245,7 +245,7 @@
 			}
 		});
 	}
-		/*echo "$(document).ready(function(){";
+		/*echo "	{";
 			echo "var form=document.getElementById('zona');";
 			echo "var val='".$a->zona."';";
 			echo "form.value = val;";

@@ -1,4 +1,7 @@
 <?php
+/*
+	Ayrton Jhonny Guevara Montaño 30-07-2023
+*/
 	namespace App\Controllers\Ubicacion;
 	use App\Controllers\BaseController;
 	use App\Models\ubicacion\M_ubicacion;
