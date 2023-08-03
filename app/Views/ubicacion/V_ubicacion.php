@@ -23,28 +23,28 @@
 		<div class="row">
 			<input type="text" name="id" id="id" hidden>
 			<div class="col-sm-6">
-				<input type="text" name="zona" id="zona" required/><br>
-				<label for="zona">zona</label>
+				<label for="zona" class="form-label">Zona:</label>
+				<input type="text" class="form-control" name="zona" id="zona" required/><br>
 			</div>
 			<div class="col-sm-6">
-				<input type="text" name="direccion" id="direccion" required/><br>
-				<label for="direccion">direccion</label>
+				<label for="direccion" class="form-label">Direccion:</label>
+				<input type="text" class="form-control" name="direccion" id="direccion" required/><br>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				<input type="text" name="detalle" id="detalle"><br>
-				<label for="detalle">detalle</label>
+				<label for="detalle" class="form-label">Detalle:</label>
+				<input type="text" class="form-control" name="detalle" id="detalle"><br>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-				<input type="text" name="descripcion" id="descripcion"><br>
-				<label for="descripcion">descripcion</label>
+				<label for="descripcion" class="form-label">Descripcion:</label>
+				<input type="text" class="form-control" name="descripcion" id="descripcion"><br>
 			</div>
 		</div>
-		<input type="submit" name="Registrar" value="Registrar" id="Registrar">
-		<input type="submit" name="Modificar" value="Modificar" id="Modificar" disabled>
+		<input type="submit" class="btn btn-info" name="Registrar" value="Registrar" id="Registrar">
+		<input type="submit" class="btn btn-info" name="Modificar" value="Modificar" id="Modificar" disabled>
 	</form>
 </div>
 <div class="container">

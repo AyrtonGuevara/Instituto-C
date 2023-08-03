@@ -51,6 +51,13 @@ $routes->post('/ubicacion/mostrar_ubicacion', 'Ubicacion\C_ubicacion::mostrar_ub
 $routes->post('/ubicacion/molificar_ubicacion','Ubicacion\C_ubicacion::modificar_ubicacion');
 $routes->post('ubicacion/eliminar_ubicacion','Ubicacion\C_ubicacion::eliminar_ubicacion');
 
+//usuarios
+$routes->get('/usuario','Usuario\C_usuario::index');
+$routes->post('/usuario/registrar_usuario','Usuario\C_usuario::registrar_usuario');
+$routes->post('/usuario/mostrar_usuario','Usuario\C_usuario::mostrar_usuario');
+$routes->post('/usuario/modificar_usuario','Usuario\C_usuario::modificar_usuario');
+$routes->post('usuario/eliminar_usuario','Usuario\C_usuario::eliminar_usuario');
+
 
 /*
  * --------------------------------------------------------------------
