@@ -45,10 +45,10 @@
 			");
 			return $respuesta;
 		}
-		public function agregar_usuario($usuario,$id,$psswd,$lvl){
+		public function agregar_usuario($usuario,$id,$psswd,$salt,$lvl){
 			$respuesta=$this->db->query("
-				INSERT INTO ral_usuario (id_persona,usuario,psswd,nivel,estado) 
-				VALUES ($usuario,'$id','$psswd',$lvl,'activo');");
+				INSERT INTO ral_usuario (id_persona,usuario,psswd,salt,nivel,estado) 
+				VALUES ($usuario,'$id','$psswd','$salt',$lvl,'activo');");
 			return $respuesta;
 		}
 		public function mostrar_usuario($id){
@@ -67,9 +67,9 @@
 				");
 			return $respuesta->getResult();
 		}
-		public function modificar_usuario($id,$persona,$usuario,$psswd,$lvl){
+		public function modificar_usuario($id,$persona,$usuario,$psswd,$salt,$lvl){
 			$respuesta=$this->db->query("
-				UPDATE ral_usuario SET id_persona=$persona, usuario='$usuario' , psswd= '$psswd',nivel=$lvl
+				UPDATE ral_usuario SET id_persona=$persona, usuario='$usuario' , psswd= '$psswd',salt='$salt',nivel=$lvl
 				WHERE id_usuario = $id
 				AND estado='activo';");
 			return $respuesta;

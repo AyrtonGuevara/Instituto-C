@@ -10,7 +10,7 @@
 		public function __construct(){
 			$this->usuario=new M_usuario();
 			$this->session=\config\Services::session();
-			$this->encripter=\config\Services::encrypter();
+			/**/$this->encripter=\config\Services::encrypter();
 		}
 		public function index(){
 			$lista_personas=$this->usuario->listar_personas_pusuario();
@@ -25,8 +25,9 @@
 				$pasword=$_POST['password'];
 				$nivel=$_POST['nivel'];
 			}
-			$psswd=base64_encode($this->encripter->encrypt($pasword));
-			$respuesta=$this->usuario->agregar_usuario($persona,$usuario,$psswd,$nivel);
+			$salt=bin2hex(random_bytes(16));
+			$psswd=password_hash($pasword.$salt, PASSWORD_DEFAULT);
+			$respuesta=$this->usuario->agregar_usuario($persona,$usuario,$psswd,$salt,$nivel);
 			if ($respuesta) {
 				$this->session->setFlashData("exito","Se registro con exito");
 			}else{
@@ -49,8 +50,9 @@
 				$password=$_POST['password'];
 				$nivel=$_POST['nivel'];
 			}
-			$psswd=base64_encode($this->encripter->encrypt($password));
-			$respuesta=$this->usuario->modificar_usuario($id,$persona,$usuario,$psswd,$nivel);
+			$salt=bin2hex(random_bytes(16));
+			$psswd=password_hash($password.$salt, PASSWORD_DEFAULT);
+			$respuesta=$this->usuario->modificar_usuario($id,$persona,$usuario,$psswd,$salt,$nivel);
 			if ($respuesta) {
 				$this->session->setFlashDAta("exito","Se modifico con exito");
 			}else{

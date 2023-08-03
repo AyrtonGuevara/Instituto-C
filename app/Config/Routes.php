@@ -37,6 +37,10 @@ $routes->get('/', 'Home::index');
 //categorias
 $routes->get('/categorias','Categoria\Ccategorias::index');
 
+//login
+$routes->get('/login','Login\C_login::index');
+$routes->post('/login/autenticar','Login\C_login::autenticar');
+
 //Personal
 $routes->get('/personal','Personal\C_personal::index');
 $routes->post('/personal/agregar_personal','Personal\C_personal::registrar_personal');
