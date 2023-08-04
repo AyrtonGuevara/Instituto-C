@@ -9,7 +9,7 @@
 	class C_usuario extends BaseController{
 		public function __construct(){
 			$this->usuario=new M_usuario();
-			$this->session=\config\Services::session();
+			//$this->session=\config\Services::session();
 			/**/$this->encripter=\config\Services::encrypter();
 		}
 		public function index(){

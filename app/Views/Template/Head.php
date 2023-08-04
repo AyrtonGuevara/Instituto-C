@@ -25,6 +25,7 @@
 	<nav class="navbar bg-info">
 		<div class="container-fluid">
 				cabecera? o solo head
+				<a href="<?php base_url()?>cerrar_sesion" class="btn btn-danger">Cerrar sesion</a>
 		</div>
 	</nav>	
 	<?php include('Menu.php') ?>

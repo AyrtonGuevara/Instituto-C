@@ -13,9 +13,16 @@
 			$respuesta=$this->db->query("SELECT salt, psswd FROM ral_usuario WHERE usuario='$usuario'");
 			return $respuesta;
 		}
-		public function autenticar($usuario, $psswd){
-			echo "SELECT count(id_usuario), usuario, psswd FROM ral_usuario ru WHERE usuario='$usuario' AND estado = 'activo' group by id_usuario ";
-			$respuesta=$this->db->query("SELECT count(id_usuario), usuario, psswd FROM ral_usuario ru WHERE usuario='$usuario' AND estado = 'activo' group by id_usuario ");
+		public function iniciar_sesion($usuario){
+			$respuesta=$this->db->query("
+				SELECT concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona) as usuario,
+				(SELECT rc.detalle FROM ral_categoria rc WHERE ru.nivel=rc.id_categoria)as nivel
+				FROM ral_usuario ru, ral_persona rp 
+				WHERE ru.estado='activo' 
+				AND rp.estado ='activo'
+				AND ru.usuario = 'admin'
+				AND ru.id_persona = rp.id_persona 
+			");
 			return $respuesta;
 		}
 	}

@@ -9,7 +9,6 @@
 	class C_personal extends BaseController{
 		public function __construct(){
 			$this->personal=new M_personal();
-			$this->session = \Config\Services::session();
 		}
 		public function index(){
 			$cargos=$this->personal->listar_cargos();

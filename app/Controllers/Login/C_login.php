@@ -9,6 +9,7 @@
 	class C_login extends BaseController{
 		public function __construct(){
 			$this->login=new M_login();
+			//$this->session=session();
 			$this->encripter=\config\Services::encrypter();
 		}
 		public function index(){
@@ -27,11 +28,26 @@
 				$contraseña_bdd=$respuesta1->psswd;
 				if (password_verify($contraseña_ingresada, $contraseña_bdd)) {
 					echo "INGRESAR!!!";
+					//se hace una nueva consulta y se guarda en la sesion y se va al dasboard
+					$resp2=$this->login->iniciar_sesion($usuario);
+					$resp2=$resp2->getRow();
+					//nivel
+					$datasession=[
+						'login'=>true,
+						'usuario'=>$resp2->usuario,
+						'nivel'=>$resp2->nivel
+					];
+					$this->session->set($datasession);
+					return redirect()->to(base_url('usuario'));
 				}else{
 					echo "CONTRASEÑA ERRONEA";
+					$this->session->setFlashdata("error_contraseña","contraseña erronea");
+					return redirect()->to(base_url('login'));
 				}
 			}else{
 				echo "usuario erroneo";
+				$this->session->setFlashdata("error_usuario","usuario erroneo");
+				return redirect()->to(base_url('login'));
 			}
 		}
 	}

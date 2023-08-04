@@ -40,6 +40,7 @@ $routes->get('/categorias','Categoria\Ccategorias::index');
 //login
 $routes->get('/login','Login\C_login::index');
 $routes->post('/login/autenticar','Login\C_login::autenticar');
+$routes->get('/cerrar_sesion','Security\session::cerrar_sesion');
 
 //Personal
 $routes->get('/personal','Personal\C_personal::index');

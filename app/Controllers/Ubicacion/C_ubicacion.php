@@ -9,10 +9,10 @@
 	class C_ubicacion extends BaseController{
 		public function __construct(){
 			$this->ubicacion = new M_ubicacion;
-			$this->session = \Config\Services::session();
 		}
 		public function index(){
 			$list=$this->ubicacion->listar_ubicacion();
+			/**/echo $this->session->get('usuario');
 			return view('ubicacion/V_ubicacion', ['list'=>$list]);
 		}
 
