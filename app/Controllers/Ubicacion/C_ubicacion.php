@@ -12,7 +12,6 @@
 		}
 		public function index(){
 			$list=$this->ubicacion->listar_ubicacion();
-			/**/echo $this->session->get('usuario');
 			return view('ubicacion/V_ubicacion', ['list'=>$list]);
 		}
 
