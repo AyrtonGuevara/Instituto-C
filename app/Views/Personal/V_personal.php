@@ -17,27 +17,27 @@
 
 							<div class="row">
 								<input type="text" name="id" id="id" hidden>
-								<div class="col-sm-6">
+								<div class="col-sm-6 form-item">
 									<label for="nombre" class="form-label">Nombre:</label>
 									<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required/>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-3 form-item">
 									<label for="apellidoP" class="form-label">Apellido Paterno:</label>
 									<input type="text" class="form-control" name="apellidoP" id="apellidoP" placeholder="Apellido Paterno" required/>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-3 form-item">
 									<label for="apellidoM" class="form-label">Apellido Materno:</label>
 									<input type="text" class="form-control" name="apellidoM" id="apellidoM" placeholder="Apellido Materno" required/>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-3 form-item">
 									<label for="fecnac" class="form-label">Fecha de Nacimiento:</label>
 									<input type="date" class="form-control" name="fecnac" id="fecnac" required/>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-3 form-item">
 									<label for="celular" class="form-label">Celular:</label>
 									<input type="number" class="form-control" name="celular" id="celular" placeholder="Celular" required/>
 								</div>
-								<div class="col-sm-3">
+								<div class="col-sm-3 form-item">
 									<label for="cargo" class="form-label">Cargo:</label>
 									<select class="form-control" name="cargo" id="cargo" required>
 										<?php foreach($cargos->getResult() as $key){?>
@@ -47,7 +47,7 @@
 									</select>
 								</div>
 							</div>
-						<div class="btn-form">
+						<div class="btn-form form-item">
 							<input type="submit" class="btn btn-primary border-light" name="Registrar" value="Registrar" id="Registrar">
 							<input type="submit" class="btn border-light" name="Modificar" value="Modificar" id="Modificar" disabled>
 						</div>

@@ -1,8 +1,8 @@
 <?php
 /*
-	Ayrton Guevara Montaño 30-07-2023
+	Ayrton Jhonny Guevara Montaño 30-07-2023
 */
-	namespace App\Models\Ubicacion;
+	namespace App\Models\ubicacion;
 
 	use CodeIgniter\Model;
 
@@ -13,7 +13,7 @@
 
 		public function agregar_ubicacion($zona,$direccion,$detalle,$descripcion)
 		{
-			$respuesta=$this->db->query("INSERT INTO adm_ubicacion (zona, direccion, detalle, descripcion) VALUES ('$zona','$direccion','$detalle','$descripcion');");
+			$respuesta=$this->db->query("INSERT INTO adm_ubicacion (zona, direccion, detalle, descripcion, estado) VALUES ('$zona','$direccion','$detalle','$descripcion','activo');");
 			return $respuesta;
 			
 			/*
@@ -22,7 +22,7 @@
 		}
 		public function listar_ubicacion()
 		{
-			$respuesta=$this->db->query("SELECT * FROM adm_ubicacion ORDER BY id_ubicacion;");
+			$respuesta=$this->db->query("SELECT * FROM adm_ubicacion WHERE estado='activo' ORDER BY id_ubicacion;");
 			return $respuesta;
 			//$respuesta=$->this->db->query('query');
 			//return $respuesta->getResults();

@@ -34,7 +34,7 @@
 						<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripci&oacute;n">
 					</div class="btn-form">
 				</div>
-				<div class="btn-form">
+				<div class="btn-form form-item">
 					<input type="submit" class="btn btn-primary border-light" name="Registrar" value="Registrar" id="Registrar">
 					<input type="submit" class="btn border-light" name="Modificar" value="Modificar" id="Modificar" disabled>
 				</div>

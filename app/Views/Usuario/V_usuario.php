@@ -12,7 +12,7 @@
 				<form action="<?php echo base_url()?>usuario/registrar_usuario" class="form" method="post" id="form_usuario" name="form_usuario" accept-charset="utf-8">
 					<div class="row">
 						<input type="text" id="id" name="id" hidden>
-						<div class="col-sm-4">
+						<div class="col-sm-4 form-item">
 							<label for="persona" class="form-label">Usuario:</label>
 							<select name="persona" id="persona" class="form-control" required>
 								<option value="" id="default" default></option>
@@ -23,17 +23,17 @@
 								?>
 							</select>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-4 form-item">
 							<label for="usuario" class="form-label">Nombre usuario:</label>
 							<input type="text" class="form-control" name="usuario" id="usuario" placeholder="Nombre de usuario" required/>
 						</div>
-						<div class="col-sm-4">
+						<div class="col-sm-4 form-item">
 							<label for="password" class="form-label">Contraseña:</label>
 							<input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-4 form-item">
 							<label for="nivel" class="form-label">Nivel:</label>
 							<select name="nivel" class="form-control"  required>
 								<option value="" id="default2" default></option>
@@ -45,7 +45,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="btn-form"> 
+					<div class="btn-form form-item"> 
 						<input type="submit" class="btn btn-primary border-light" name="Registrar" value="Registrar" id="Registrar">
 						<input type="submit" class="btn border-light" name="Modificar" value="Modificar" id="Modificar" disabled>
 					</div>

@@ -54,7 +54,14 @@ $routes->get('/ubicacion','Ubicacion\C_ubicacion::index');
 $routes->post('/ubicacion/registrar_ubicacion','Ubicacion\C_ubicacion::registrar_ubicacion');
 $routes->post('/ubicacion/mostrar_ubicacion', 'Ubicacion\C_ubicacion::mostrar_ubicacion');
 $routes->post('/ubicacion/molificar_ubicacion','Ubicacion\C_ubicacion::modificar_ubicacion');
-$routes->post('ubicacion/eliminar_ubicacion','Ubicacion\C_ubicacion::eliminar_ubicacion');
+$routes->post('/ubicacion/eliminar_ubicacion','Ubicacion\C_ubicacion::eliminar_ubicacion');
+//aulas
+$routes->get('/aula','Ubicacion\C_aulas::index');
+$routes->post('/aula/registrar_aula','Ubicacion\C_aulas::registrar_aula');
+$routes->post('/aula/mostrar_aula','Ubicacion\C_aulas::mostrar_aula');
+$routes->post('/aula/modificar_aula','Ubicacion\C_aulas::modificar_aula');
+$routes->post('/aula/eliminar_aula','Ubicacion\C_aulas::eliminar_aula');
+
 
 //usuarios
 $routes->get('/usuario','Usuario\C_usuario::index');
