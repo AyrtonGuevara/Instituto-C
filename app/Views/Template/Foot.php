@@ -1,5 +1,7 @@
 </div>
-<p>este es el pie de pagina</p>
+<footer class="footer" id="footer_content">
+	<p>Ayrton Jhonny Guevara Montaño</p>
+</footer>
 
 </body>
 </html>

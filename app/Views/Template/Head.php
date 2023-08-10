@@ -16,92 +16,41 @@
 
 	<!-- SweetAlert 2 CSS -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+	<!--icons-->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 	<title>
 		
 	</title>
-	<link rel="stylesheet" href="">
-	<style type="text/css">
-		.sidenav {
-		  height: 100%; /* 100% Full-height */
-		  width: 0; /* 0 width - change this with JavaScript */
-		  position: fixed; /* Stay in place */
-		  z-index: 1; /* Stay on top */
-		  top: 64px;
-		  left: 0;
-		  background-color: #111; /* Black*/
-		  overflow-x: hidden; /* Disable horizontal scroll */
-		  padding-top: 60px; /* Place content 60px from the top */
-		  padding-bottom: 80px; /*MArgen top porque si existe una diferencia*/
-		  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-		}
-		/* The navigation menu links */
-		.sidenav a {
-		  padding: 8px 8px 8px 32px;
-		  text-decoration: none;
-		  font-size: 25px;
-		  color: #818181;
-		  display: block;
-		  transition: 0.3s;
-		}
-		.sidenav li {
-		  padding: 8px 8px 8px 32px;
-		  text-decoration: none;
-		  font-size: 25px;
-		  color: #818181;
-		  display: block;
-		  transition: 0.3s;
-		}
-
-		.sidenav a:hover {
-		  color: #f1f1f1;
-		}
-		/* Position and style the close button (top right corner) */
-		.sidenav .closebtn {
-		  position: absolute;
-		  top: 0;
-		  right: 25px;
-		  font-size: 36px;
-		  margin-left: 50px;
-		}
-
-		/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-		#main_content {
-		  transition: margin-left .5s;
-		  padding: 20px;
-		}
-
-		/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-		@media screen and (max-height: 450px) {
-		  .sidenav {padding-top: 15px;}
-		  .sidenav a {font-size: 18px;}
-		}
-
-	</style>
+	<link rel="stylesheet" href="public/css/style.css">
+	<script src="public/js/functions.js"></script>
 </head>
 <body>
-	<nav class="navbar bg-info">
+	<nav class="navbar nav">
 		<div class="container-fluid">
 			<span style="cursor:pointer" onclick="opensidenav()" id="open_sidenav">&#9776; Men&uacute;</span>
-				<?php 
-				echo session()->usuario;
-				echo "<br>";
-				echo session()->nivel;
-				?>
-				<a href="<?php base_url()?>cerrar_sesion" class="btn btn-danger">Cerrar sesion</a>
+			<div class="studens_ral_info">
+				<p class="p1">34</p>
+				<p class="p2">50</p>
+				<p class="p3">35</p>
+			</div>
+			<div class="user-info">
+			<table>
+				<thead>
+					<tr>
+						<th><?php echo session()->usuario; ?></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><?php echo session()->nivel;?></td>
+					</tr>
+				</tbody>
+			</table>
+				<a href="<?php base_url()?>cerrar_sesion" class="btn btn-danger" title="Cerrar Sesion"><i class="bi bi-power"></i></a>
+			</div>
 		</div>
 	</nav>	
 	<div class="content" id="main_content"> 
-	<script>
-		function opensidenav(){
-			document.getElementById("sidenav").style.width = "250px";
-  			document.getElementById("main_content").style.marginLeft = "250px";
-		}
-		function closeNav() {
-		  document.getElementById("sidenav").style.width = "0";
-		  document.getElementById("main_content").style.marginLeft = "0";
-		}
-	</script>
 	<?php include('Menu.php') ?>
 	<?= $this -> renderSection('content') ?>
 	<?php include('Foot.php')?>
-

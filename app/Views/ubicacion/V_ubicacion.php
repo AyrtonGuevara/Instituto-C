@@ -9,157 +9,97 @@
 
 
 <div class="container">
-	<?php if(session()->getFlashdata('exito')){?>
-		<div class="alert alert-success">
-			<?php echo session()->getFlashData('exito');?>
+	<div class="card">
+		<div class="card-header">
+			<h2>Ubicaci&oacute;n</h2>
 		</div>
-	<?php }else if(session()->getFlashdata('fracaso')){ ?>
-		<div class="alert alert-success">
-			<?php echo session()->getFlashData('fracaso');?>
+		<div class="card-body" id="card-forms">
+			<form method="post" accept-charset="utf-8" name="form_ubicacion" id="form_ubicacion" action="<?php base_url() ?>ubicacion/registrar_ubicacion">
+				<div class="row">
+					<input type="text" name="id" id="id" hidden>
+					<div class="col-sm-6 form-item">
+						<label for="zona" class="form-label">Zona:</label>
+						<input type="text" class="form-control" name="zona" id="zona" placeholder="Zona" required/>
+					</div>
+					<div class="col-sm-6 form-item">
+						<label for="direccion" class="form-label">Direcci&oacute;n:</label>
+						<input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direcci&oacute;n" required/>
+					</div>
+					<div class="col-sm-12 form-item">
+						<label for="detalle" class="form-label">Detalle:</label>
+						<input type="text" class="form-control" name="detalle" id="detalle" placeholder="Detalle">
+					</div>
+					<div class="col-sm-12 form-item">
+						<label for="descripcion" class="form-label">Descripci&oacute;n:</label>
+						<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripci&oacute;n">
+					</div class="btn-form">
+				</div>
+				<div class="btn-form">
+					<input type="submit" class="btn btn-primary border-light" name="Registrar" value="Registrar" id="Registrar">
+					<input type="submit" class="btn border-light" name="Modificar" value="Modificar" id="Modificar" disabled>
+				</div>
+			</form>
 		</div>
-	<?php }else{} ?>
-	<!--<form action="<?php echo base_url() ?>ubicacion/registrar_ubicacion" method="post" accept-charset="utf-8" id="form_ubicacion">-->
-	<form method="post" accept-charset="utf-8" name="form_ubicacion" id="form_ubicacion" action="<?php base_url() ?>ubicacion/registrar_ubicacion">
-		<div class="row">
-			<input type="text" name="id" id="id" hidden>
-			<div class="col-sm-6">
-				<label for="zona" class="form-label">Zona:</label>
-				<input type="text" class="form-control" name="zona" id="zona" required/><br>
+		<div class="card-footer">
+			<div class="table-responsive">
+				<table class="table table-hover table-basic">
+					<caption>table title and/or explanatory text</caption>
+					<thead>
+						<tr>
+							<th>Nº</th>
+							<th>Direcci&oacute;n</th>
+							<th>Zona</th>
+							<th>Detalle</th>
+							<th>Descripci&oacute;n</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+							<?php
+							foreach ($list->getResult() as $key) {
+								echo "<tr>";
+								echo "<td>".$key->id_ubicacion."</td>";
+								echo "<td>".$key->zona."</td>";
+								echo "<td>".$key->direccion."</td>";
+								echo "<td>".$key->detalle."</td>";
+								echo "<td>".$key->descripcion."</td>";
+								echo "<td> <button class='btn btn-warning' name='Editar' value='Editar' onclick='mostrar_ubicacion(".$key->id_ubicacion.")'><i class='bi bi-pen-fill' title='Editar'></i></button>";
+								echo "<button class= 'btn btn-danger' name='Eliminar' value='Eliminar' onclick='eliminar_ubicacion(".$key->id_ubicacion.")'><i class='bi bi-trash-fill' title='Eliminar'></i></button></td>";
+								echo "</tr>";
+							}
+							?>
+					</tbody>
+				</table>
 			</div>
-			<div class="col-sm-6">
-				<label for="direccion" class="form-label">Direccion:</label>
-				<input type="text" class="form-control" name="direccion" id="direccion" required/><br>
-			</div>
 		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<label for="detalle" class="form-label">Detalle:</label>
-				<input type="text" class="form-control" name="detalle" id="detalle"><br>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<label for="descripcion" class="form-label">Descripcion:</label>
-				<input type="text" class="form-control" name="descripcion" id="descripcion"><br>
-			</div>
-		</div>
-		<input type="submit" class="btn btn-info" name="Registrar" value="Registrar" id="Registrar">
-		<input type="submit" class="btn btn-info" name="Modificar" value="Modificar" id="Modificar" disabled>
-	</form>
+	</div>
 </div>
-<div class="container">
-	<table class="table responsive">
-		<caption>table title and/or explanatory text</caption>
-		<thead>
-			<tr>
-				<th>Nº</th>
-				<th>Direcci&oacute;n</th>
-				<th>Zona</th>
-				<th>Detalle</th>
-				<th>Descripci&oacute;n</th>
-				<th>Acciones</th>
-			</tr>
-		</thead>
-		<tbody>
-				<?php
-				foreach ($list->getResult() as $key) {
-					echo "<tr>";
-					echo "<td>".$key->id_ubicacion."</td>";
-					echo "<td>".$key->zona."</td>";
-					echo "<td>".$key->direccion."</td>";
-					echo "<td>".$key->detalle."</td>";
-					echo "<td>".$key->descripcion."</td>";
-					echo "<td> <input type='button' class='btn btn-info' name='Editar' value='Editar' onclick='mostrar_ubicacion(".$key->id_ubicacion.")'>";
-					echo "<input type='button' class= 'btn btn-danger' name='Eliminar' value='Eliminar' onclick='eliminar_ubicacion(".$key->id_ubicacion.")'></td>";
-					echo "</tr>";
-				}
-				?>
-		</tbody>
-	</table>
-</div>
-
 <script>
-/*
-	function RegistrarModificar(event){
-		//para la noche convertir esto en un json, ver chatgpt y estudiar puto
-		event.preventDefault();
-		var zona=document.getElementById("zona").value;
-		var direccion=document.getElementById("direccion").value;
-		var detalle=document.getElementById("detalle").value;
-		var descripcion=document.getElementById("descripcion").value;
-		var id=document.getElementById("id").value;
-		console.log(id);
-		if (id !== null) {
-			$.ajax({
-				url:"<?php base_url() ?>ubicacion/modificar_ubicacion",
-				type:"POST",
-				data:{
-					id:id,
-					zona:zona,
-					direccion:direccion,
-					detalle:detalle,
-					descripcion:descripcion
-				},
-				success:function(resp){
-					var resp2=JSON.parse(resp);
-					if (resp2.success) {
-						Swal.fire({
-							icon: 'success',
-							text: 'Registro modificado',
-							confirmButtonColor: '#000010',
-							confirmButtonText: 'ACeptar'
-						}).then(function(result){
-							location.reload();
-						});
-					}else{
-						Swal.fire({
-							icon: 'error',
-							text: 'error en el registro',
-							confirmButtonColor: '#FFFFFF',
-							conformButtonText: 'Aceptar'
-						})
-					}
-				},error:function(){
-					$('#respuesta').text('error al conectar con el servidor');
-				}
-			});
-		}else{
-			$.ajax({
-				url:"<?php echo base_url() ?>ubicacion/registrar_ubicacion",
-				type:"POST",
-				data:{
-					zona:zona,
-					direccion:direccion,
-					detalle:detalle,
-					descripcion:descripcion
-				},
-				success:function(resp){
-					var data=JSON.parse(resp);
-					if (data.success) {
-						Swal.fire({
-							icon: 'success',
-							text: 'registro añadido',
-							confirmButtonColor: '#000000',
-							confirmButtonText:'Aceptar'
-						}).then(function(result){
-							location.reload();
-						});
-					}else{
-						Swal.fire({
-							icon: 'error',
-							text: 'registro erroneo',
-							confirmButtonColor: '#111111',
-							confirmButtonText:'Aceptar'
-						});
-					}
-				},error:function(){
-					$('#respuesta').text('Error al conectar con el servidor');
-				}
-			});
-		}
-
-	}
-*/
+	document.addEventListener("DOMContentLoaded",function(){
+		<?php
+			if(session()->getFlashData('exito')){
+				//exito
+				?>
+				Swal.fire({
+					title:'Se registro con éxito',
+					icon:'success',
+					confirmButtonColor:'#111111',
+					confirmButtonText:'Aceptar'
+				})
+				<?php
+			}else if(session()->getFlashData('fracaso')){
+				?>
+				//fracaso
+				Swal.fire({
+					title:'Error en el registro',
+					icon:'Error',
+					confirmButtonColor:'#111111',
+					confirmButtonText:'Aceptar'
+				})
+				<?php
+			}else{}
+		?>
+	});
 	function mostrar_ubicacion(id){
 		$.ajax({
 			url:"<?php echo base_url()?>ubicacion/mostrar_ubicacion",
@@ -185,6 +125,9 @@
 						var btnad=document.getElementById('Registrar');
 						var btnmd=document.getElementById('Modificar');
 						var form=document.getElementById('form_ubicacion');
+
+						btnad.classList.remove("btn-primary");
+						btnmd.classList.add("btn-primary");
 						btnad.disabled=true;
 						btnmd.disabled=false;
 						form.action="<?php echo base_url()?>ubicacion/molificar_ubicacion";
@@ -245,27 +188,6 @@
 			}
 		});
 	}
-		/*echo "	{";
-			echo "var form=document.getElementById('zona');";
-			echo "var val='".$a->zona."';";
-			echo "form.value = val;";
-			echo "});";
-		/*function hacerPeticionAJAX(id) {
-            // Realiza la solicitud AJAX al controlador usando jQuery
-            $.ajax({
-                type: 'GET',
-                url: '<?php echo base_url('mi_controlador/') ?>' + '/' + id,
-                dataType: 'html',
-                success: function(respuesta) {
-                    // Maneja la respuesta del controlador
-                    alert(respuesta); // Muestra la respuesta del controlador en una alerta (puedes cambiar esto)
-                },
-                error: function() {
-                    alert('Error al comunicarse con el servidor.');
-                }
-            });
-        }*/
-
 </script>
 
 <?php
