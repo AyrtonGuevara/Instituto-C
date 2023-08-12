@@ -116,11 +116,7 @@
 					botonagregar=document.getElementById('Registrar');
 					botonmodificar=document.getElementById('Modificar');
 					form=document.getElementById('form_aulas');
-					console.log(resp2.data[0].id_aula);
-					console.log(resp2.data[0].id_ubicacion);
-					console.log(resp2.data[0].direccion);
-					console.log(resp2.data[0].nombre_aula);
-					console.log(resp2.data[0].descripcion);
+					
 					id.value=resp2.data[0].id_aula;
 					ubicacion.value=resp2.data[0].id_ubicacion;
 					ubicacion.textContent=resp2.data[0].direccion;

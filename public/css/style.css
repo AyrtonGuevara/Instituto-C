@@ -7,6 +7,7 @@ Ayrton Jhonny Guevara Montaño
 			font-family: Verdana, Arial, Helvetica, Georgia;
 			background-color: rgb(167, 189, 217);
 		}
+		/*elementos sidenav*/
 		.sidenav {
 		  height: 100%; /* 100% Full-height */
 		  width: 0; /* 0 width - change this with JavaScript */
@@ -67,6 +68,7 @@ Ayrton Jhonny Guevara Montaño
 		  .sidenav {padding-top: 15px;}
 		  .sidenav a {font-size: 15px;}
 		}
+		/*elementos nav*/
 		.nav{
 			background-color: #295aa3;
 			color: rgb(220, 220, 220);
@@ -91,7 +93,7 @@ Ayrton Jhonny Guevara Montaño
 			margin: 0px 10px;
 			padding: 0px 10px;
 		}
-
+		/*elementos footer*/
 		.footer{
 
 		}
@@ -99,9 +101,15 @@ Ayrton Jhonny Guevara Montaño
 			transition: margin-left .5s;
 		  	padding: 20px;
 		}
+
+
+		/*elementos card*/
 		.card{
 			margin: 50px;
 		}
+
+
+		/*elementos del formulario*/
 		#card-forms{
 			padding: 25px 50px;
 		}
@@ -109,13 +117,35 @@ Ayrton Jhonny Guevara Montaño
 		.form-item{
 			margin: 7px 0px;
 		}
+		.btn-form-plus{
+			height: 80px;
+			width: 80px;
+			border: none;
+			padding: 0px;
+			transition: transform 1s; /* Transición de rotación */
+		}
+		.btn-form-plus{
+			padding: 15px 0px;
+		}
+		.btn-form-plus i{
+			font-size: 50px;
+			color: rgb(250, 125, 125); /* Color rojo */
+		}
 
+		.btn-form-trash i{
+		 	font-size: 40px;
+			color: rgb(250, 125, 125); /* Color rojo */   
+		}
+
+		.btn-form{
+			text-align: right;
+		}
+
+
+		/*elementos de la tabla*/
 		.table-basic{
 			margin: 15px 15px 60px 15px;
 			font-size: 16px;
-		}
-		.btn-form{
-			text-align: right;
 		}
 
 

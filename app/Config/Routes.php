@@ -62,6 +62,10 @@ $routes->post('/aula/mostrar_aula','Ubicacion\C_aulas::mostrar_aula');
 $routes->post('/aula/modificar_aula','Ubicacion\C_aulas::modificar_aula');
 $routes->post('/aula/eliminar_aula','Ubicacion\C_aulas::eliminar_aula');
 
+//horarios
+$routes->get('/horario','Clases\C_horarios::index');
+$routes->post('/horario/registrar_horario','Clases\C_horarios::registrar_horarios');
+$routes->post('/horario/aulas','Clases\C_horarios::mostrar_aulas');
 
 //usuarios
 $routes->get('/usuario','Usuario\C_usuario::index');
