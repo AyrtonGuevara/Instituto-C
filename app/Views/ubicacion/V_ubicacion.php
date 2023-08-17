@@ -25,14 +25,29 @@
 						<label for="direccion" class="form-label">Direcci&oacute;n:</label>
 						<input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direcci&oacute;n" required/>
 					</div>
-					<div class="col-sm-12 form-item">
+					<div class="col-sm-6 form-item">
 						<label for="detalle" class="form-label">Detalle:</label>
 						<input type="text" class="form-control" name="detalle" id="detalle" placeholder="Detalle">
 					</div>
-					<div class="col-sm-12 form-item">
+					<div class="col-sm-6 form-item">
 						<label for="descripcion" class="form-label">Descripci&oacute;n:</label>
 						<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripci&oacute;n">
 					</div class="btn-form">
+					<div class="col-sm-12">
+						<h3 class="second_form_title">Aulas</h3>
+						<div class="btn btn-form-plus" onclick="aula_mas_uno()" name="horauno" id="horauno"><i class="bi bi-plus-circle-fill"></i></div>
+					</div>
+					<div class="col-sm-5 form-item">
+						<label for="nombre_aula0" class="form-label">Nombre del aula:</label>
+						<input type="text" class="form-control" name="nombre_aula[]" id="nombre_aula0" placeholder="Nombre del aula">
+					</div>
+					<div class="col-sm-5 form-item">
+						<label for="detalle_aula0" class="form-label">Descripcion del aula:</label>
+						<input type="text" class="form-control" name="detalle_aula[]" id="detale_aula0" placeholder="Detalle del aula">
+					</div>
+					<div id="nuevas_aulas0">
+						
+					</div>
 				</div>
 				<div class="btn-form form-item">
 					<input type="submit" class="btn btn-primary border-light" name="Registrar" value="Registrar" id="Registrar">
@@ -75,11 +90,14 @@
 	</div>
 </div>
 <script>
+	var contador_aulas=0;
 	document.addEventListener("DOMContentLoaded",function(){
+		console.log("pasa");
 		<?php
 			if(session()->getFlashData('exito')){
 				//exito
 				?>
+				console.log("pasa2");
 				Swal.fire({
 					title:'Se registro con éxito',
 					icon:'success',
@@ -88,11 +106,14 @@
 				})
 				<?php
 			}else if(session()->getFlashData('fracaso')){
+				$mensaje=session()->getFlashData('fracaso');
 				?>
+				console.log("pasa3");
 				//fracaso
 				Swal.fire({
 					title:'Error en el registro',
-					icon:'Error',
+					text:'<?php echo $mensaje?>',
+					icon:'error',
 					confirmButtonColor:'#111111',
 					confirmButtonText:'Aceptar'
 				})
@@ -187,6 +208,29 @@
 				$('#respuesta').text('Error al conectarse con el servidor');
 			}
 		});
+	}
+	function aula_mas_uno(){	
+		contador_aulas++;
+		div_nueva_aula=document.getElementById("nuevas_aulas"+(contador_aulas-1));
+		div_nueva_aula.innerHTML += "<div class='row'>"+
+					"<div class='col-sm-5 form-item'>"+
+						"<label for='nombre_aula"+contador_aulas+"' class='form-label'>Nombre del aula:</label>"+
+						"<input type='text' class='form-control' name='nombre_aula[]' id='nombre_aula"+contador_aulas+"' placeholder='Nombre del aula'>"+
+					"</div>"+
+					"<div class='col-sm-5 form-item'>"+
+						"<label for='detalle_aula"+contador_aulas+"' class='form-label'>Descripcion del aula:</label>"+
+						"<input type='text' class='form-control' name='detalle_aula[]' id='detalle_aula"+contador_aulas+"' placeholder='Detalle aula'>"+
+					"</div>"+
+					"<div class='col-sm-2'>"+
+						"<div class='btn btn-form-trash' onclick='aula_menos_uno("+contador_aulas+")' name='aula_menos_uno' id='aula_menos_uno'><i class='bi bi-trash-fill' title='Eliminar'></i></div>"+
+					"</div>"+
+				"</div>"+
+			"<div id='nuevas_aulas"+contador_aulas+"'></div>";
+	}
+	function aula_menos_uno(id){
+		div_menos=document.getElementById("nuevas_aulas"+(id-1));
+		div_menos.innerHTML="";
+		contador_aulas=(id-1);
 	}
 </script>
 

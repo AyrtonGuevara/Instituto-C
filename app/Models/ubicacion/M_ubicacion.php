@@ -11,10 +11,11 @@
 			$this->db=db_connect();
 		}
 
-		public function agregar_ubicacion($zona,$direccion,$detalle,$descripcion)
+		public function agregar_ubicacion($usuario,$j_envio)
 		{
-			$respuesta=$this->db->query("INSERT INTO adm_ubicacion (zona, direccion, detalle, descripcion, estado) VALUES ('$zona','$direccion','$detalle','$descripcion','activo');");
-			return $respuesta;
+			$respuesta=$this->db->query("SELECT * FROM public.fn_agregar_ubicacion('$usuario','$j_envio'::JSON);");
+
+			return $respuesta->getResult();
 			
 			/*
 			$res=$respuesta->getRow();

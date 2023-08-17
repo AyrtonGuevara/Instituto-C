@@ -35,6 +35,7 @@
 					$datasession=[
 						'login'=>true,
 						'usuario'=>$resp2->usuario,
+						'id_usuario'=>$resp2->id_usuario,
 						'nivel'=>$resp2->nivel
 					];
 					$this->session->set($datasession);

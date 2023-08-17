@@ -110,6 +110,11 @@ Ayrton Jhonny Guevara Montaño
 
 
 		/*elementos del formulario*/
+		.second_form_title{
+			display: inline-block;
+			padding-top: 35px;
+
+		}
 		#card-forms{
 			padding: 25px 50px;
 		}
@@ -124,8 +129,8 @@ Ayrton Jhonny Guevara Montaño
 			padding: 0px;
 			transition: transform 1s; /* Transición de rotación */
 		}
-		.btn-form-plus{
-			padding: 15px 0px;
+		.btn-form-trash{
+			padding: 15px 10px;
 		}
 		.btn-form-plus i{
 			font-size: 50px;
@@ -133,7 +138,7 @@ Ayrton Jhonny Guevara Montaño
 		}
 
 		.btn-form-trash i{
-		 	font-size: 40px;
+		 	font-size: 50px;
 			color: rgb(250, 125, 125); /* Color rojo */   
 		}
 

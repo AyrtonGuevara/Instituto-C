@@ -16,19 +16,27 @@
 		}
 
 		public function registrar_ubicacion(){
-				if ($_SERVER['REQUEST_METHOD']==='POST') {
-					$zona=$_POST['zona'];
-					$direccion=$_POST['direccion'];
-					$detalle=$_POST['detalle'];
-					$descripcion=$_POST['descripcion'];
-				}
-				$respuesta=$this->ubicacion->agregar_ubicacion($zona,$direccion,$detalle,$descripcion);
-				if ($respuesta) {
-					$this->session->setFlashdata('exito','Registro Exitoso');
-				}else{
-					$this->session->setFlashdata('fracaso','error en el registro');
-				}
-				return redirect()->to(base_url('ubicacion'));
+			if ($_SERVER['REQUEST_METHOD']==='POST') {
+				$valores_ubicacion=array(
+				'zona'=>$_POST['zona'],
+				'direccion'=>$_POST['direccion'],
+				'detalle'=>$_POST['detalle'],
+				'descripcion'=>$_POST['descripcion'],
+				'nombre_aula'=>$_POST['nombre_aula'],
+				'detalle_aula'=>$_POST['detalle_aula'],
+				);
+			}
+				$usuario=$this->session->get('id_usuario');
+				$valores_ubicacion=json_encode($valores_ubicacion);
+
+				$respuesta=$this->ubicacion->agregar_ubicacion($usuario,$valores_ubicacion);
+				
+			if ($respuesta[0]->success==='t') {
+				$this->session->setFlashdata('exito','Registro Exitoso');
+			}else{
+				$this->session->setFlashdata('fracaso',$respuesta[0]->mensaje);
+			}
+			return redirect()->to(base_url('ubicacion'));
 		}
 
 		public function mostrar_ubicacion(){

@@ -16,6 +16,7 @@
 		public function iniciar_sesion($usuario){
 			$respuesta=$this->db->query("
 				SELECT concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona) as usuario,
+				ru.usuario as id_usuario,
 				(SELECT rc.detalle FROM ral_categoria rc WHERE ru.nivel=rc.id_categoria)as nivel
 				FROM ral_usuario ru, ral_persona rp 
 				WHERE ru.estado='activo' 

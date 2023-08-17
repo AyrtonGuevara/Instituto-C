@@ -17,9 +17,16 @@
 						<label for="Nombre_materia" class="form-label">Nombre materia:</label>
 						<input type="text" class="form-control" name="nombre_materia" id="nombre_materia" placeholder="Nombre de la materia" required>
 					</div>
-					<div class="col-sm-6 form item">
-						<label for="categoria" class="form-label">Categoria de materia:</label>
-						<input type="text" class="form-control" name="categoria" id="categoria" placeholder="Categoria de la materia" required>
+					<div class="col-sm-6 form-item">
+						<label for="curso" class="form-label">Curso:</label>
+						<select name="curso" id="curso" class="form-control" required>
+							<option  id="default" default></option>
+							<?php
+							foreach ($cursos->getResult() as $key) {
+								echo "<option value='".$key->id_categoria."'>".$key->detalle."</option>";
+							}
+							?>
+						</select>
 					</div>
 					<div class="col-sm-6 form item">
 						<label for="direccion" class="form-label">Direcci&oacute;n:</label>
@@ -38,9 +45,9 @@
 							<option id="default"></option>
 						</select>
 					</div>
-					<div class="col-sm-10 form-item">
+					<div class="col-sm-12 form-item">
 						<div class="row">
-							<div class="col-sm-4 form-item">
+							<div class="col-sm-3 form-item">
 								<label for="dia" class="form-label">D&iacute;a</label>
 								<select name="dia[]" id="dia" class="form-control"required>
 									<option id="default" default></option>
@@ -51,18 +58,18 @@
 									?>
 								</select>
 							</div>
-							<div class="col-sm-4 form-item">
+							<div class="col-sm-3 form-item">
 								<label for="horario" class="form-label">Hora inicio:</label>
 								<input type="time" class="form-control" name="horario_inicio[]" required >
 							</div>
-							<div class="col-sm-4 form-item">
+							<div class="col-sm-3 form-item">
 								<label for="horario" class="form-label">Hora fin:</label>
 								<input type="time" class="form-control" name="horario_fin[]" required>
 							</div>
+							<div class="col-sm-3">
+								<div class="btn btn-form-plus" onclick="horario_mas_uno()" name="horauno" id="horauno"><i class="bi bi-plus-circle-fill"></i></div>
+							</div>
 						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="btn btn-form-plus" onclick="horario_mas_uno()" name="horauno" id="horauno"><i class="bi bi-plus-circle-fill"></i></div>
 					</div>
 					<div id="nuevo_horario0"></div>
 					<div class="btn-form form-item">
@@ -138,7 +145,7 @@
 						"</div>"+
 					"</div>"+
 					"<div class='col-sm-2'>"+
-						"<div class='btn btn-form-plus' onclick='horario_menos_uno("+contador_btn_plus+")' name='horauno' id='horauno'><i class='bi bi-trash-fill' title='Eliminar'></i></div>"+
+						"<div class='btn btn-form-trash' onclick='horario_menos_uno("+contador_btn_plus+")' name='horauno' id='horauno'><i class='bi bi-trash-fill' title='Eliminar'></i></div>"+
 					"</div>"+
 					"<div id='nuevo_horario"+contador_btn_plus+"'> </div>"+
 				"</div>";

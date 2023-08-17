@@ -13,6 +13,10 @@
 			$respuesta=$this->db->query("SELECT id_categoria, detalle FROM ral_categoria WHERE tipo = 'dia' AND nombre_categoria='dia' AND estado='activo'");
 			return $respuesta;
 		}
+		/*public function registrar_horarios($j_envio){
+			$respuesta=$this->db->query("");
+			return $respuesta;
+		}*/
 		public function registrar_horarios($dias,$hora_inicio,$hora_fin){
 			$contador=0;
 			//se registra primero los horarios de forma individual
@@ -41,6 +45,12 @@
 				and aa.estado = 'activo'
 				and au.estado = 'activo'
 				and au.id_ubicacion = $id
+				");
+			return $respuesta;
+		}
+		public function lista_cursos(){
+			$respuesta=$this->db->query("
+				select id_categoria,detalle from ral_categoria where cod_categoria ='MAT-CRE-04'and nombre_categoria='materia-curso' and estado = 'activo';
 				");
 			return $respuesta;
 		}
