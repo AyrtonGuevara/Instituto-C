@@ -2,9 +2,9 @@
 /*
 	Ayrton Jhonny Guevara Montaño 30-07-2023
 */
-	namespace App\Controllers\Ubicacion;
+	namespace App\Controllers\Ambientes;
 	use App\Controllers\BaseController;
-	use App\Models\ubicacion\M_ubicacion;
+	use App\Models\Ambientes\M_ubicacion;
 
 	class C_ubicacion extends BaseController{
 		public function __construct(){
@@ -12,7 +12,7 @@
 		}
 		public function index(){
 			$list=$this->ubicacion->listar_ubicacion();
-			return view('ubicacion/V_ubicacion', ['list'=>$list]);
+			return view('Ambientes/V_ubicacion', ['list'=>$list]);
 		}
 
 		public function registrar_ubicacion(){
@@ -36,7 +36,7 @@
 			}else{
 				$this->session->setFlashdata('fracaso',$respuesta[0]->mensaje);
 			}
-			return redirect()->to(base_url('ubicacion'));
+			return redirect()->to(base_url('ambientes'));
 		}
 
 		public function mostrar_ubicacion(){
@@ -61,7 +61,7 @@
 			}else{
 				$this->session->setFlashData('fracaso','Error en la modificacion');
 			}
-			return redirect()->to(base_url('ubicacion'));
+			return redirect()->to(base_url('ambientes'));
 		}
 
 
@@ -71,6 +71,49 @@
 			}
 			$respuesta=$this->ubicacion->eliminar_ubicacion($id);
 			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
+		}
+		public function modal_mostrar_aulas(){
+			if($_SERVER['REQUEST_METHOD']==='POST'){
+				$id=$_POST['id'];
+			}
+			$respuesta=$this->ubicacion->modal_mostrar_aulas($id);
+			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
+		}
+
+		public function modal_editar_aulas(){
+			if ($_SERVER['REQUEST_METHOD']==='POST') {
+				$id_ubicacion=$_POST['id_ubicacion'];
+				$id_aula=$_POST['id_aula'];
+				$nombre_aula=$_POST['modal_nombre_aula'];
+				$detalle_aula=$_POST['modal_detalle_aula'];
+			}
+			$respuesta1=$this->ubicacion->modal_mostrar_aulas($id_ubicacion);
+			$ids_originales=array();
+			$contador=0;
+			foreach ($respuesta1 as $key) {
+				array_push($ids_originales, $key->id_aula);
+			}
+			$ids_eliminados= array();
+			foreach ($ids_originales as $value) {
+			    if (!in_array($value, $id_aula)) {
+			        $ids_eliminados[] = $value;
+			    }
+			}
+			$array_json=array(
+				'id_ubicacion'=>$id_ubicacion,
+				'id_aula'=>$id_aula,
+				'ids_eliminados'=>$ids_eliminados,
+				'nombre_aula'=>$nombre_aula,
+				'detalle_aula'=>$detalle_aula);
+			$json_modificar_aula=json_encode($array_json);
+			$usuario=$this->session->get('id_usuario');
+			$respuesta2=$this->ubicacion->modal_modificar_aulas($json_modificar_aula,$usuario);
+			if ($respuesta2[0]->success) {
+				$this->session->setFlashData('exito','Modificacion Exitosa');
+			}else{
+				$this->session->setFlashData('fracaso',$respuesta2[0]->mensaje);
+			}
+			return redirect()->to(base_url('ambientes'));
 		}
 	}
 ?>

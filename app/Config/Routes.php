@@ -49,13 +49,23 @@ $routes->post('/personal/mostrar_personal','Personal\C_personal::mostrar_persona
 $routes->post('/personal/modificar_personal','Personal\C_personal::modificar_personal');
 $routes->post('/personal/eliminar_personal','Personal\C_personal::eliminar_personal');
 
-//ubicaciones
-$routes->get('/ubicacion','Ubicacion\C_ubicacion::index');
-$routes->post('/ubicacion/registrar_ubicacion','Ubicacion\C_ubicacion::registrar_ubicacion');
-$routes->post('/ubicacion/mostrar_ubicacion', 'Ubicacion\C_ubicacion::mostrar_ubicacion');
-$routes->post('/ubicacion/molificar_ubicacion','Ubicacion\C_ubicacion::modificar_ubicacion');
-$routes->post('/ubicacion/eliminar_ubicacion','Ubicacion\C_ubicacion::eliminar_ubicacion');
-//aulas
+//Cursos
+$routes->get('/cursos','Cursos\C_cursos::index');
+$routes->post('/cursos/registrar_curso','Cursos\C_cursos::registrar_curso');
+$routes->post('/cursos/mostrar_curso','Cursos\C_cursos::mostrar_curso');
+$routes->post('/cursos/modificar_curso','Cursos\C_cursos::modificar_curso');
+$routes->post('/cursos/eliminar_curso','Cursos\C_cursos::eliminar_curso');
+
+//Ambientes
+$routes->get('/ambientes','Ambientes\C_ubicacion::index');
+$routes->post('/ambientes/registrar_ubicacion','Ambientes\C_ubicacion::registrar_ubicacion');
+$routes->post('/ambientes/mostrar_ubicacion', 'Ambientes\C_ubicacion::mostrar_ubicacion');
+$routes->post('/ambientes/molificar_ubicacion','Ambientes\C_ubicacion::modificar_ubicacion');
+$routes->post('/ambientes/eliminar_ubicacion','Ambientes\C_ubicacion::eliminar_ubicacion');
+$routes->post('/ambientes/modal_mostrar_aulas','Ambientes\C_ubicacion::modal_mostrar_aulas');
+$routes->post('/ambientes/modal_editar_aulas','Ambientes\C_ubicacion::modal_editar_aulas');
+
+//aulas ???
 $routes->get('/aula','Ubicacion\C_aulas::index');
 $routes->post('/aula/registrar_aula','Ubicacion\C_aulas::registrar_aula');
 $routes->post('/aula/mostrar_aula','Ubicacion\C_aulas::mostrar_aula');
