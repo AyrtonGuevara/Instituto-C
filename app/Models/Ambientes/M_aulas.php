@@ -2,7 +2,7 @@
 /*
 	Ayrton Jhonny Guevara Montaño 10-08-2023
 */
-	namespace App\Models\ubicacion;
+	namespace App\Models\Ambientes;
 	use CodeIgniter\Model;
 
 	class M_aulas extends Model{

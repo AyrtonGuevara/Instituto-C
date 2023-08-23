@@ -6,7 +6,7 @@
 */
 	namespace App\Controllers\Clases;
 	use App\Models\Clases\M_horarios;
-	use App\Models\ubicacion\M_aulas;
+	use App\Models\Ambientes\M_aulas;
 	use App\Controllers\BaseController;
 
 	class C_horarios extends BaseController{

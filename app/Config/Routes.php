@@ -55,6 +55,8 @@ $routes->post('/cursos/registrar_curso','Cursos\C_cursos::registrar_curso');
 $routes->post('/cursos/mostrar_curso','Cursos\C_cursos::mostrar_curso');
 $routes->post('/cursos/modificar_curso','Cursos\C_cursos::modificar_curso');
 $routes->post('/cursos/eliminar_curso','Cursos\C_cursos::eliminar_curso');
+//horarios
+$routes->get('/horarios','Cursos\C_horarios::index');
 
 //Ambientes
 $routes->get('/ambientes','Ambientes\C_ubicacion::index');
