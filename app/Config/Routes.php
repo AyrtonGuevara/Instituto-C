@@ -69,7 +69,7 @@ $routes->post('/materias/mostrar_materia','Cursos\C_materias::mostrar_materia');
 $routes->post('/materias/modificar_materia','Cursos\C_materias::modificar_materia');
 $routes->post('/materias/eliminar_materia','Cursos\C_materias::eliminar_materia');
 
-
+//AMBIENTES
 //Ambientes
 $routes->get('/ambientes','Ambientes\C_ubicacion::index');
 $routes->post('/ambientes/registrar_ubicacion','Ambientes\C_ubicacion::registrar_ubicacion');
@@ -78,6 +78,8 @@ $routes->post('/ambientes/molificar_ubicacion','Ambientes\C_ubicacion::modificar
 $routes->post('/ambientes/eliminar_ubicacion','Ambientes\C_ubicacion::eliminar_ubicacion');
 $routes->post('/ambientes/modal_mostrar_aulas','Ambientes\C_ubicacion::modal_mostrar_aulas');
 $routes->post('/ambientes/modal_editar_aulas','Ambientes\C_ubicacion::modal_editar_aulas');
+//cursos
+$routes->get('/clases','Ambientes\C_clases::index');
 
 //horarios
 $routes->get('/horario','Clases\C_horarios::index');
