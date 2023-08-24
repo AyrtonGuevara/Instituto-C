@@ -11,15 +11,16 @@
 			<h2>Cursos</h2>
 		</div>
 		<div class="card-body" id="card-forms">
-			<form method="post" accept-charset="utf-8" name="form_curso" id="form_curso" action="<?php base_url() ?>cursos/registrar_horario">
+			<form method="post" accept-charset="utf-8" name="form_curso" id="form_curso" action="<?php base_url() ?>horarios/registrar_horarios">
 				<input type="text" name="id" id="id" hidden>
 				<div class="row">
 					<div class="col-sm-10">
 						<div class="row">
+							<input type="text" name="id_horario[]" id="id_horario0" hidden>
 							<div class="col-sm-4 form-item">
 								<label for="dia" class="form-label">D&iacute;a</label>
 								<select name="dia[]" id="dia" class="form-control"required>
-									<option id="default" default></option>
+									<option id="default0" value="" default></option>
 									<?php
 									foreach ($dia->getResult() as $key) {
 									echo "<option value='".$key->id_categoria."'>".$key->detalle."</option>";
@@ -29,11 +30,11 @@
 							</div>
 							<div class="col-sm-4 form-item">
 								<label for="horario" class="form-label">Hora inicio:</label>
-								<input type="time" class="form-control" name="horario_inicio[]" required >
+								<input type="time" class="form-control" id="hora_inicio0" name="horario_inicio[]" required >
 							</div>
 							<div class="col-sm-4 form-item">
 								<label for="horario" class="form-label">Hora fin:</label>
-								<input type="time" class="form-control" name="horario_fin[]" required>
+								<input type="time" class="form-control" id="hora_fin0" name="horario_fin[]" required>
 							</div>
 						</div>
 					</div>
@@ -54,13 +55,39 @@
 					<caption>table title and/or explanatory text</caption>
 					<thead>
 						<tr>
-							<th>header</th>
+							<th>Nº</th>
+							<th>D&iacute;as</th>
+							<th>Horarios</th>
+							<th>Estado</th>
+							<th>Acciones</th>
+
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>data</td>
-						</tr>
+						<?php
+						foreach ($lista_horarios->getResult() as $key) {
+							echo "<tr>";
+							echo "<td>".$key->nro."</td>";
+							echo "<td>";
+								$a=explode(',', $key->dias);
+								//print_r($a);
+								foreach ($a as $key2) {
+								    echo "- $key2<br>";
+								}
+								echo "</td>";
+							echo "<td>";
+								$a=explode(',', $key->horarios);
+								//print_r($a);
+								foreach ($a as $key2) {
+								    echo "$key2<br>";
+								}
+								echo "</td>";
+							echo "<td>".$key->estado."</td>";
+							echo "<td><button class='btn btn-warning' name='editar' onclick='modificar_horarios(".$key->id_conf_horarios.")'><i class='bi bi-pen-fill' title='Editar'></i>";
+							echo "<button class='btn btn-danger' name='eliminar' onclick='eliminar_horarios(".$key->id_conf_horarios.")'><i class='bi bi-trash-fill' title='Editar'></i></button></td>";
+							echo "</tr>";
+						}
+						?>
 					</tbody>
 				</table>
 			</div>
@@ -69,26 +96,54 @@
 </div>
 <script>
 	var contador_btn_plus=0;
+	document.addEventListener('DOMContentLoaded',function(){
+		<?php
+			if(session()->getFlashData('exito')){
+				//exito
+				?>
+				Swal.fire({
+					title:'Se registro con éxito',
+					icon:'success',
+					confirmButtonColor:'#111111',
+					confirmButtonText:'Aceptar'
+				})
+				<?php
+			}else if(session()->getFlashData('fracaso')){
+				$mensaje=session()->getFlashData('fracaso');
+				?>
+				//fracaso
+				Swal.fire({
+					title:'Error en el registro',
+					text:'<?php echo $mensaje?>',
+					icon:'error',
+					confirmButtonColor:'#111111',
+					confirmButtonText:'Aceptar'
+				})
+				<?php
+			}else{}
+		?>
+	})
 		function horario_mas_uno(){
 		contador_btn_plus++;
 	    div_hora = document.getElementById("nuevo_horario" + (contador_btn_plus - 1));
 	    div_hora.innerHTML += "<div class='row'>"+
 					"<div class='col-sm-10'>"+
 						"<div class='row'>"+
+							"<input type='text' name='id_horario[]'' id='id_horario"+contador_btn_plus+"' hidden>"+
 							"<div class='col-sm-4 form-item'>"+
 								"<label for='dia' class='form-label'>D&iacute;a</label>"+
 								"<select name='dia[]' id='dia' class='form-control'required>"+
-									"<option id='default' default></option>"+
+									"<option id='default"+contador_btn_plus+"' value='' default></option>"+
 									"<?php foreach ($dia->getResult() as $key) { echo "<option value='".$key->id_categoria."'>".$key->detalle."</option>"; } ?>"+
 								"</select>"+
 							"</div>"+
 							"<div class='col-sm-4 form-item'>"+
 								"<label for='horario' class='form-label'>Hora inicio:</label>"+
-								"<input type='time' class='form-control' name='horario_inicio[]' required >"+
+								"<input type='time' class='form-control' id='hora_inicio"+contador_btn_plus+"' name='horario_inicio[]' required >"+
 							"</div>"+
 							"<div class='col-sm-4 form-item'>"+
 								"<label for='horario' class='form-label'>Hora fin:</label>"+
-								"<input type='time' class='form-control' name='horario_fin[]' required>"+
+								"<input type='time' class='form-control' id='hora_fin"+contador_btn_plus+"' name='horario_fin[]' required>"+
 							"</div>"+
 						"</div>"+
 					"</div>"+
@@ -104,7 +159,81 @@
 		div_hora.innerHTML = "";
 		contador_btn_plus=id-1;
 	}
+	function modificar_horarios(id){
+		$.ajax({
+			url:"<?php echo base_url()?>horarios/mostrar_horarios",
+			type:"POST",
+			data:{id:id},
+			success:function(resp){
+				var resp=JSON.parse(resp);
+				var contador2 = 0;
+				const resp2 = resp.data;
+				id=document.getElementById("id");
+				id.value=resp.data[0].id_conf;
+				for(const item of resp2){ 
+					horario_mas_uno();
+					id_horario=document.getElementById("id_horario"+contador2);
+					dia=document.getElementById("default"+contador2);
+					hora_inicio=document.getElementById("hora_inicio"+contador2);
+					hora_fin=document.getElementById("hora_fin"+contador2);
+					id_horario.value=item.id_horarios;
+					dia.textContent=item.detalle_dias;
+					dia.value=item.dias;
+					hora_inicio.value=item.hora_inicio;
+					hora_fin.value=item.hora_fin;
+					contador2++;
+				}
+				horario_menos_uno(contador2);
+				//botones
+				var btnad=document.getElementById('Registrar');
+				var btnmd=document.getElementById('Modificar');
+				var form=document.getElementById('form_curso');
+				btnad.classList.remove("btn-primary");
+				btnmd.classList.add("btn-primary");
+				btnad.disabled=true;
+				btnmd.disabled=false;
+				form.action="<?php echo base_url()?>horarios/modificar_horarios";
+			},error:function(){
+				$('#respuesta').text('Error al conectar con el servidor');
+			}
 
+		});
+	}
+	function eliminar_horarios(id){
+		Swal.fire({
+			title:'Seguro que quiere borrar el registro?',
+			icon:'question',
+			denyButtonText: 'No',
+			confirmButtonText:'Si',
+			showDenyButton:true
+		}).then((result)=>{
+			if (result.isConfirmed) {
+				$.ajax({
+					url:"<?php echo base_url()?>horarios/eliminar_horarios",
+					type:"POST",
+					data:{id:id},
+					success:function(resp){	
+						var resp3=JSON.parse(resp);
+						if(resp3.success){
+							Swal.fire({
+								title:'Se elimino el registro',
+								icon:'success',
+								confirmButtonText:'aceptar',
+								confirmButtonColor: '#666666',
+							}).then(function(result){
+								location.reload();
+							})
+						}//mensaje de la bdd
+					},error:function(){
+						$('#mensaje').text('Error al conectarse con el servidor');
+					}
+				});
+			}else if(result.isDenied){
+				Swal.fire('No se elimino el registro','','warning')
+			}
+		});
+	}
+	
 </script>
 <?php
 	$this->endSection();

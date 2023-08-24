@@ -57,6 +57,10 @@ $routes->post('/cursos/modificar_curso','Cursos\C_cursos::modificar_curso');
 $routes->post('/cursos/eliminar_curso','Cursos\C_cursos::eliminar_curso');
 //horarios
 $routes->get('/horarios','Cursos\C_horarios::index');
+$routes->post('/horarios/registrar_horarios','Cursos\C_horarios::registrar_horarios');
+$routes->post('/horarios/mostrar_horarios','Cursos\C_horarios::mostrar_horarios');
+$routes->post('/horarios/modificar_horarios','Cursos\C_horarios::modificar_horarios');
+$routes->post('/horarios/eliminar_horarios','Cursos\C_horarios::eliminar_horarios');
 
 //Ambientes
 $routes->get('/ambientes','Ambientes\C_ubicacion::index');

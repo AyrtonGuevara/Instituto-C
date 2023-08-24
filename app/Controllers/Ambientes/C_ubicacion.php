@@ -89,7 +89,6 @@
 			}
 			$respuesta1=$this->ubicacion->modal_mostrar_aulas($id_ubicacion);
 			$ids_originales=array();
-			$contador=0;
 			foreach ($respuesta1 as $key) {
 				array_push($ids_originales, $key->id_aula);
 			}
