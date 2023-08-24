@@ -71,13 +71,6 @@ $routes->post('/ambientes/eliminar_ubicacion','Ambientes\C_ubicacion::eliminar_u
 $routes->post('/ambientes/modal_mostrar_aulas','Ambientes\C_ubicacion::modal_mostrar_aulas');
 $routes->post('/ambientes/modal_editar_aulas','Ambientes\C_ubicacion::modal_editar_aulas');
 
-//aulas ???
-$routes->get('/aula','Ubicacion\C_aulas::index');
-$routes->post('/aula/registrar_aula','Ubicacion\C_aulas::registrar_aula');
-$routes->post('/aula/mostrar_aula','Ubicacion\C_aulas::mostrar_aula');
-$routes->post('/aula/modificar_aula','Ubicacion\C_aulas::modificar_aula');
-$routes->post('/aula/eliminar_aula','Ubicacion\C_aulas::eliminar_aula');
-
 //horarios
 $routes->get('/horario','Clases\C_horarios::index');
 $routes->post('/horario/registrar_horario','Clases\C_horarios::registrar_horarios');
