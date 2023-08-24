@@ -35,18 +35,18 @@
 			return $respuesta->getResult();
 		}
 
-		public function modificar_ubicacion($id,$zona,$direccion,$detalle,$descripcion){
+		public function modificar_ubicacion($usuario,$id,$zona,$direccion,$detalle,$descripcion){
 			$respuesta=$this->db->query("
-				UPDATE adm_ubicacion SET zona='$zona',direccion='$direccion',detalle ='$detalle',descripcion='$descripcion' WHERE id_ubicacion=$id;
+				UPDATE adm_ubicacion SET zona='$zona',direccion='$direccion',detalle ='$detalle',descripcion='$descripcion', usu_modificado='$usuario', fec_modificado=now() WHERE id_ubicacion=$id;
 				");
 			return $respuesta;
 		}
 
-		public function eliminar_ubicacion($id)
+		public function eliminar_ubicacion($usuario,$id)
 		{
 			$respuesta=$this->db->query("
-				update aca_aula set estado='inactivo' where id_ubicacion = $id; 
-				update adm_ubicacion set estado='inactivo' where id_ubicacion = $id;
+				update aca_aula set usu_modificado='$usuario', fec_modificado=now(), estado='inactivo' where id_ubicacion = $id; 
+				update adm_ubicacion set usu_modificado='$usuario', fec_modificado=now(),estado='inactivo' where id_ubicacion = $id;
 				");
 			return $respuesta;
 		}

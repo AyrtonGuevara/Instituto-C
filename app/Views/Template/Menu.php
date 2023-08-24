@@ -10,6 +10,7 @@
 		<ul id="col1" class="collapse" data-bs-parent="#accordion">
 			<li><a href="<?php echo base_url()?>cursos" id="item_collapse">Cursos</a></li>
 			<li><a href="<?php echo base_url()?>horarios" id="item_collapse">Horarios</a></li>
+			<li><a href="<?php echo base_url()?>materias" id="item_collapse">Materias</a></li>
 		</ul>
 		<li><a class="btn" data-bs-toggle="collapse" href="#col2">Ambientes</a></li>
 		<ul id="col2" class="collapse" data-bs-parent="#accordion">

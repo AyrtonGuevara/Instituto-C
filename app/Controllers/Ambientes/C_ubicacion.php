@@ -55,7 +55,8 @@
 				$detalle=$_POST['detalle'];
 				$descripcion=$_POST['descripcion'];
 			}
-			$respuesta=$this->ubicacion->modificar_ubicacion($id,$zona,$direccion,$detalle,$descripcion);
+			$usuario=$this->session->get('id_usuario');
+			$respuesta=$this->ubicacion->modificar_ubicacion($usuario,$id,$zona,$direccion,$detalle,$descripcion);
 			if ($respuesta) {
 				$this->session->setFlashData('exito','Modificacion Exitosa');
 			}else{
@@ -69,7 +70,8 @@
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
 				$id=$_POST['id'];
 			}
-			$respuesta=$this->ubicacion->eliminar_ubicacion($id);
+			$usuario=$this->session->get('id_usuario');
+			$respuesta=$this->ubicacion->eliminar_ubicacion($usuario,$id);
 			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
 		}
 		public function modal_mostrar_aulas(){

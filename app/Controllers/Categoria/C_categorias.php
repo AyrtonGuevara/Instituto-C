@@ -3,7 +3,7 @@
 	use App\Controllers\BaseController;
 	class C_categorias extends BaseController{
 		public function index(){
-			return view('categoria/categoria');
+			return view('categoria/V_categoria');
 		}
 	}
 ?>

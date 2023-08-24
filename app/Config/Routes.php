@@ -35,7 +35,7 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 
 //categorias
-$routes->get('/categorias','Categoria\Ccategorias::index');
+$routes->get('/categorias','Categoria\C_categorias::index');
 
 //login
 $routes->get('/login','Login\C_login::index');
@@ -49,6 +49,7 @@ $routes->post('/personal/mostrar_personal','Personal\C_personal::mostrar_persona
 $routes->post('/personal/modificar_personal','Personal\C_personal::modificar_personal');
 $routes->post('/personal/eliminar_personal','Personal\C_personal::eliminar_personal');
 
+//CURSOS
 //Cursos
 $routes->get('/cursos','Cursos\C_cursos::index');
 $routes->post('/cursos/registrar_curso','Cursos\C_cursos::registrar_curso');
@@ -61,6 +62,13 @@ $routes->post('/horarios/registrar_horarios','Cursos\C_horarios::registrar_horar
 $routes->post('/horarios/mostrar_horarios','Cursos\C_horarios::mostrar_horarios');
 $routes->post('/horarios/modificar_horarios','Cursos\C_horarios::modificar_horarios');
 $routes->post('/horarios/eliminar_horarios','Cursos\C_horarios::eliminar_horarios');
+//Materias
+$routes->get('/materias','Cursos\C_materias::index');
+$routes->post('/materias/registrar_materia','Cursos\C_materias::registrar_materias');
+$routes->post('/materias/mostrar_materia','Cursos\C_materias::mostrar_materia');
+$routes->post('/materias/modificar_materia','Cursos\C_materias::modificar_materia');
+$routes->post('/materias/eliminar_materia','Cursos\C_materias::eliminar_materia');
+
 
 //Ambientes
 $routes->get('/ambientes','Ambientes\C_ubicacion::index');
