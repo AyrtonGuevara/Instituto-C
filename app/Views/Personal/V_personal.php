@@ -40,8 +40,8 @@
 								<div class="col-sm-3 form-item">
 									<label for="cargo" class="form-label">Cargo:</label>
 									<select class="form-control" name="cargo" id="cargo" required>
+										<option value="" default id="defaul"></option>
 										<?php foreach($cargos->getResult() as $key){?>
-											<option value="" default id="defaul"></option>
 											<option value="<?php echo $key->id_categoria?>"><?php echo $key->detalle?></option>
 										<?php }?>
 									</select>

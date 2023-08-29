@@ -84,7 +84,7 @@
 								echo "</td>";
 							echo "<td>".$key->estado."</td>";
 							echo "<td><button class='btn btn-warning' name='editar' onclick='modificar_horarios(".$key->id_conf_horarios.")'><i class='bi bi-pen-fill' title='Editar'></i>";
-							echo "<button class='btn btn-danger' name='eliminar' onclick='eliminar_horarios(".$key->id_conf_horarios.")'><i class='bi bi-trash-fill' title='Editar'></i></button></td>";
+							echo "<button class='btn btn-danger' name='eliminar' onclick='eliminar_horarios(".$key->id_conf_horarios.")'><i class='bi bi-trash-fill' title='Eliminar'></i></button></td>";
 							echo "</tr>";
 						}
 						?>

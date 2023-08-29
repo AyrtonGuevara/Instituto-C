@@ -63,7 +63,7 @@
 							echo "<td>".$key->nombre_materia."</td>";
 							echo "<td>".$key->precio." Bs.</td>";
 							echo "<td><button class='btn btn-warning' name='editar' onclick='modificar_materia(".$key->id_materia.")'><i class='bi bi-pen-fill' title='Editar'></i>";
-							echo "<button class='btn btn-danger' name='eliminar' onclick='eliminar_materia(".$key->id_materia.")'><i class='bi bi-trash-fill' title='Editar'></i></button></td>";
+							echo "<button class='btn btn-danger' name='eliminar' onclick='eliminar_materia(".$key->id_materia.")'><i class='bi bi-trash-fill' title='Eliminar'></i></button></td>";
 							echo "</tr>";
 						}
 						?>

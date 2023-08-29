@@ -78,13 +78,13 @@ $routes->post('/ambientes/molificar_ubicacion','Ambientes\C_ubicacion::modificar
 $routes->post('/ambientes/eliminar_ubicacion','Ambientes\C_ubicacion::eliminar_ubicacion');
 $routes->post('/ambientes/modal_mostrar_aulas','Ambientes\C_ubicacion::modal_mostrar_aulas');
 $routes->post('/ambientes/modal_editar_aulas','Ambientes\C_ubicacion::modal_editar_aulas');
-//cursos
+//Clases
 $routes->get('/clases','Ambientes\C_clases::index');
-
-//horarios
-$routes->get('/horario','Clases\C_horarios::index');
-$routes->post('/horario/registrar_horario','Clases\C_horarios::registrar_horarios');
-$routes->post('/horario/aulas','Clases\C_horarios::mostrar_aulas');
+$routes->post('/clases/registrar_clases','Ambientes\C_clases::registrar_clases');
+$routes->post('/clases/cronograma_clases','Ambientes\C_clases::cronograma_clases');
+$routes->post('/clases/mostrar_clases','Ambientes\C_clases::mostrar_clases');
+$routes->post('/clases/modificar_clases','Ambientes\C_clases::modificar_clases');
+$routes->post('/clases/eliminar_clases','Ambientes\C_clases::eliminar_clases');
 
 //usuarios
 $routes->get('/usuario','Usuario\C_usuario::index');

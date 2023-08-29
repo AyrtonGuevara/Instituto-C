@@ -44,7 +44,7 @@
 							echo "<td>".$key->nro."</td>";
 							echo "<td>".$key->detalle."</td>";
 							echo "<td><button class='btn btn-warning' name='editar' onclick='editar_curso(".$key->id_categoria.")'><i class='bi bi-pen-fill' title='Editar'></i>";
-							echo "<button class='btn btn-danger' name='eliminar' onclick='eliminar_curso(".$key->id_categoria.")'><i class='bi bi-trash-fill' title='Editar'></i></button></td>";
+							echo "<button class='btn btn-danger' name='eliminar' onclick='eliminar_curso(".$key->id_categoria.")'><i class='bi bi-trash-fill' title='Eliminar'></i></button></td>";
 							echo "</tr>";
 						}
 						?>
