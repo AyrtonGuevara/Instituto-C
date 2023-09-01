@@ -12,26 +12,27 @@
 	<div class="card">
 		<div class="card-header">
 			<h2>Ubicaci&oacute;n</h2>
+			<input type="button" class="btn-close" name="salir_edicion" id="salir_edicion" onclick="limpiar_form()" title="Cerrar" hidden>
 		</div>
 		<div class="card-body" id="card-forms">
 			<form method="post" accept-charset="utf-8" name="form_ubicacion" id="form_ubicacion" action="<?php base_url() ?>ambientes/registrar_ubicacion">
 				<div class="row">
-					<input type="text" name="id" id="id" hidden>
+					<input type="text" name="id" id="input_id" hidden>
 					<div class="col-sm-6 form-item">
 						<label for="zona" class="form-label">Zona:</label>
-						<input type="text" class="form-control" name="zona" id="zona" placeholder="Zona" required/>
+						<input type="text" class="form-control" name="zona" id="input_zona" placeholder="Zona" required/>
 					</div>
 					<div class="col-sm-6 form-item">
 						<label for="direccion" class="form-label">Direcci&oacute;n:</label>
-						<input type="text" class="form-control" name="direccion" id="direccion" placeholder="Direcci&oacute;n" required/>
+						<input type="text" class="form-control" name="direccion" id="input_direccion" placeholder="Direcci&oacute;n" required/>
 					</div>
 					<div class="col-sm-6 form-item">
 						<label for="detalle" class="form-label">Detalle:</label>
-						<input type="text" class="form-control" name="detalle" id="detalle" placeholder="Detalle">
+						<input type="text" class="form-control" name="detalle" id="input_detalle" placeholder="Detalle">
 					</div>
 					<div class="col-sm-6 form-item">
 						<label for="descripcion" class="form-label">Descripci&oacute;n:</label>
-						<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripci&oacute;n">
+						<input type="text" class="form-control" name="descripcion" id="input_descripcion" placeholder="Descripci&oacute;n">
 					</div class="btn-form">
 					<div class="col-sm-12">
 						<h3 class="second_form_title">Aulas</h3>
@@ -123,7 +124,7 @@
 	      		<form action="<?php base_url()?>ambientes/modal_editar_aulas" name="modal_form_aulas" id="modal_form_aulas" method="POST" accept-charset="utf-8">
 	      			<input type="text" name="id_ubicacion" id="id_ubicacion" hidden>
 		      		<div class="container table-responsive">
-			      		<table class="table table-hover table-basic">
+			      		<table class="table table-hover table-basic" id="tabla_modal_aulas">
 			      			<caption>table title and/or explanatory text</caption>
 			      			<thead>
 			      				<tr>
@@ -143,15 +144,15 @@
 	      	</div>
 	      	<!-- Modal footer -->
 	      	<div class="modal-footer">
-	        	<button type="button" id="cerrar_modal" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+	        	<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
 	      	</div>
 		</div>
 	</div>
 </div>
 
 <script>
-	const button_close=document.getElementById("cerrar_modal");
-	let contador_aulas=0;
+	var contador_aulas=0;
+	var contador_aulas_modal=0;
 		document.addEventListener("DOMContentLoaded",function(){
 		<?php
 			if(session()->getFlashData('exito')){
@@ -179,11 +180,6 @@
 			}else{}
 		?>
 	});
-	button_close.addEventListener("click", function(){
-		console.log(contador_aulas);
-		contador_aulas=0;
-		console.log(contador_aulas);
-	});
 	function mostrar_ubicacion(id){
 		$.ajax({
 			url:"<?php echo base_url()?>ambientes/mostrar_ubicacion",
@@ -194,28 +190,30 @@
 
 				if (resp2.success) {
 					$(document).ready(function(){
-						id=document.getElementById('id');
-						zona=document.getElementById('zona');
-						direccion=document.getElementById('direccion');
-						detalle=document.getElementById('detalle');
-						descripcion=document.getElementById('descripcion');
+						id=document.getElementById('input_id');
+						zona=document.getElementById('input_zona');
+						direccion=document.getElementById('input_direccion');
+						detalle=document.getElementById('input_detalle');
+						descripcion=document.getElementById('input_descripcion');
 						id.value=resp2.data[0].id_ubicacion;
 						zona.value=resp2.data[0].zona;
 						direccion.value=resp2.data[0].direccion;
 						detalle.value=resp2.data[0].detalle;
 						descripcion.value=resp2.data[0].descripcion;
-						console.log(resp2.data[0].id_ubicacion);
+						
 						//botones
+						var btnclosed=document.getElementById('salir_edicion');
 						var btnad=document.getElementById('Registrar');
 						var btnmd=document.getElementById('Modificar');
 						var form=document.getElementById('form_ubicacion');
 
 						btnad.classList.remove("btn-primary");
 						btnmd.classList.add("btn-primary");
+						btnclosed.hidden=false
 						btnad.disabled=true;
 						btnmd.disabled=false;
 						form.action="<?php echo base_url()?>ambientes/molificar_ubicacion";
-
+						$("html, body").animate({ scrollTop: 0 }, 100);
 					});
 				}//mensaje de la bdd
 			},error:function(){
@@ -296,7 +294,13 @@
 		contador_aulas=(id-1);
 	}
 	function modal_ubicacion_aulas(id){
-		contador=0;
+		contador_aulas_modal=0;
+		var cells = document.querySelectorAll('#tbody_aulas tr');
+		console.log(cells);
+		for(var i=1; i<=cells.length; i++){
+			document.getElementById("tabla_modal_aulas").deleteRow(1);
+			console.log("pasa");
+		}
 		$.ajax({
 			url:'<?php echo base_url()?>ambientes/modal_mostrar_aulas',
 			type:"POST",
@@ -326,23 +330,28 @@
 		});
 	}
 	function modal_agregar_aulas(){
-		contador_aulas++;
+		contador_aulas_modal++;
 		var modal_aulas=document.getElementById("tbody_aulas");
 	    // Crea una nueva fila
 	    var nuevaFila = modal_aulas.insertRow();
 	    // Crea celdas y agrega contenido
 	    var celda1 = nuevaFila.insertCell(0);
-	    celda1.innerHTML = "<input type='text' name='id_aula[]' id='id_aula"+(contador_aulas-1)+"' hidden><input type='text' class='form-control' name='modal_numaula' id='nro_aula"+(contador_aulas-1)+"' disabled>";
+	    celda1.innerHTML = "<input type='text' name='id_aula[]' id='id_aula"+(contador_aulas_modal-1)+"' hidden><input type='text' class='form-control' name='modal_numaula' id='nro_aula"+(contador_aulas_modal-1)+"' disabled>";
 	    var celda2 = nuevaFila.insertCell(1);
-	    celda2.innerHTML = "<input type='text' class='form-control' name='modal_nombre_aula[]' id='modal_nombre_aula"+(contador_aulas-1)+"' placeholder='Nombre del aula'>";
+	    celda2.innerHTML = "<input type='text' class='form-control' name='modal_nombre_aula[]' id='modal_nombre_aula"+(contador_aulas_modal-1)+"' placeholder='Nombre del aula'>";
 	    var celda3 = nuevaFila.insertCell(2);
-	    celda3.innerHTML = "<input type='text' class='form-control' name='modal_detalle_aula[]' id='modal_detalle_aula"+(contador_aulas-1)+"' placeholder='Detalle del aula'>";
+	    celda3.innerHTML = "<input type='text' class='form-control' name='modal_detalle_aula[]' id='modal_detalle_aula"+(contador_aulas_modal-1)+"' placeholder='Detalle del aula'>";
 	    var celda4 = nuevaFila.insertCell(3);
 	    celda4.innerHTML = "<button class= 'btn btn-danger' name='Eliminar' value='Eliminar' onclick='modal_eliminar_fila(this)'><i class='bi bi-trash-fill' title='Eliminar'></i></button>";
 	}
 	function modal_eliminar_fila(boton){
 		var fila=boton.parentNode.parentNode;
 		fila.parentNode.removeChild(fila);
+	}
+	function limpiar_form(){
+		limpieza_form();
+		var form=document.getElementById('form_ubicacion');
+		form.action="<?php echo base_url()?>ambientes/registrar_ubicacion";
 	}
 </script>
 

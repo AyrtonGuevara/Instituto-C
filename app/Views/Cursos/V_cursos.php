@@ -9,15 +9,16 @@
 	<div class="card">
 		<div class="card-header">
 			<h2>Cursos</h2>
+			<input type="button" class="btn-close" name="salir_edicion" id="salir_edicion" onclick="limpiar_form()" title="Cerrar" hidden>
 		</div>
 		<div class="card-body" id="card-forms">
 			<form method="post" accept-charset="utf-8" name="form_curso" id="form_curso" action="<?php base_url() ?>cursos/registrar_curso">
-				<input type="text" name="id" id="id" hidden>
+				<input type="text" name="id" id="input_id" hidden>
 				<div class="row">
 					<div class="col-sm-3 form-item"></div>
 					<div class="col-sm-6 form-item">
 						<label for="nombre_curso" class="form-label">Nombre curso: </label>
-						<input type="text" class="form-control" name="nombre_curso" id="nombre_curso" placeholder="Agregar nombre del curso" required>
+						<input type="text" class="form-control" name="nombre_curso" id="input_nombre_curso" placeholder="Agregar nombre del curso" required>
 					</div>
 				</div>
 				<div class="form-item btn-form">
@@ -93,21 +94,23 @@
 				var resp2 = JSON.parse(resp);
 				if (resp2.success) {
 					$(document).ready(function(){
-						id=document.getElementById('id');
-						nombre_curso=document.getElementById('nombre_curso');
+						id=document.getElementById('input_id');
+						nombre_curso=document.getElementById('input_nombre_curso');
 						id.value=resp2.data[0].id_categoria;
 						nombre_curso.value=resp2.data[0].detalle;
 						//botones
 						var btnad=document.getElementById('Registrar');
 						var btnmd=document.getElementById('Modificar');
+						var bted=document.getElementById('salir_edicion');
 						var form=document.getElementById('form_curso');
 
 						btnad.classList.remove("btn-primary");
 						btnmd.classList.add("btn-primary");
+						bted.hidden=false;
 						btnad.disabled=true;
 						btnmd.disabled=false;
 						form.action="<?php echo base_url()?>cursos/modificar_curso";
-
+						$("html, body").animate({ scrollTop: 0 }, 100);
 					});
 				}//mensaje de la bdd
 			},error:function(){
@@ -164,7 +167,11 @@
 			}
 		});
 	}
-
+	function limpiar_form(){
+		limpieza_form();
+		var form=document.getElementById('form_curso');
+		form.action="<?php echo base_url()?>cursos/registrar_curso";
+	}
 </script>
 <?php
 	$this->endSection();

@@ -11,36 +11,36 @@
 	<div class="card">
 		<div class="card-header">
 			<h2>Personal</h2>
+			<input type="button" class="btn-close" name="salir_edicion" id="salir_edicion" onclick="limpiar_form()" title="Cerrar" hidden>
 		</div>
 			<div class="card-body" id="card-forms">
 				<form action="<?php echo base_url()?>personal/agregar_personal" method="POST" name="form_personal" id="form_personal" class="form_control" accept-charset="utf-8">
-
 							<div class="row">
-								<input type="text" name="id" id="id" hidden>
+								<input type="text" name="id" id="input_id" hidden>
 								<div class="col-sm-6 form-item">
 									<label for="nombre" class="form-label">Nombre:</label>
-									<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" required/>
+									<input type="text" class="form-control" name="nombre" id="input_nombre" placeholder="Nombre" required/>
 								</div>
 								<div class="col-sm-3 form-item">
 									<label for="apellidoP" class="form-label">Apellido Paterno:</label>
-									<input type="text" class="form-control" name="apellidoP" id="apellidoP" placeholder="Apellido Paterno" required/>
+									<input type="text" class="form-control" name="apellidoP" id="input_apellidoP" placeholder="Apellido Paterno" required/>
 								</div>
 								<div class="col-sm-3 form-item">
 									<label for="apellidoM" class="form-label">Apellido Materno:</label>
-									<input type="text" class="form-control" name="apellidoM" id="apellidoM" placeholder="Apellido Materno" required/>
+									<input type="text" class="form-control" name="apellidoM" id="input_apellidoM" placeholder="Apellido Materno" required/>
 								</div>
 								<div class="col-sm-3 form-item">
 									<label for="fecnac" class="form-label">Fecha de Nacimiento:</label>
-									<input type="date" class="form-control" name="fecnac" id="fecnac" required/>
+									<input type="date" class="form-control" name="fecnac" id="input_fecnac" required/>
 								</div>
 								<div class="col-sm-3 form-item">
 									<label for="celular" class="form-label">Celular:</label>
-									<input type="number" class="form-control" name="celular" id="celular" placeholder="Celular" required/>
+									<input type="number" class="form-control" name="celular" id="input_celular" placeholder="Celular" required/>
 								</div>
 								<div class="col-sm-3 form-item">
 									<label for="cargo" class="form-label">Cargo:</label>
 									<select class="form-control" name="cargo" id="cargo" required>
-										<option value="" default id="defaul"></option>
+										<option value="" default id="input_defaul"></option>
 										<?php foreach($cargos->getResult() as $key){?>
 											<option value="<?php echo $key->id_categoria?>"><?php echo $key->detalle?></option>
 										<?php }?>
@@ -117,13 +117,13 @@
 			success:function(resp){
 				var resp2=JSON.parse(resp);
 				if (resp2.success) {
-					id=document.getElementById('id');
-					nombre=document.getElementById('nombre');
-					apellidoP=document.getElementById('apellidoP');
-					apellidoM=document.getElementById('apellidoM');
-					fecnac=document.getElementById('fecnac');
-					celular=document.getElementById('celular');
-					cargo=document.getElementById('defaul');
+					id=document.getElementById('input_id');
+					nombre=document.getElementById('input_nombre');
+					apellidoP=document.getElementById('input_apellidoP');
+					apellidoM=document.getElementById('input_apellidoM');
+					fecnac=document.getElementById('input_fecnac');
+					celular=document.getElementById('input_celular');
+					cargo=document.getElementById('input_defaul');
 					id.value=resp2.data[0].id_personal;
 					nombre.value=resp2.data[0].nom_persona;
 					apellidoP.value=resp2.data[0].ap_pat_persona;
@@ -133,14 +133,17 @@
 					cargo.value=resp2.data[0].puesto;
 					cargo.textContent=resp2.data[0].detalle;
 					//botones
+					btnexit=document.getElementById('salir_edicion');
 					modificar=document.getElementById('Modificar');
 					agregar=document.getElementById('Registrar');
-					metodo=document.getElementById("form_personal");
+					form=document.getElementById("form_personal");
 					modificar.classList.add("btn-primary");
 					agregar.classList.remove("btn-primary");
 					modificar.disabled=false;
 					agregar.disabled=true;
-					metodo.action="<?php echo base_url()?>personal/modificar_personal";
+					btnexit.hidden=false;
+					form.action="<?php echo base_url()?>personal/modificar_personal";
+					$("html, body").animate({ scrollTop: 0 }, 100);
 				}
 			}
 		});
@@ -186,6 +189,11 @@
 				$('#mensaje').text('Error al conectar con el servidor');
 			}
 		});
+	}
+	function limpiar_form(){
+		limpieza_form();
+		form=document.getElementById("form_personal");
+		form.action="<?php echo base_url()?>personal/registrar_personal";
 	}
 </script>
 <?

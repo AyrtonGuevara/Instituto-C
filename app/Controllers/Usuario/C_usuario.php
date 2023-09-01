@@ -10,7 +10,7 @@
 		public function __construct(){
 			$this->usuario=new M_usuario();
 			//$this->session=\config\Services::session();
-			/**/$this->encripter=\config\Services::encrypter();
+			//$this->encripter=\config\Services::encrypter();
 		}
 		public function index(){
 			$lista_personas=$this->usuario->listar_personas_pusuario();

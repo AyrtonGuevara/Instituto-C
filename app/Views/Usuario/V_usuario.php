@@ -6,16 +6,17 @@
 	<div class="card">
 			<div class="card-header">
 				<h2>Usuario</h2>
+				<input type="button" class="btn-close" name="salir_edicion" id="salir_edicion" onclick="limpiar_form()" title="Cerrar" hidden>
 			</div>
 			<div class="card-body" id="card-forms">
 
 				<form action="<?php echo base_url()?>usuario/registrar_usuario" class="form" method="post" id="form_usuario" name="form_usuario" accept-charset="utf-8">
 					<div class="row">
-						<input type="text" id="id" name="id" hidden>
+						<input type="text" id="input_id" name="id" hidden>
 						<div class="col-sm-4 form-item">
 							<label for="persona" class="form-label">Usuario:</label>
 							<select name="persona" id="persona" class="form-control" required>
-								<option value="" id="default" default></option>
+								<option value="" id="input_default" default></option>
 								<?php 
 								foreach ($persona->getResult() as $key) {
 									echo "<option value=".$key->id_persona.">".$key->nombre."</option>";
@@ -25,18 +26,18 @@
 						</div>
 						<div class="col-sm-4 form-item">
 							<label for="usuario" class="form-label">Nombre usuario:</label>
-							<input type="text" class="form-control" name="usuario" id="usuario" placeholder="Nombre de usuario" required/>
+							<input type="text" class="form-control" name="usuario" id="input_usuario" placeholder="Nombre de usuario" required/>
 						</div>
 						<div class="col-sm-4 form-item">
 							<label for="password" class="form-label">Contraseña:</label>
-							<input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
+							<input type="password" class="form-control" name="password" id="input_password" placeholder="Contraseña" required>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-4 form-item">
 							<label for="nivel" class="form-label">Nivel:</label>
 							<select name="nivel" class="form-control"  required>
-								<option value="" id="default2" default></option>
+								<option value="" id="input_default2" default></option>
 								<?php 
 								foreach ($nivel->getResult() as $key) {
 									echo "<option value=".$key->id_categoria.">".$key->detalle."</option>";
@@ -117,10 +118,10 @@
 			data:{id:id},
 			success:function(resp){
 				resp2 =JSON.parse(resp);
-				id=document.getElementById('id');
-				usuario=document.getElementById('default');
-				nombre=document.getElementById('usuario');
-				nivel=document.getElementById('default2');
+				id=document.getElementById('input_id');
+				usuario=document.getElementById('input_default');
+				nombre=document.getElementById('input_usuario');
+				nivel=document.getElementById('input_default2');
 				id.value=resp2.data[0].id_usuario;
 				console.log(resp2.data[0].id_usuario);
 				usuario.value=resp2.data[0].id_persona;
@@ -129,6 +130,7 @@
 				nivel.value=resp2.data[0].nivel;
 				nivel.textContent=resp2.data[0].detalle;
 				//botones
+				btnexit=document.getElementById('salir_edicion');
 				btnagregar=document.getElementById("Registrar");
 				btnmodificar=document.getElementById("Modificar");
 				form=document.getElementById("form_usuario");
@@ -137,8 +139,9 @@
 				btnmodificar.classList.add("btn-primary");
 				btnagregar.disabled=true;
 				btnmodificar.disabled=false;
-
+				btnexit.hidden=false;
 				form.action="<?php echo base_url()?>usuario/modificar_usuario";
+				$("html, body").animate({ scrollTop: 0 }, 100);
 			}
 		});
 	}
@@ -183,6 +186,11 @@
 				$('#mensaje').text('Error al conectar con el servidor');
 			}
 		});
+	}
+	function limpiar_form(){
+		limpieza_form();
+		form=document.getElementById("form_usuario");
+		form.action="<?php echo base_url()?>usuario/registrar_usuario";
 	}
 </script>
 <?php

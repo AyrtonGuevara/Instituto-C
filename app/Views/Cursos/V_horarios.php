@@ -9,18 +9,19 @@
 	<div class="card">
 		<div class="card-header">
 			<h2>Cursos</h2>
+			<input type="button" class="btn-close" name="salir_edicion" id="salir_edicion" onclick="limpiar_form()" title="Cerrar" hidden>
 		</div>
 		<div class="card-body" id="card-forms">
 			<form method="post" accept-charset="utf-8" name="form_curso" id="form_curso" action="<?php base_url() ?>horarios/registrar_horarios">
-				<input type="text" name="id" id="id" hidden>
+				<input type="text" name="id" id="input_id" hidden>
 				<div class="row">
 					<div class="col-sm-10">
 						<div class="row">
-							<input type="text" name="id_horario[]" id="id_horario0" hidden>
+							<input type="text" name="id_horario[]" id="input_id_horario0" hidden>
 							<div class="col-sm-4 form-item">
 								<label for="dia" class="form-label">D&iacute;a</label>
 								<select name="dia[]" id="dia" class="form-control"required>
-									<option id="default0" value="" default></option>
+									<option id="input_default0" value="" default></option>
 									<?php
 									foreach ($dia->getResult() as $key) {
 									echo "<option value='".$key->id_categoria."'>".$key->detalle."</option>";
@@ -30,11 +31,11 @@
 							</div>
 							<div class="col-sm-4 form-item">
 								<label for="horario" class="form-label">Hora inicio:</label>
-								<input type="time" class="form-control" id="hora_inicio0" name="horario_inicio[]" required >
+								<input type="time" class="form-control" id="input_hora_inicio0" name="horario_inicio[]" required >
 							</div>
 							<div class="col-sm-4 form-item">
 								<label for="horario" class="form-label">Hora fin:</label>
-								<input type="time" class="form-control" id="hora_fin0" name="horario_fin[]" required>
+								<input type="time" class="form-control" id="input_hora_fin0" name="horario_fin[]" required>
 							</div>
 						</div>
 					</div>
@@ -129,21 +130,21 @@
 	    div_hora.innerHTML += "<div class='row'>"+
 					"<div class='col-sm-10'>"+
 						"<div class='row'>"+
-							"<input type='text' name='id_horario[]'' id='id_horario"+contador_btn_plus+"' hidden>"+
+							"<input type='text' name='id_horario[]'' id='input_id_horario"+contador_btn_plus+"' hidden>"+
 							"<div class='col-sm-4 form-item'>"+
 								"<label for='dia' class='form-label'>D&iacute;a</label>"+
 								"<select name='dia[]' id='dia' class='form-control'required>"+
-									"<option id='default"+contador_btn_plus+"' value='' default></option>"+
+									"<option id='input_default"+contador_btn_plus+"' value='' default></option>"+
 									"<?php foreach ($dia->getResult() as $key) { echo "<option value='".$key->id_categoria."'>".$key->detalle."</option>"; } ?>"+
 								"</select>"+
 							"</div>"+
 							"<div class='col-sm-4 form-item'>"+
 								"<label for='horario' class='form-label'>Hora inicio:</label>"+
-								"<input type='time' class='form-control' id='hora_inicio"+contador_btn_plus+"' name='horario_inicio[]' required >"+
+								"<input type='time' class='form-control' id='input_hora_inicio"+contador_btn_plus+"' name='horario_inicio[]' required >"+
 							"</div>"+
 							"<div class='col-sm-4 form-item'>"+
 								"<label for='horario' class='form-label'>Hora fin:</label>"+
-								"<input type='time' class='form-control' id='hora_fin"+contador_btn_plus+"' name='horario_fin[]' required>"+
+								"<input type='time' class='form-control' id='input_hora_fin"+contador_btn_plus+"' name='horario_fin[]' required>"+
 							"</div>"+
 						"</div>"+
 					"</div>"+
@@ -168,14 +169,14 @@
 				var resp=JSON.parse(resp);
 				var contador2 = 0;
 				const resp2 = resp.data;
-				id=document.getElementById("id");
+				id=document.getElementById("input_id");
 				id.value=resp.data[0].id_conf;
 				for(const item of resp2){ 
 					horario_mas_uno();
-					id_horario=document.getElementById("id_horario"+contador2);
-					dia=document.getElementById("default"+contador2);
-					hora_inicio=document.getElementById("hora_inicio"+contador2);
-					hora_fin=document.getElementById("hora_fin"+contador2);
+					id_horario=document.getElementById("input_id_horario"+contador2);
+					dia=document.getElementById("input_default"+contador2);
+					hora_inicio=document.getElementById("input_hora_inicio"+contador2);
+					hora_fin=document.getElementById("input_hora_fin"+contador2);
 					id_horario.value=item.id_horarios;
 					dia.textContent=item.detalle_dias;
 					dia.value=item.dias;
@@ -185,6 +186,7 @@
 				}
 				horario_menos_uno(contador2);
 				//botones
+				var btnexit=document.getElementById('salir_edicion');
 				var btnad=document.getElementById('Registrar');
 				var btnmd=document.getElementById('Modificar');
 				var form=document.getElementById('form_curso');
@@ -192,7 +194,9 @@
 				btnmd.classList.add("btn-primary");
 				btnad.disabled=true;
 				btnmd.disabled=false;
+				btnexit.hidden=false;
 				form.action="<?php echo base_url()?>horarios/modificar_horarios";
+				$("html, body").animate({ scrollTop: 0 }, 100);
 			},error:function(){
 				$('#respuesta').text('Error al conectar con el servidor');
 			}
@@ -232,6 +236,12 @@
 				Swal.fire('No se elimino el registro','','warning')
 			}
 		});
+	}
+	function limpiar_form(){
+		horario_menos_uno(1);
+		limpieza_form();
+		var form=document.getElementById('form_curso');
+		form.action="<?php echo base_url()?>horarios/agregar_horarios";
 	}
 	
 </script>

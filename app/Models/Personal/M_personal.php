@@ -11,7 +11,7 @@
 		}
 		public function listar_personal(){
 			$respuesta=$this->db->query("
-				SELECT DISTINCT ON(ap.id_personal) GENERATE_SERIES(1,(SELECT count(id_personal) FROM adm_personal))AS nro, 
+				SELECT DISTINCT ON(ap.id_personal) row_number() over() AS nro, 
 					   ap.id_personal, 
 					   CONCAT(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona)AS nombre, 
 					   rp.celular,

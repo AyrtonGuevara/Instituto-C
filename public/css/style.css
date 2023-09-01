@@ -93,7 +93,9 @@ Ayrton Jhonny Guevara Montaño
 			margin: 0px 10px;
 			padding: 0px 10px;
 		}
-		/*elementos footer*/
+
+
+		/*-----------elementos footer---------*/
 		.footer{
 
 		}
@@ -103,13 +105,21 @@ Ayrton Jhonny Guevara Montaño
 		}
 
 
-		/*elementos card*/
+		/*------------elementos card---------*/
 		.card{
 			margin: 50px;
 		}
+		.card-header h2{
+			float: left;
+			margin-top: 5px;
+		}
+		.card-header input{
+			margin-top: 10px;
+			float: right;
+		}
 
 
-		/*elementos del formulario*/
+		/*------------elementos del formulario----------*/
 		.second_form_title{
 			display: inline-block;
 			padding-top: 35px;
@@ -127,7 +137,6 @@ Ayrton Jhonny Guevara Montaño
 			width: 80px;
 			border: none;
 			padding: 0px;
-			transition: transform 1s; /* Transición de rotación */
 		}
 		.btn-form-trash{
 			padding: 15px 10px;

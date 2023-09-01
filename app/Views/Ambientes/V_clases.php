@@ -13,7 +13,7 @@
 		</div>
 		<div class="card-body" id="card-forms">
 			<div class="item-form btn-form-center">
-				<input type="button" class="btn btn-primary" name="agregar_clase" id="agregar_clase" value="Nueva Clase" data-bs-toggle="modal" data-bs-target="#modal_agregar_clase">
+				<input type="button" class="btn btn-primary" name="agregar_clase" id="agregar_clase" onclick="limpiar_modal()" value="Nueva Clase" data-bs-toggle="modal" data-bs-target="#modal_agregar_clase">
 			</div>
 			
 				<div class="row">
@@ -53,8 +53,11 @@
 			            <?php //se genera de manera automatica una table como agenda que despues se llenara por script, cabe notar que cada celda tiene un id unico con respecto a su posicion en dia, hora, y el contador que representa las medias horas
 			            	//se inicia un contador en 0
 				            $con=0;
+				            $cero="0";
 				            //si inicia un for con inicio de 8 y que dure hasta 20
-			                for ($hour = 8; $hour <= 20; $hour++) : ?>
+			                for ($hour = 8; $hour <= 20; $hour++) : 
+			                	if($hour==10){$cero="";}
+			                	?>
 			                <tr>
 			                	<?php 
 			                	if ($con==0) {
@@ -65,7 +68,7 @@
 			                	}
 			                	$con++;
 			                    for ($day = 0; $day < 6; $day++) : ?>
-			                        <td id="<?php echo $day.':'.($hour).':'.($con-1)?>0"></td>
+			                        <td id="<?php echo $day.':'.$cero.$hour.':'.($con-1)?>0"></td>
 			                    <?php 
 			                	endfor; 
 			                	if ($con==1) {
@@ -103,7 +106,7 @@
 		      			<div class="col-sm-6 form-item">
 		      				<label for="materia" class="form-label">Materia</label>
 		      				<select name="materia" class="form-control" id="materia" required>
-		      					<option id="materia1"></option>
+		      					<option id="materia1" selected></option>
 		      					<?php
 		      					foreach ($lista_materia->getResult() as $key) {
 		      						echo "<option value='".$key->id_materia."'>".$key->materia."</option>";
@@ -114,7 +117,7 @@
 		      			<div class="col-sm-6 form-item">
 		      				<label for="horario" class="form-label">Horario</label>
 		      				<select name="horario" class="form-control" id="horario" required>
-		      					<option id="horario1"></option>
+		      					<option id="horario1" selected></option>
 		      					<?php
 		      					foreach ($lista_horarios->getResult() as $key) {
 		      						echo "<option value='".$key->id_conf_horarios."'>".$key->dias_horarios."</option>";
@@ -125,7 +128,7 @@
 		      			<div class="col-sm-6 form-item">
 		      				<label for="aula" class="form-label">Aula</label>
 		      				<select name="aula" class="form-control" id="aula">
-		      					<option id="aula1"></option>
+		      					<option id="aula1" selected></option>
 		      					<?php
 		      					foreach ($lista_aulas->getResult() as $key) {
 		      						echo "<option value='".$key->id_aula."'>".$key->aula."</option>";
@@ -136,7 +139,7 @@
 		      			<div class="col-sm-6 form-item">
 		      				<label for="personal" class="form-label">Personal</label>
 		      				<select name="personal" class="form-control" id="personal">
-		      					<option id="personal1"></option>
+		      					<option id="personal1" selected></option>
 		      					<?php
 		      					foreach ($lista_personal->getResult() as $key) {
 		      						echo "<option value='".$key->id_personal."'>".$key->persona."</option>";
@@ -212,14 +215,15 @@
 					var id=info.id_clase;
 					var timeSlots = dat.split(" || ");
 					var timeData = {};
-
+					
 					for (var i = 0; i < timeSlots.length; i++) {
 					    var parts = timeSlots[i].split(": ");
 					    var day = parts[0];
 					    var timeRange = parts[1].split(" - ");
 					    timeData[day] = timeRange;
 					}
-
+					console.log(timeData);
+					console.log("uno"+id);
 					for (var day in timeData) {
 				    	var ndia=0
 				        var timeRange = timeData[day];
@@ -232,7 +236,7 @@
 				        case "martes":
 				        	ndia=1;
 				        	break;
-				        case "miecoles":
+				        case "miercoles":
 				        	ndia=2;
 				        	break;
 				        case "jueves":
@@ -245,15 +249,18 @@
 				        	ndia=5;
 				        	break;
 				        }
+				        console.log(ndia);
 				        var cells = document.querySelectorAll("td[id^='" + ndia + "']");
 				        for (var j = 0; j < cells.length; j++) {
 				            var cellTime = cells[j].getAttribute("id").substr(2, 5);
+				            //console.log(cellTime);
 				            if (cellTime >= startTime && cellTime < endTime) {
 				                cells[j].style.backgroundColor = "green";
 				                cells[j].title=nombre_materia;
-				                cells[j].onclick=function(){
+				                cells[j].innerHTML="<input type='button' id='' value='"+id+"' onclick='editar_clase("+id+")'>";
+				                /*cells[j].onclick=function(){
 				                	editar_clase(id);
-				                }
+				                }*/
 				            }
 				    	}
 					}
@@ -262,7 +269,9 @@
 		});
 	});
 	function editar_clase(id){
+		console.log(id);
 		$('#modal_agregar_clase').modal('show');
+		limpiar_modal();
 		$.ajax({
 			url:"<?php echo base_url()?>clases/mostrar_clases",
 			type:"POST",
@@ -336,6 +345,26 @@
 				Swal.fire('No se elimino el registro','','warning')
 			}
 		});
+	}
+	function limpiar_modal(){
+		id=document.getElementById("id");
+		materia=document.getElementById("materia1");
+		horario=document.getElementById("horario1");
+		aula=document.getElementById("aula1");
+		personal=document.getElementById("personal1");
+		id.value="";
+		materia.selected=materia.defaultSelected;
+		horario.selected=horario.defaultSelected;
+		aula.selected=aula.defaultSelected;
+		personal.selected=personal.defaultSelected;
+		materia.value="";
+		materia.textContent="";
+		horario.value="";
+		horario.textContent="";
+		aula.value="";
+		aula.textContent="";
+		personal.value="";
+		personal.textContent="";	
 	}
 </script>
 <?php
