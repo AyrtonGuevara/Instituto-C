@@ -10,6 +10,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 	<!--JQUERY-->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- jQuery UI -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<!--SWEET ALERT-->
 	<!-- SweetAlert 2 JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>

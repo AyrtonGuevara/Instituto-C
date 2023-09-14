@@ -10,7 +10,7 @@
 		public function __construct(){
 			$this->login=new M_login();
 			//$this->session=session();
-			$this->encripter=\config\Services::encrypter();
+			//$this->encripter=\config\Services::encrypter();
 		}
 		public function index(){
 			return view('Login/V_login');

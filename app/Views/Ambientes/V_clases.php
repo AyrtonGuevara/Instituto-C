@@ -194,11 +194,15 @@
 	});
 
 	select_aula.addEventListener('change', function(){
-		var cells = document.querySelectorAll("td");
+		var cells = document.querySelectorAll("td[id]");
+		console.log(cells);
 		for (var j = 0; j < cells.length; j++) {
 			cells[j].style.backgroundColor = "";
 			cells[j].title="";
 			cells[j].onclick="";
+			cells[j].innerHTML="";
+			cells[j].rowSpan=1;
+			cells[j].style.display = "";
 		}
 
 		var g=0;
@@ -251,17 +255,33 @@
 				        }
 				        console.log(ndia);
 				        var cells = document.querySelectorAll("td[id^='" + ndia + "']");
+				        var contador_collspan=0;
+				        var fij=0;
+				        var pasa=1;
 				        for (var j = 0; j < cells.length; j++) {
 				            var cellTime = cells[j].getAttribute("id").substr(2, 5);
 				            //console.log(cellTime);
 				            if (cellTime >= startTime && cellTime < endTime) {
-				                cells[j].style.backgroundColor = "green";
+				            	fij=j+1;
+				            	contador_collspan++;
+				            	pasa=0
+				                /*cells[j].style.backgroundColor = "green";
 				                cells[j].title=nombre_materia;
 				                cells[j].innerHTML="<input type='button' id='' value='"+id+"' onclick='editar_clase("+id+")'>";
 				                /*cells[j].onclick=function(){
 				                	editar_clase(id);
 				                }*/
 				            }
+				    	}
+				    	if(pasa===0){
+				    		cells[fij-contador_collspan].rowSpan=contador_collspan;
+					    	cells[fij-contador_collspan].style.backgroundColor = "green";
+							cells[fij-contador_collspan].title=nombre_materia;
+					        cells[fij-contador_collspan].innerHTML="<input type='button' class='btn btn-green' value='"+id+"' onclick='editar_clase("+id+")' >";
+					        for(var k=1; k<contador_collspan;k++){
+					        	c=(fij-contador_collspan)+k;
+								cells[c].style.display = "none";
+					        }
 				    	}
 					}
 				}
@@ -364,8 +384,21 @@
 		aula.value="";
 		aula.textContent="";
 		personal.value="";
-		personal.textContent="";	
+		personal.textContent="";
+		//botones
+		form=document.getElementById("form_aulas");
+		btnaceptar=document.getElementById("Registrar");
+		btnmodificar=document.getElementById("Modificar");
+		btneliminar=document.getElementById("Eliminar");
+		btnaceptar.disabled=false;
+		btnmodificar.disabled=true;
+		btneliminar.disabled=true;
+		btnaceptar.classList.add("btn-primary");
+		btneliminar.classList.remove("btn-danger");
+		btnmodificar.classList.remove("btn-primary");
+		form.action="<?php echo base_url()?>clases/registrar_clases";
 	}
+
 </script>
 <?php
 	$this->endSection();

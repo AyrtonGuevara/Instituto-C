@@ -26,7 +26,7 @@
 			return $respuesta;
 		}
 		public function eliminar_curso($id){
-			$respuesta=$this->db->query("update ral_categoria set estado='inactivo' where id_categoria=$id and estado='activo'; ");
+			$respuesta=$this->db->query("update ral_categoria set estado='inactivo' where id_categoria=$id and estado='activo';");
 			return $respuesta;
 		}
 	}

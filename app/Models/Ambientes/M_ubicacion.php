@@ -51,11 +51,10 @@
 			return $respuesta;
 		}
 		public function modal_mostrar_aulas($id){
-			$respuesta=$this->db->query("select row_number ()over() as nro, aa.id_aula, aa.id_ubicacion, au.direccion, aa.nombre_aula, aa.descripcion from aca_aula aa , adm_ubicacion au where aa.id_ubicacion=au.id_ubicacion and aa.estado = 'activo' and au.estado = 'activo' and au.id_ubicacion=$id order by id_aula;");
+			$respuesta=$this->db->query("select row_number ()over() as nro, aa.id_aula, aa.id_ubicacion, au.direccion, aa.nombre_aula, aa.cantidad_estudiantes from aca_aula aa , adm_ubicacion au where aa.id_ubicacion=au.id_ubicacion and aa.estado = 'activo' and au.estado = 'activo' and au.id_ubicacion=$id order by id_aula;");
 			return $respuesta->getResult();
 		}
 		public function modal_modificar_aulas($json_aulas,$usuario){
-			//print_r("SELECT * FROM fn_modificar_aulas('$usuario','$json_aulas'::JSON);");
 			$respuesta=$this->db->query("SELECT * FROM fn_modificar_aulas('$usuario','$json_aulas'::JSON);");
 			return $respuesta->getResult();
 		}

@@ -17,6 +17,10 @@
 			<li><a href="<?php echo base_url()?>ambientes" id="item_collapse">Ambientes</a></li>
 			<li><a href="<?php echo base_url()?>clases" id="item_collapse">Clases</a></li>
 		</ul>
+		<li><a class="btn" data-bs-toggle="collapse" href="#col3">Estudiantes</a></li>
+		<ul id="col3" class="collapse" data-bs-parent="#accordion">
+			<li><a href="<?php echo base_url()?>estudiantes" id="item_collapse">Estudiantes</a></li>
+		</ul>
 		
 		<li>----------------------</li>
 		<li><a class="btn" data-bs-toggle="collapse" href="#col111">Usuario</a></li>

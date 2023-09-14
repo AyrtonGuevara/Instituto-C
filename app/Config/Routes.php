@@ -56,6 +56,7 @@ $routes->post('/cursos/registrar_curso','Cursos\C_cursos::registrar_curso');
 $routes->post('/cursos/mostrar_curso','Cursos\C_cursos::mostrar_curso');
 $routes->post('/cursos/modificar_curso','Cursos\C_cursos::modificar_curso');
 $routes->post('/cursos/eliminar_curso','Cursos\C_cursos::eliminar_curso');
+$routes->post('/cursos/autocompletar_cursos','Cursos\C_cursos::autocompletar_cursos');
 //horarios
 $routes->get('/horarios','Cursos\C_horarios::index');
 $routes->post('/horarios/registrar_horarios','Cursos\C_horarios::registrar_horarios');
@@ -85,6 +86,10 @@ $routes->post('/clases/cronograma_clases','Ambientes\C_clases::cronograma_clases
 $routes->post('/clases/mostrar_clases','Ambientes\C_clases::mostrar_clases');
 $routes->post('/clases/modificar_clases','Ambientes\C_clases::modificar_clases');
 $routes->post('/clases/eliminar_clases','Ambientes\C_clases::eliminar_clases');
+
+//ESTUDIANTES
+//Estudiantes
+$routes->get('/estudiantes','Estudiantes\C_estudiantes::index');
 
 //usuarios
 $routes->get('/usuario','Usuario\C_usuario::index');

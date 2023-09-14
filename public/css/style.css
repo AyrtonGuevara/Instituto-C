@@ -157,6 +157,9 @@ Ayrton Jhonny Guevara Montaño
 		.btn-form-center{
 			text-align: center;
 		}
+		.form-autocompletar{
+			overflow-x: hidden;
+		}
 
 
 		/*elementos de la tabla*/
@@ -164,6 +167,3 @@ Ayrton Jhonny Guevara Montaño
 			margin: 15px 0px ;
 			font-size: 16px;
 		}
-
-
-

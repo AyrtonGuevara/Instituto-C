@@ -45,12 +45,14 @@
 				$this->session->setFlashdata('fracaso','Error en el registro');
 			}
 			return redirect()->to(base_url('cursos'));
-		}public function eliminar_curso(){
+		}
+		public function eliminar_curso(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
 				$id=$_POST['id'];
 			}
 			$respuesta=$this->cursos->eliminar_curso($id);
 			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
 		}
+		
 	}
 ?>

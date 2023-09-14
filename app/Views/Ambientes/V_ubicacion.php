@@ -43,8 +43,8 @@
 						<input type="text" class="form-control" name="nombre_aula[]" id="nombre_aula0" placeholder="Nombre del aula" >
 					</div>
 					<div class="col-sm-5 form-item">
-						<label for="detalle_aula0" class="form-label">Descripcion del aula:</label>
-						<input type="text" class="form-control" name="detalle_aula[]" id="detalle_aula0" placeholder="Detalle del aula" >
+						<label for="detalle_aula0" class="form-label">Capacidad del aula:</label>
+						<input type="number" class="form-control" name="detalle_aula[]" id="detalle_aula0" placeholder="Capacidad del aula" >
 					</div>
 					<div id="nuevas_aulas0">
 						
@@ -68,7 +68,7 @@
 							<th>Detalle</th>
 							<th>Descripci&oacute;n</th>
 							<th>Aulas</th>
-							<th>detalle</aulas>
+							<th>Capacidad</aulas>
 							<th>Acciones</th>
 						</tr>
 					</thead>
@@ -130,7 +130,7 @@
 			      				<tr>
 			      					<th>Nº</th>
 			      					<th>Aula</th>
-			      					<th>Descripci&oacute;n</th>
+			      					<th>Capacidad</th>
 			      					<th>Acciones</th>
 			      				</tr>
 			      			</thead>
@@ -152,7 +152,6 @@
 
 <script>
 	var contador_aulas=0;
-	var contador_aulas_modal=0;
 		document.addEventListener("DOMContentLoaded",function(){
 		<?php
 			if(session()->getFlashData('exito')){
@@ -279,8 +278,8 @@
 						"<input type='text' class='form-control' name='nombre_aula[]' id='nombre_aula"+contador_aulas+"' placeholder='Nombre del aula'>"+
 					"</div>"+
 					"<div class='col-sm-5 form-item'>"+
-						"<label for='detalle_aula"+contador_aulas+"' class='form-label'>Descripcion del aula:</label>"+
-						"<input type='text' class='form-control' name='detalle_aula[]' id='detalle_aula"+contador_aulas+"' placeholder='Detalle aula'>"+
+						"<label for='detalle_aula"+contador_aulas+"' class='form-label'>Capacidad del aula:</label>"+
+						"<input type='number' class='form-control' name='detalle_aula[]' id='detalle_aula"+contador_aulas+"' placeholder='Capacidad del aula'>"+
 					"</div>"+
 					"<div class='col-sm-2'>"+
 						"<div class='btn btn-form-trash' onclick='aula_menos_uno("+contador_aulas+")' name='aula_menos_uno' id='aula_menos_uno'><i class='bi bi-trash-fill' title='Eliminar'></i></div>"+
@@ -295,12 +294,12 @@
 	}
 	function modal_ubicacion_aulas(id){
 		contador_aulas_modal=0;
+		//se agarra y se elimina las filas dentro del modal si lo hay
 		var cells = document.querySelectorAll('#tbody_aulas tr');
-		console.log(cells);
 		for(var i=1; i<=cells.length; i++){
 			document.getElementById("tabla_modal_aulas").deleteRow(1);
-			console.log("pasa");
 		}
+		//se dibuja el contenido del modal
 		$.ajax({
 			url:'<?php echo base_url()?>ambientes/modal_mostrar_aulas',
 			type:"POST",
@@ -323,7 +322,7 @@
 					id.value=item.id_aula;
 					nro.value=item.nro;
 					nombre.value=item.nombre_aula;
-					detalle.value=item.descripcion;
+					detalle.value=item.cantidad_estudiantes;
 					contador2++;
 				}
 			}
@@ -340,7 +339,7 @@
 	    var celda2 = nuevaFila.insertCell(1);
 	    celda2.innerHTML = "<input type='text' class='form-control' name='modal_nombre_aula[]' id='modal_nombre_aula"+(contador_aulas_modal-1)+"' placeholder='Nombre del aula'>";
 	    var celda3 = nuevaFila.insertCell(2);
-	    celda3.innerHTML = "<input type='text' class='form-control' name='modal_detalle_aula[]' id='modal_detalle_aula"+(contador_aulas_modal-1)+"' placeholder='Detalle del aula'>";
+	    celda3.innerHTML = "<input type='text' class='form-control' name='modal_detalle_aula[]' id='modal_detalle_aula"+(contador_aulas_modal-1)+"' placeholder='Capacidad del aula'>";
 	    var celda4 = nuevaFila.insertCell(3);
 	    celda4.innerHTML = "<button class= 'btn btn-danger' name='Eliminar' value='Eliminar' onclick='modal_eliminar_fila(this)'><i class='bi bi-trash-fill' title='Eliminar'></i></button>";
 	}
