@@ -86,6 +86,10 @@ $routes->post('/clases/cronograma_clases','Ambientes\C_clases::cronograma_clases
 $routes->post('/clases/mostrar_clases','Ambientes\C_clases::mostrar_clases');
 $routes->post('/clases/modificar_clases','Ambientes\C_clases::modificar_clases');
 $routes->post('/clases/eliminar_clases','Ambientes\C_clases::eliminar_clases');
+$routes->post('/clases/lista_estudiantes','Ambientes\C_clases::lista_estudiantes');
+//Clases lista
+$routes->get('/clases_lista','Ambientes\C_clases_lista::index');
+$routes->get('/clases_lista/editar_clase','Ambientes\C_clases_lista::editar_clase');
 
 //ESTUDIANTES
 //Estudiantes

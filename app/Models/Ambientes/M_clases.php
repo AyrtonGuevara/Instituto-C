@@ -38,9 +38,11 @@
 				");
 			return $respuesta;
 		}
-		public function registrar_clase($materia,$horario,$aula,$personal,$usuario){
-			$respuesta=$this->db->query("insert into aca_clase (id_materia,id_horarios,id_aula,id_personal, usu_creado,fec_creado,estado) VALUES ($materia,$horario,$aula,$personal,'$usuario',now(),'activo');");
-			return $respuesta;
+		public function registrar_clase($usuario,$valores_clase){
+			//$respuesta=$this->db->query("insert into aca_clase (id_materia,id_horarios,id_aula,id_personal, usu_creado,fec_creado,estado) VALUES ($materia,$horario,$aula,$personal,'$usuario',now(),'activo');");
+			//echo "SELECT * FROM fn_agregar_clases('$usuario','$valores_clase'::JSON)";
+			$respuesta=$this->db->query("SELECT * FROM fn_agregar_clases('$usuario','$valores_clase'::JSON)");
+			return $respuesta->getResult();
 		}
 		public function cronograma_clases($id){
 			$respuesta=$this->db->query("
@@ -79,6 +81,9 @@
 							where au.id_ubicacion=aa.id_ubicacion),' - ',aa.nombre_aula)
 						from aca_aula aa 
 						where ac.id_aula=aa.id_aula)as nombre_aula,
+					(select aa.cantidad_estudiantes 
+						from aca_aula aa 
+						where aa.id_aula=ac.id_aula)as capacidad,
 					ac.id_materia,
 					(select am.nombre_materia 
 						from aca_materia am 
@@ -115,6 +120,12 @@
 		public function eliminar_clases($id,$usuario){
 			$respuesta=$this->db->query("UPDATE aca_clase SET estado='inactivo',usu_modificado='$usuario',fec_modificado=now() WHERE id_clase=$id;");
 			return $respuesta;
+		}
+		public function lista_estudiantes($id){
+			$respuesta=$this->db->query("
+				select ai.id_estudiante, concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona)as nombre, ai.fec_inicio from aca_inscripcion ai, aca_estudiante ae, ral_persona rp where rp.id_persona=ae.id_persona and ai.id_estudiante = ae.id_estudiante and ae.estado='activo' and rp.estado='activo' and ai.estado='activo' and ai.id_clase=$id;
+				");
+			return $respuesta->getResult();
 		}
 	}
 	//se altero la tabla clase para que haga referencia a adm_conf_horarios y no a conf_horarios

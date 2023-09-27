@@ -18,17 +18,21 @@
 		}
 		public function registrar_clases(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
-				$materia=$_POST['materia'];
-				$horario=$_POST['horario'];
-				$aula=$_POST['aula'];
-				$personal=$_POST['personal'];
+				$valores_clases=array(
+				'id_materia'=>$_POST['materia'],
+				'id_horario'=>$_POST['horario'],
+				'id_aula'=>$_POST['aula'],
+				'id_persona'=>$_POST['personal'],
+				);
 			}
 			$usuario=$this->session->get('id_usuario');
-			$respuesta=$this->clases->registrar_clase($materia,$horario,$aula,$personal,$usuario);
-			if ($respuesta) {
+			$valores_clases=json_encode($valores_clases);
+			$respuesta=$this->clases->registrar_clase($usuario,$valores_clases);
+			print_r($respuesta);
+			if ($respuesta[0]->success==='t') {
 				$this->session->setFlashdata('exito','Registro exitoso');
 			}else{
-				$this->session->setFlashdata('fracaso','Error en el registro');
+				$this->session->setFlashdata('fracaso',$respuesta[0]->mensaje);
 			}
 			return redirect()->to(base_url('clases'));
 		}
@@ -69,6 +73,13 @@
 			}
 			$usuario=$this->session->get('id_usuario');
 			$respuesta=$this->clases->eliminar_clases($id,$usuario);
+			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
+		}
+		public function lista_estudiantes(){
+			if ($_SERVER['REQUEST_METHOD']==='POST') {
+				$id=$_POST['id'];
+			}
+			$respuesta=$this->clases->lista_estudiantes($id);
 			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
 		}
 	}

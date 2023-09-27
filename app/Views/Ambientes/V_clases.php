@@ -100,61 +100,87 @@
 
 	      	<!-- Modal body -->
 	      	<div class="modal-body" id="card-forms">
-	      		<form action="<?php base_url()?>clases/registrar_clases" name="form_clase" id="form_aulas" method="POST" accept-charset="utf-8">
-	      			<input type="text" name="id" id="id" hidden>
-		      		<div class="row">
-		      			<div class="col-sm-6 form-item">
-		      				<label for="materia" class="form-label">Materia</label>
-		      				<select name="materia" class="form-control" id="materia" required>
-		      					<option id="materia1" selected></option>
-		      					<?php
-		      					foreach ($lista_materia->getResult() as $key) {
-		      						echo "<option value='".$key->id_materia."'>".$key->materia."</option>";
-		      					}
-		      					?>
-		      				</select>
-		      			</div>
-		      			<div class="col-sm-6 form-item">
-		      				<label for="horario" class="form-label">Horario</label>
-		      				<select name="horario" class="form-control" id="horario" required>
-		      					<option id="horario1" selected></option>
-		      					<?php
-		      					foreach ($lista_horarios->getResult() as $key) {
-		      						echo "<option value='".$key->id_conf_horarios."'>".$key->dias_horarios."</option>";
-		      					}
-		      					?>
-		      				</select>
-		      			</div>
-		      			<div class="col-sm-6 form-item">
-		      				<label for="aula" class="form-label">Aula</label>
-		      				<select name="aula" class="form-control" id="aula">
-		      					<option id="aula1" selected></option>
-		      					<?php
-		      					foreach ($lista_aulas->getResult() as $key) {
-		      						echo "<option value='".$key->id_aula."'>".$key->aula."</option>";
-		      					}
-		      					?>
-		      				</select>
-		      			</div>
-		      			<div class="col-sm-6 form-item">
-		      				<label for="personal" class="form-label">Personal</label>
-		      				<select name="personal" class="form-control" id="personal">
-		      					<option id="personal1" selected></option>
-		      					<?php
-		      					foreach ($lista_personal->getResult() as $key) {
-		      						echo "<option value='".$key->id_personal."'>".$key->persona."</option>";
-		      					}
-		      					?>
+	      		<div class="card card-modal">
+	      			<div class="card-body">
+	      				<form action="<?php base_url()?>clases/registrar_clases" name="form_clase" id="form_aulas" method="POST" accept-charset="utf-8">
+			      			<input type="text" name="id" id="id" hidden>
+				      		<div class="row">
+				      			<div class="col-sm-6 form-item">
+				      				<label for="materia" class="form-label">Materia</label>
+				      				<select name="materia" class="form-control" id="materia" required>
+				      					<option id="materia1" selected></option>
+				      					<?php
+				      					foreach ($lista_materia->getResult() as $key) {
+				      						echo "<option value='".$key->id_materia."'>".$key->materia."</option>";
+				      					}
+				      					?>
+				      				</select>
+				      			</div>
+				      			<div class="col-sm-6 form-item">
+				      				<label for="horario" class="form-label">Horario</label>
+				      				<select name="horario" class="form-control" id="horario" required>
+				      					<option id="horario1" selected></option>
+				      					<?php
+				      					foreach ($lista_horarios->getResult() as $key) {
+				      						echo "<option value='".$key->id_conf_horarios."'>".$key->dias_horarios."</option>";
+				      					}
+				      					?>
+				      				</select>
+				      			</div>
+				      			<div class="col-sm-6 form-item">
+				      				<label for="aula" class="form-label">Aula</label>
+				      				<select name="aula" class="form-control" id="aula">
+				      					<option id="aula1" selected></option>
+				      					<?php
+				      					foreach ($lista_aulas->getResult() as $key) {
+				      						echo "<option value='".$key->id_aula."'>".$key->aula."</option>";
+				      					}
+				      					?>
+				      				</select>
+				      			</div>
+				      			<div class="col-sm-6 form-item">
+				      				<label for="personal" class="form-label">Personal</label>
+				      				<select name="personal" class="form-control" id="personal">
+				      					<option id="personal1" selected></option>
+				      					<?php
+				      					foreach ($lista_personal->getResult() as $key) {
+				      						echo "<option value='".$key->id_personal."'>".$key->persona."</option>";
+				      					}
+				      					?>
 
-		      				</select>
-		      			</div>
-		      		</div>
-		      		<div class="btn-form form-item">
-		      			<input type="submit" class="btn btn-primary border-light" name="Registrar" value="Registrar" id="Registrar">
-						<input type="submit" class="btn border-light" name="Modificar" value="Modificar" id="Modificar" disabled>
-						<input type="button" class="btn border-light" name="Eliminar" value="Eliminar" id="Eliminar" disabled>
-		      		</div>
-			      </form>
+				      				</select>
+				      			</div>
+				      		</div>
+				      		<div class="btn-form form-item">
+				      			<input type="submit" class="btn btn-primary border-light" name="Registrar" value="Registrar" id="Registrar">
+								<input type="submit" class="btn border-light" name="Modificar" value="Modificar" id="Modificar" disabled>
+								<input type="button" class="btn border-light" name="Eliminar" value="Eliminar" id="Eliminar" disabled>
+				      		</div>
+					      </form>
+	      			</div>
+	      			<div id=table_hidden hidden>
+	      				<div class="card-footer">
+	      					<div class="table-responsive">
+	      						<table id="tabla_estudiantes" class="table table-hover table-basic">
+	      							<thead>
+	      								<caption id="caption_modal"></caption>
+	      								<tr>
+	      									<th>Nombre del estudiante</th>
+	      									<th>Fecha Inicio</th>
+	      									<th>Fecha Fin</th>
+	      									<th>Acciones</th>
+	      								</tr>
+	      							</thead>
+	      							<tbody>
+	      								<tr>
+	      									<td colspan="4">No Hay estudiantes inscritos</td>
+	      								</tr>
+	      							</tbody>
+	      						</table>
+	      					</div>
+	      				</div>
+	      			</div>
+	      		</div>
 	      	</div>
 	      	<!-- Modal footer -->
 	      	<div class="modal-footer">
@@ -190,6 +216,12 @@
 				})
 				<?php
 			}else{}
+			if (session()->getFlashData('id_clase')) {
+				$id=session()->getFlashData('id_clase');
+				?>
+				editar_clase("<?php echo $id?>");
+				<?php
+			}
 		?>
 	});
 
@@ -277,7 +309,7 @@
 				    		cells[fij-contador_collspan].rowSpan=contador_collspan;
 					    	cells[fij-contador_collspan].style.backgroundColor = "green";
 							cells[fij-contador_collspan].title=nombre_materia;
-					        cells[fij-contador_collspan].innerHTML="<input type='button' class='btn btn-green' value='"+id+"' onclick='editar_clase("+id+")' >";
+					        cells[fij-contador_collspan].innerHTML="<input type='button' class='btn button-absolute btn-green' value='"+id+"' onclick='editar_clase("+id+")' >";
 					        for(var k=1; k<contador_collspan;k++){
 					        	c=(fij-contador_collspan)+k;
 								cells[c].style.display = "none";
@@ -292,19 +324,22 @@
 		console.log(id);
 		$('#modal_agregar_clase').modal('show');
 		limpiar_modal();
+		tablah=document.getElementById("table_hidden");
+		tablah.hidden=false;
 		$.ajax({
 			url:"<?php echo base_url()?>clases/mostrar_clases",
 			type:"POST",
 			data: {id:id},
 			success: function (resp){
 				resp2=JSON.parse(resp);
-				id=document.getElementById("id");
+				idf=document.getElementById("id");
 				form=document.getElementById("form_aulas");
 				materia=document.getElementById("materia1");
 				horario=document.getElementById("horario1");
 				aula=document.getElementById("aula1");
 				personal=document.getElementById("personal1");
-				id.value=resp2.data[0].id_clase;
+				caption=document.getElementById("caption_modal");
+				idf.value=resp2.data[0].id_clase;
 				materia.value=resp2.data[0].id_materia;
 				materia.textContent=resp2.data[0].materia;
 				horario.value=resp2.data[0].id_horarios;
@@ -313,6 +348,7 @@
 				aula.textContent=resp2.data[0].nombre_aula;
 				personal.value=resp2.data[0].id_personal;
 				personal.textContent=resp2.data[0].docente;
+				caption.innerHTML="Capacidad de estudiantes en esta aula : "+resp2.data[0].capacidad + " estudiantes.";
 				//botones
 				btnaceptar=document.getElementById("Registrar");
 				btnmodificar=document.getElementById("Modificar");
@@ -327,6 +363,46 @@
 				btneliminar.classList.add("btn-danger");
 				btnmodificar.classList.add("btn-primary");
 				form.action="<?php echo base_url()?>clases/modificar_clases";
+				//solicitud axaj para mostrar la lista de estudiantes del curso
+				$.ajax({
+					url:"<?php echo base_url()?>clases/lista_estudiantes",
+					type:"POST",
+					data:{id:id},
+					success:function(resp){
+						resp=JSON.parse(resp);
+						resp2=resp.data;
+						var cells = document.querySelectorAll('#tabla_estudiantes tr');
+						console.log("tamaño tabla"+cells.length);
+						for(var i=1; i<cells.length; i++){
+							tabla=document.getElementById("tabla_estudiantes");
+							tabla.deleteRow(1);
+						}
+						console.log();
+						if(resp2.length!=0){
+							for(const item of resp2){
+								//var tabla=document.getElementById('tabla_estudiantes');
+								nueva_fila=tabla.insertRow();
+								celda1=nueva_fila.insertCell(0);
+								celda1.innerHTML="<td>"+resp.data[0].nombre+"</td>";
+								celda2=nueva_fila.insertCell(1);
+								celda2.innerHTML="<td>"+resp.data[0].fec_inicio+"</td>";
+								celda3=nueva_fila.insertCell(2);
+								celda3.innerHTML="<td>aun no se ha calculado</td>";
+								celda2=nueva_fila.insertCell(3);
+								celda2.innerHTML="<td>acciones??</td>";
+							}
+						}else{
+							nueva_fila=tabla.insertRow();
+							celda0=nueva_fila.insertCell(0);
+							celda1=nueva_fila.insertCell(1);
+							celda2=nueva_fila.insertCell(2);
+							celda3=nueva_fila.insertCell(3);
+							celda0.innerHTML="<td colspan='4'>No Hay estudiantes inscritos</td>";
+						}
+					},error:function(){
+						$('#respuesta').text('Error al conectar con el servidor');
+					}
+				});
 			},error:function(){
 				$('#respuesta').text('Error al conectar con el servidor');
 			}
@@ -367,11 +443,14 @@
 		});
 	}
 	function limpiar_modal(){
+		tablah=document.getElementById("table_hidden");
+		tablah.hidden=true;
 		id=document.getElementById("id");
 		materia=document.getElementById("materia1");
 		horario=document.getElementById("horario1");
 		aula=document.getElementById("aula1");
 		personal=document.getElementById("personal1");
+		caption=document.getElementById("caption_modal");
 		id.value="";
 		materia.selected=materia.defaultSelected;
 		horario.selected=horario.defaultSelected;
@@ -385,6 +464,7 @@
 		aula.textContent="";
 		personal.value="";
 		personal.textContent="";
+		caption.innerHTML="";
 		//botones
 		form=document.getElementById("form_aulas");
 		btnaceptar=document.getElementById("Registrar");

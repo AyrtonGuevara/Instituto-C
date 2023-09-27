@@ -68,7 +68,8 @@ Ayrton Jhonny Guevara Montaño
 		  .sidenav {padding-top: 15px;}
 		  .sidenav a {font-size: 15px;}
 		}
-		/*elementos nav*/
+
+		/*-----------elementos nav-----------*/
 		.nav{
 			background-color: #295aa3;
 			color: rgb(220, 220, 220);
@@ -117,6 +118,9 @@ Ayrton Jhonny Guevara Montaño
 			margin-top: 10px;
 			float: right;
 		}
+		.card-modal{
+			margin: 0px;
+		}
 
 
 		/*------------elementos del formulario----------*/
@@ -162,8 +166,14 @@ Ayrton Jhonny Guevara Montaño
 		}
 
 
-		/*elementos de la tabla*/
+		/*-------------elementos de la tabla----------*/
 		.table-basic{
 			margin: 15px 0px ;
 			font-size: 16px;
+		}
+		.button-absolute{
+			height: 100%;
+			width: 100%;
+			border-color: black;
+			border-width: 5px;
 		}
