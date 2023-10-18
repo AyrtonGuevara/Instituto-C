@@ -1,10 +1,11 @@
 <?php
 /*
-	Ayrton Jhonny Guevara Montaño 23-10-2023
+	Ayrton Jhonny Guevara Montaño 14-09-2023
 */
 	namespace App\Controllers\Ambientes;
-	use App\Models\Ambientes\M_clases;
 	use App\Controllers\BaseController;
+	use App\Models\Ambientes\M_clases;
+
 	class C_clases extends BaseController{
 		public function __construct(){
 			$this->clases=new M_clases();
@@ -14,7 +15,13 @@
 			$lista_horario=$this->clases->lista_horarios();
 			$lista_aula=$this->clases->lista_aulas();
 			$lista_personal=$this->clases->lista_docentes();
-			return view('Ambientes/V_clases',['lista_materia'=>$lista_materia,'lista_horarios'=>$lista_horario,'lista_aulas'=>$lista_aula,'lista_personal'=>$lista_personal]);
+			$lista_clases=$this->clases->lista_clases();
+			return view('Ambientes/V_clases',['lista_clases'=>$lista_clases,'lista_materia'=>$lista_materia,'lista_horario'=>$lista_horario,'lista_aula'=>$lista_aula,'lista_personal'=>$lista_personal]);
+		}
+		public function editar_clase(){
+			$id=$_GET['id'];
+			$this->session->setFlashdata('id_clase',$id);
+			return redirect()->to(base_url('clases'));
 		}
 		public function registrar_clases(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
@@ -35,13 +42,6 @@
 				$this->session->setFlashdata('fracaso',$respuesta[0]->mensaje);
 			}
 			return redirect()->to(base_url('clases'));
-		}
-		public function cronograma_clases(){
-			if ($_SERVER['REQUEST_METHOD']==='POST') {
-				$id=$_POST['id'];
-			}
-			$respuesta=$this->clases->cronograma_clases($id);
-			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
 		}
 		public function mostrar_clases(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
@@ -75,12 +75,6 @@
 			$respuesta=$this->clases->eliminar_clases($id,$usuario);
 			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
 		}
-		public function lista_estudiantes(){
-			if ($_SERVER['REQUEST_METHOD']==='POST') {
-				$id=$_POST['id'];
-			}
-			$respuesta=$this->clases->lista_estudiantes($id);
-			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
-		}
+
 	}
 ?>

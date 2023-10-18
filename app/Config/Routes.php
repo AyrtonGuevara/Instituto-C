@@ -82,14 +82,16 @@ $routes->post('/ambientes/modal_editar_aulas','Ambientes\C_ubicacion::modal_edit
 //Clases
 $routes->get('/clases','Ambientes\C_clases::index');
 $routes->post('/clases/registrar_clases','Ambientes\C_clases::registrar_clases');
-$routes->post('/clases/cronograma_clases','Ambientes\C_clases::cronograma_clases');
+$routes->post('/clases/cronograma_clases','Ambientes\C_clases::cronograma_clases');//lkijoij
 $routes->post('/clases/mostrar_clases','Ambientes\C_clases::mostrar_clases');
 $routes->post('/clases/modificar_clases','Ambientes\C_clases::modificar_clases');
 $routes->post('/clases/eliminar_clases','Ambientes\C_clases::eliminar_clases');
-$routes->post('/clases/lista_estudiantes','Ambientes\C_clases::lista_estudiantes');
+$routes->post('/clases/lista_estudiantes','Ambientes\C_clases::lista_estudiantes');//lkjlij
+
+
 //Clases lista
-$routes->get('/clases_lista','Ambientes\C_clases_lista::index');
-$routes->get('/clases_lista/editar_clase','Ambientes\C_clases_lista::editar_clase');
+/*$routes->get('/clases_lista','Ambientes\C_clases_lista::index');
+$routes->get('/clases_lista/editar_clase','Ambientes\C_clases_lista::editar_clase');*/
 
 //ESTUDIANTES
 //Estudiantes
