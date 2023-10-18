@@ -82,11 +82,9 @@ $routes->post('/ambientes/modal_editar_aulas','Ambientes\C_ubicacion::modal_edit
 //Clases
 $routes->get('/clases','Ambientes\C_clases::index');
 $routes->post('/clases/registrar_clases','Ambientes\C_clases::registrar_clases');
-$routes->post('/clases/cronograma_clases','Ambientes\C_clases::cronograma_clases');//lkijoij
 $routes->post('/clases/mostrar_clases','Ambientes\C_clases::mostrar_clases');
 $routes->post('/clases/modificar_clases','Ambientes\C_clases::modificar_clases');
 $routes->post('/clases/eliminar_clases','Ambientes\C_clases::eliminar_clases');
-$routes->post('/clases/lista_estudiantes','Ambientes\C_clases::lista_estudiantes');//lkjlij
 
 
 //Clases lista
@@ -103,6 +101,14 @@ $routes->post('/estudiantes/horarios_materia_esp','Estudiantes\C_estudiantes::ho
 $routes->post('/estudiantes/registrar_estudiante','Estudiantes\C_estudiantes::registrar_estudiante');
 //lista estudiantes
 $routes->get('lista_estudiantes','Estudiantes\C_lista_estudiantes::index');
+//control de clases
+$routes->get('/control_clases','Estudiantes\C_control_clases::index');
+$routes->post('/control_clases/registrar_clases','Estudiantes\C_control_clases::registrar_clases');
+$routes->post('/control_clases/cronograma_clases','Estudiantes\C_control_clases::cronograma_clases');//lkijoij
+$routes->post('/control_clases/mostrar_clases','Estudiantes\C_control_clases::mostrar_clases');
+$routes->post('/control_clases/modificar_clases','Estudiantes\C_control_clases::modificar_clases');
+$routes->post('/control_clases/eliminar_clases','Estudiantes\C_control_clases::eliminar_clases');
+$routes->post('/control_clases/lista_estudiantes','Estudiantes\C_control_clases::lista_estudiantes');//lkjlij
 
 //usuarios
 $routes->get('/usuario','Usuario\C_usuario::index');
