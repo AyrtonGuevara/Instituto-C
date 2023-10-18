@@ -377,15 +377,14 @@
 							tabla=document.getElementById("tabla_estudiantes");
 							tabla.deleteRow(1);
 						}
-						console.log();
 						if(resp2.length!=0){
 							for(const item of resp2){
 								//var tabla=document.getElementById('tabla_estudiantes');
 								nueva_fila=tabla.insertRow();
 								celda1=nueva_fila.insertCell(0);
-								celda1.innerHTML="<td>"+resp.data[0].nombre+"</td>";
+								celda1.innerHTML="<td>"+item.nombre+"</td>";
 								celda2=nueva_fila.insertCell(1);
-								celda2.innerHTML="<td>"+resp.data[0].fec_inicio+"</td>";
+								celda2.innerHTML="<td>"+item.fec_inicio+"</td>";
 								celda3=nueva_fila.insertCell(2);
 								celda3.innerHTML="<td>aun no se ha calculado</td>";
 								celda2=nueva_fila.insertCell(3);

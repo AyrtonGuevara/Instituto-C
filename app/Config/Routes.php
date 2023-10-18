@@ -94,6 +94,13 @@ $routes->get('/clases_lista/editar_clase','Ambientes\C_clases_lista::editar_clas
 //ESTUDIANTES
 //Estudiantes
 $routes->get('/estudiantes','Estudiantes\C_estudiantes::index');
+$routes->post('/estudiantes/horarios','Estudiantes\C_estudiantes::horarios');
+$routes->post('/estudiantes/aulas','Estudiantes\C_estudiantes::aulas');
+$routes->post('/estudiantes/aulas_esp','Estudiantes\C_estudiantes::aulas_esp');
+$routes->post('/estudiantes/horarios_materia_esp','Estudiantes\C_estudiantes::horarios_materia_esp');
+$routes->post('/estudiantes/registrar_estudiante','Estudiantes\C_estudiantes::registrar_estudiante');
+//lista estudiantes
+$routes->get('lista_estudiantes','Estudiantes\C_lista_estudiantes::index');
 
 //usuarios
 $routes->get('/usuario','Usuario\C_usuario::index');

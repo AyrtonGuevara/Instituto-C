@@ -123,7 +123,7 @@
 		}
 		public function lista_estudiantes($id){
 			$respuesta=$this->db->query("
-				select ai.id_estudiante, concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona)as nombre, ai.fec_inicio from aca_inscripcion ai, aca_estudiante ae, ral_persona rp where rp.id_persona=ae.id_persona and ai.id_estudiante = ae.id_estudiante and ae.estado='activo' and rp.estado='activo' and ai.estado='activo' and ai.id_clase=$id;
+				select ai.id_estudiante, concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona)as nombre, ai.fec_inicio::date from aca_inscripcion ai, aca_estudiante ae, ral_persona rp where rp.id_persona=ae.id_persona and ai.id_estudiante = ae.id_estudiante and ae.estado='activo' and rp.estado='activo' and ai.estado='activo' and ai.id_clase=$id;
 				");
 			return $respuesta->getResult();
 		}
@@ -198,7 +198,19 @@ select
 from aca_clase ac where ac.id_aula=82;
 
 */
+
+
+
+
+/*select ai.id_estudiante, concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona)as nombre, ai.fec_inicio 
+from aca_inscripcion ai, aca_estudiante ae, ral_persona rp 
+where rp.id_persona=ae.id_persona 
+and ai.id_estudiante = ae.id_estudiante 
+and ae.estado='activo' 
+and rp.estado='activo' 
+and ai.estado='activo' 
+and ai.id_clase=$id;
+
+
+estudiante 7 persona 2*/
 ?>
-
-
-

@@ -22,7 +22,10 @@
 		<ul id="col3" class="collapse" data-bs-parent="#accordion">
 			<li><a href="<?php echo base_url()?>estudiantes" id="item_collapse">Registro</a></li>
 		</ul>
-		
+		<ul id="col3" class="collapse" data-bs-parent="#accordion">
+			<li><a href="<?php echo base_url()?>lista_estudiantes" id="item_collapse">Lista Estudiantes</a></li>
+		</ul>
+
 		<li>----------------------</li>
 		<li><a class="btn" data-bs-toggle="collapse" href="#col111">Usuario</a></li>
 		<ul id="col111" class="collapse" data-bs-parent="#accordion">
