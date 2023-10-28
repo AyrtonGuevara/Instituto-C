@@ -74,6 +74,7 @@
 			return $respuesta;
 		}
 		public function registrar_clase($usuario,$valores_clase){
+			//echo "SELECT * FROM fn_agregar_clases('$usuario','$valores_clase'::JSON)";
 			$respuesta=$this->db->query("SELECT * FROM fn_agregar_clases('$usuario','$valores_clase'::JSON)");
 			return $respuesta->getResult();
 		}

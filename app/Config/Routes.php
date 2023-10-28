@@ -99,8 +99,11 @@ $routes->post('/estudiantes/aulas','Estudiantes\C_estudiantes::aulas');
 $routes->post('/estudiantes/aulas_esp','Estudiantes\C_estudiantes::aulas_esp');
 $routes->post('/estudiantes/horarios_materia_esp','Estudiantes\C_estudiantes::horarios_materia_esp');
 $routes->post('/estudiantes/registrar_estudiante','Estudiantes\C_estudiantes::registrar_estudiante');
-//lista estudiantes
-$routes->get('lista_estudiantes','Estudiantes\C_lista_estudiantes::index');
+//asistecnia estudiantes
+$routes->get('asistencia','Estudiantes\C_asistencia_estudiantes::index');
+$routes->post('asistencia/clases_activas','Estudiantes\C_asistencia_estudiantes::clases_activas');
+$routes->post('asistencia/registrar_asistencia','Estudiantes\C_asistencia_estudiantes::registrar_asistencia');
+$routes->post('asistencia/asistencias_guardadas','Estudiantes\C_asistencia_estudiantes::asistencias_guardadas');
 //control de clases
 $routes->get('/control_clases','Estudiantes\C_control_clases::index');
 $routes->post('/control_clases/registrar_clases','Estudiantes\C_control_clases::registrar_clases');

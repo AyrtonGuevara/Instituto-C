@@ -255,6 +255,8 @@
 				    	}
 					}
 				}
+			},error:function(){
+				$('#respuesta').text('Error al conectar con el servidor');
 			}
 		});
 	});

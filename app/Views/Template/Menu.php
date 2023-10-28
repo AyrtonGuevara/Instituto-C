@@ -16,13 +16,13 @@
 		<ul id="col2" class="collapse" data-bs-parent="#accordion">
 			<li><a href="<?php echo base_url()?>ambientes" id="item_collapse">Ambientes</a></li>
 			<li><a href="<?php echo base_url()?>clases" id="item_collapse">Clases</a></li>
-			<li><a href="<?php echo base_url()?>clases_lista" id="item_collapse">Clases Lista</a></li>
+			<!--<li><a href="<?php echo base_url()?>clases_lista" id="item_collapse">Clases Lista</a></li>-->
 		</ul>
 		<li><a class="btn" data-bs-toggle="collapse" href="#col3">Estudiantes</a></li>
 		<ul id="col3" class="collapse" data-bs-parent="#accordion">
 			<li><a href="<?php echo base_url()?>estudiantes" id="item_collapse">Registro</a></li>
 			<li><a href="<?php echo base_url()?>control_clases" id="item_collapse">Control Aulas</a></li>
-			<li><a href="<?php echo base_url()?>lista_estudiantes" id="item_collapse">Lista Estudiantes</a></li>
+			<li><a href="<?php echo base_url()?>asistencia" id="item_collapse">Asistencia Estudiantes</a></li>
 		</ul>
 		<ul id="col3" class="collapse" data-bs-parent="#accordion">
 		</ul>
