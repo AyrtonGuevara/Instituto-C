@@ -112,6 +112,13 @@ $routes->post('/control_clases/mostrar_clases','Estudiantes\C_control_clases::mo
 $routes->post('/control_clases/modificar_clases','Estudiantes\C_control_clases::modificar_clases');
 $routes->post('/control_clases/eliminar_clases','Estudiantes\C_control_clases::eliminar_clases');
 $routes->post('/control_clases/lista_estudiantes','Estudiantes\C_control_clases::lista_estudiantes');//lkjlij
+//control asistencia
+$routes->get('/control_asistencia','Estudiantes\C_control_asistencia::index');
+$routes->post('/control_asistencia/buscar_fechas_clase','Estudiantes\C_control_asistencia::buscar_fechas_clase');
+$routes->post('/control_asistencia/buscar_estudiantes_asistencias','Estudiantes\C_control_asistencia::buscar_estudiantes_asistencias');
+$routes->post('/control_asistencia/lista_clases_aulas','Estudiantes\C_control_asistencia::lista_clases_aula');
+//lista_estudiantes
+$routes->get('/lista_estudiantes','Estudiantes\C_lista_estudiantes::index');
 
 //usuarios
 $routes->get('/usuario','Usuario\C_usuario::index');
