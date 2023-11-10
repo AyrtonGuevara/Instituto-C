@@ -6,23 +6,25 @@
 <div id="sidenav" class="sidenav">
 	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 	<ul style="color:white;" id="accordion">
-		<li><a class="btn" data-bs-toggle="collapse" href="#col1">Cursos</a></li>
+		<li><a class="btn" data-bs-toggle="collapse" href="#col1"><button type="button" class="btn btn-primary btn-menu">Cursos</button></a></li>
 		<ul id="col1" class="collapse" data-bs-parent="#accordion">
-			<li><a href="<?php echo base_url()?>cursos" id="item_collapse">Cursos</a></li>
-			<li><a href="<?php echo base_url()?>horarios" id="item_collapse">Horarios</a></li>
-			<li><a href="<?php echo base_url()?>materias" id="item_collapse">Materias</a></li>
+			<li><a href="<?php echo base_url()?>cursos" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Cursos</button></a></li>
+			<li><a href="<?php echo base_url()?>horarios" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Horarios</button></a></li>
+			<li><a href="<?php echo base_url()?>materias" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Materias</button></a></li>
 		</ul>
-		<li><a class="btn" data-bs-toggle="collapse" href="#col2">Ambientes</a></li>
+		<li><a class="btn" data-bs-toggle="collapse" href="#col2"><button type="button" class="btn btn-primary btn-menu">Ambientes</button></a></li>
 		<ul id="col2" class="collapse" data-bs-parent="#accordion">
-			<li><a href="<?php echo base_url()?>ambientes" id="item_collapse">Ambientes</a></li>
-			<li><a href="<?php echo base_url()?>clases" id="item_collapse">Clases</a></li>
+			<li><a href="<?php echo base_url()?>ambientes" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Ambientes</button></a></li>
+			<li><a href="<?php echo base_url()?>clases" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Clases</button></a></li>
 			<!--<li><a href="<?php echo base_url()?>clases_lista" id="item_collapse">Clases Lista</a></li>-->
 		</ul>
-		<li><a class="btn" data-bs-toggle="collapse" href="#col3">Estudiantes</a></li>
+		<li><a class="btn" data-bs-toggle="collapse" href="#col3"><button type="button" class="btn btn-primary btn-menu">Estudiantes</button></a></li>
 		<ul id="col3" class="collapse" data-bs-parent="#accordion">
-			<li><a href="<?php echo base_url()?>estudiantes" id="item_collapse">Registro</a></li>
-			<li><a href="<?php echo base_url()?>control_clases" id="item_collapse">Control Aulas</a></li>
-			<li><a href="<?php echo base_url()?>asistencia" id="item_collapse">Asistencia Estudiantes</a></li>
+			<li><a href="<?php echo base_url()?>estudiantes" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Registro Estudiantes</button></a></li>
+			<li><a href="<?php echo base_url()?>control_clases" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Control Aulas</button></a></li>
+			<li><a href="<?php echo base_url()?>asistencia" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Asistencia Estudiantes</button></a></li>
+			<li><a href="<?php echo base_url()?>control_asistencia" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Control asistencia</button></a></li>
+			<li><a href="<?php echo base_url()?>lista_estudiantes" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Lista de Estudiantes</button></a></li>
 		</ul>
 		<ul id="col3" class="collapse" data-bs-parent="#accordion">
 		</ul>

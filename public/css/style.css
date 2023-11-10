@@ -23,18 +23,28 @@ Ayrton Jhonny Guevara Montaño
 		}
 		/* The navigation menu links */
 		.sidenav a {
-		  padding: 4px 8px;
+			width: 100%; 
+			display: block; 
+		  padding: 0px 8px;
 		  text-decoration: none;
 		  font-size: 18px;
 		  color: rgb(220, 220, 220);
 		  /*display: block;*/
 		  transition: 0.3s;
 		}
+		.btn-menu{
+			width: 100%; 
+			display: block;
+
+			background-color: #001a4d;
+			border: 0px;
+			text-align: left;
+		}
 		.sidenav ul{
 			padding: 0px;
 		}
 		#item_collapse{
-			padding: 8px 8px 8px 32px;
+			padding: 0px 8px 0px 32px;
 		}
 		.sidenav li {
 		  padding: 0px 8px;
@@ -51,10 +61,12 @@ Ayrton Jhonny Guevara Montaño
 		/* Position and style the close button (top right corner) */
 		.sidenav .closebtn {
 		  position: absolute;
-		  top: 0;
+		  text-align: right;
+		  top: 10px;
 		  right: 25px;
 		  font-size: 25px;
 		  margin-left: 0px;
+		  color: rgb(0, 0, 0, 1.0);
 		}
 
 		/* Style page content - use this if you want to push the page content to the right when you open the side navigation */

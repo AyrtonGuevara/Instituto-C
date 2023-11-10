@@ -33,6 +33,7 @@
 					div_asistencia=div_asistencia+"<h3>No hay clases activas en este momento</h3>";
 				}else{		
 					for(const key2 of clases){
+						contador=0;
 						//console.log(key);
 						//for(const key2 of key){
 							
@@ -149,9 +150,3 @@
 	$this->endSection();
 ?>
 
-select distinct on(aa.id_estudiante) concat('asistencia-',aa.id_estudiante,'-',aa.id_clase)as estudiante, rc.detalle 
-     from aca_asistencia aa, ral_categoria rc 
-     where aa.valor_asistencia = rc.id_categoria 
-     and rc.estado ='activo'
-     and fec_asistencia::date = now()::date
-     order by aa.id_estudiante,aa.fec_asistencia desc
