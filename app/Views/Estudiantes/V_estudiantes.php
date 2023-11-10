@@ -145,10 +145,6 @@
 						</div>
 						<div class="row">
 							<div class="col-sm-3 form-item">
-								<label for="f_inscripcion" class="form-label">Fecha de Inscripcion:</label>
-								<input type="date" class="form-control" name="f_inscripcion" id="f_inscripcion" required>
-							</div>
-							<div class="col-sm-3 form-item">
 								<label for="f_inicio" class="form-label">Fecha de Inicio:</label>
 								<input type="date" class="form-control" name="f_inicio" id="f_inicio" required>
 							</div>
@@ -157,7 +153,7 @@
 								<input type="number" class="form-control" name="cantidad" id="cant_tiempo" placeholder="Meses"required>
 							</div>
 							<div class="row" id="div_horario_tradicional">
-								<div class="col-sm-3 form-item">
+								<div class="col-sm-6 form-item">
 									<label for="materia"class="form-label">Materia:</label>
 									<select name="materia" id="materia" class="form-control" required>
 										<option value="">Materias</option>
@@ -262,12 +258,6 @@
 							</div>
 							<div class="col-sm-6 form-item"></div>
 							<div class="col-sm-3 form-item">
-								<label for="promocion"class="form-label">Promoci&oacute;n:</label>
-								<select name="promocion" class="form-control">
-									<option value="">promocion</option>
-								</select>
-							</div>
-							<div class="col-sm-3 form-item">
 								<label for="monto_curso" class="form-label">Monto del curso:</label>
 								<input type="number" class="form-control" name="monto_curso" id="monto_curso" readonly required>
 							</div>
@@ -275,10 +265,8 @@
 								<label for="total" class="form-label">Total:</label>
 								<input type="number" class="form-control" name="total" id="total" readonly required>
 							</div>
-							<div class="col-sm-3"></div>
-
 							<div class="col-sm-3 form-item">
-								<label for="cuenta" class="form-label">A cuenta:</label>
+								<label for="cuenta" class="form-label">Anticipo:</label>
 								<input type="number" class="form-control" name="cuenta" id="cuenta" readonly>
 							</div>
 							<div class="col-sm-3 form-item">
@@ -373,12 +361,18 @@
 			if(this.value=='contado'){
 				monto.readOnly=true;
 				fecha.readOnly=true;
+				monto.required=false;
+				fecha.required=false;
 			}else if (this.value=='deuda') {
 				monto.readOnly=true;
+				monto.required=false;
 				fecha.readOnly=false;
+				fecha.required=true;
 			}else if (this.value=='plazos') {
 				monto.readOnly=false;
+				monto.required=true;
 				fecha.readOnly=false;
+				fecha.required=true;
 			}
 		})
 	})

@@ -70,7 +70,6 @@
 					't_celular'=>$_POST['t_celular'],
 
 					
-					'f_inscripcion'=>$_POST['f_inscripcion'],
 					'f_inicio'=>$_POST['f_inicio'],
 					'cantidad'=>$_POST['cantidad'],
 					'materia'=>$_POST['materia'],
@@ -78,7 +77,6 @@
 					'aulas'=>$_POST['aulas'],
 
 					'pago_checkbox'=>$_POST['pago_checkbox'],
-					'promocion'=>$_POST['promocion'], 
 					'total'=>$_POST['total'],
 					'a_cuenta'=>$_POST['cuenta'],
 					'f_pago'=>$_POST['f_pago']
