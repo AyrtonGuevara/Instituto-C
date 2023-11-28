@@ -192,3 +192,37 @@ Ayrton Jhonny Guevara Montaño
 			border-color: black;
 			border-width: 5px;
 		}
+
+
+
+/*elementos de autocompletado*/
+.ui-autocomplete {
+	display: table;
+    margin: 0;
+    padding: 0;
+    min-width: auto !important; /* Establecer el máximo ancho igual al tamaño del input */
+    max-height: 200px; /* Altura máxima del cuadro de resultados */
+    overflow-y: auto; /* Hacer que el cuadro de resultados sea desplazable */
+    border: 1px solid #ccc; /* Borde del cuadro de resultados */
+    background-color: #fff; /* Fondo del cuadro de resultados */
+}
+
+.ui-menu-item {
+    padding: 10px; /* Espacio interno para las opciones */
+    cursor: pointer; /* Cursor de apuntar */
+    border-bottom: 1px solid #ddd !important; /* Línea divisoria entre opciones */
+    list-style-type: none; /* Eliminar el punto de lista */
+    width: 100%; /* Ajustar el ancho al 100% */
+    box-sizing: border-box; /* Incluir el ancho del borde y el relleno en el 100% */
+}
+
+.ui-menu-item:last-child {
+    border-bottom: none; /* Eliminar la línea divisoria de la última opción */
+}
+
+/* Estilos para las opciones cuando están resaltadas o seleccionadas */
+/*.ui-menu-item:hover,*/
+.ui-state-active {
+    background-color: #007bff; /* Color de fondo cuando se pasa el mouse o seleccionado */
+    color: #fff; /* Color de texto cuando se pasa el mouse o seleccionado */
+}

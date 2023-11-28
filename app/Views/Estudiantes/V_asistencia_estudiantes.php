@@ -72,7 +72,7 @@
 						            "<td><input class='form-check-input' type='radio' name='asistencia-"+idEstudiante+"-"+idClase+"' id='a_presente' value='presente' onclick='cambio_asistencia(this)'></td>"+
 						            "<td><input class='form-check-input' type='radio' name='asistencia-"+idEstudiante+"-"+idClase+"' id='a_atraso' value='atraso' onclick='cambio_asistencia(this)'></td>"+
 						            "<td><input class='form-check-input' type='radio' name='asistencia-"+idEstudiante+"-"+idClase+"' id='a_falta' value='falta' onclick='cambio_asistencia(this)'></td>"+
-						            "<td><input class='form-check-input' type='radio' name='asistencia-"+idEstudiante+"-"+idClase+"' id='a_permiso' value='permiso' onclick='cambio_asistencia(this)'></td>"+
+						            "<td><input class='form-check-input' type='radio' name='asistencia-"+idEstudiante+"-"+idClase+"' id='a_permiso' value='permiso' disabled></td>"+
 						            "</tr>"
 					        	}
 					        	div_asistencia=div_asistencia+"</table>"+

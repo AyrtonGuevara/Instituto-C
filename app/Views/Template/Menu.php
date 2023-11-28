@@ -25,6 +25,7 @@
 			<li><a href="<?php echo base_url()?>asistencia" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Asistencia Estudiantes</button></a></li>
 			<li><a href="<?php echo base_url()?>control_asistencia" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Control asistencia</button></a></li>
 			<li><a href="<?php echo base_url()?>lista_estudiantes" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Lista de Estudiantes</button></a></li>
+			<li><a href="<?php echo base_url()?>permisos" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Permisos</button></a></li>
 		</ul>
 		<ul id="col3" class="collapse" data-bs-parent="#accordion">
 		</ul>

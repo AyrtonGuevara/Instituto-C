@@ -119,7 +119,15 @@ $routes->post('/control_asistencia/buscar_estudiantes_asistencias','Estudiantes\
 $routes->post('/control_asistencia/lista_clases_aulas','Estudiantes\C_control_asistencia::lista_clases_aula');
 //lista_estudiantes
 $routes->get('/lista_estudiantes','Estudiantes\C_lista_estudiantes::index');
-
+//permisos
+$routes->get('/permisos','Estudiantes\C_permisos::index');
+$routes->post('/permisos/autocompletar_estudiantes','Estudiantes\C_permisos::autocompletar_estudiantes');
+$routes->post('/permisos/buscar_clase','Estudiantes\C_permisos::buscar_clase');
+$routes->post('/permisos/buscar_clase_reemplazo','Estudiantes\C_permisos::buscar_clase_reemplazo');
+$routes->post('/permisos/registrar_permiso','Estudiantes\C_permisos::registrar_permiso');
+$routes->post('/permisos/mostrar_permiso','Estudiantes\C_permisos::mostrar_permiso');
+$routes->post('/permisos/eliminar_permiso','Estudiantes\C_permisos::eliminar_permiso');
+$routes->post('/permisos/editar_permiso','Estudiantes\C_permisos::editar_permiso');
 //usuarios
 $routes->get('/usuario','Usuario\C_usuario::index');
 $routes->post('/usuario/registrar_usuario','Usuario\C_usuario::registrar_usuario');
