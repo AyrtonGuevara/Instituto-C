@@ -18,10 +18,11 @@
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
 				$curso=$_POST['curso'];
 				$nombre_materia=$_POST['nombre_materia'];
+				$detalle_materia=$_POST['detalle_materia'];
 				$precio=$_POST['precio'];
 			}
 			$usuario=$this->session->get('id_usuario');
-			$respuesta=$this->materias->registrar_materia($curso,$nombre_materia,$precio,$usuario);
+			$respuesta=$this->materias->registrar_materia($curso,$nombre_materia,$detalle_materia,$precio,$usuario);
 			if ($respuesta) {
 				$this->session->setFlashdata('exito','Registro exitoso');
 			}else{
@@ -56,9 +57,15 @@
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
 				$id=$_POST['id'];
 			}
-			$usuario=$this->session->get('id_usuario');
-			$respuesta=$this->materias->eliminar_materia($usuario,$id);
+			$respuesta=$this->materias->eliminar_materia($id);
 			echo json_encode($resp=array('success'=> true ,'data'=>$respuesta));
+		}
+		public function autocompletar_materia(){
+			if ($_SERVER['REQUEST_METHOD']==='POST') {
+				$request=$_POST['request'];
+			}
+			$respuesta=$this->materias->autocompletar_materia($request);
+			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
 		}
 	}
 ?>

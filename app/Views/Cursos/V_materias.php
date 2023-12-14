@@ -15,7 +15,7 @@
 			<form method="post" accept-charset="utf-8" name="form_materia" id="form_materia" action="<?php base_url() ?>materias/registrar_materia">
 				<input type="text" name="id" id="input_id" hidden>
 				<div class="row">
-					<div class="col-sm-5 form-item">
+					<div class="col-sm-6 form-item">
 						<label for="curso" class="form-label">Curso:</label>
 						<select class="form-control" name="curso" id="curso" required>
 							<option id="input_default" default></option>
@@ -27,11 +27,15 @@
 							option
 						</select>
 					</div>
-					<div class="col-sm-5 form-item">
+					<div class="col-sm-6 form-item">
 						<label for="nombre_materia" class="form-label">Nombre de la Materia:</label>
 						<input type="text" class="form-control" name="nombre_materia" id="input_nombre_materia" placeholder="Nombre de la materia" required>
 					</div>
-					<div class="col-sm-2 form-item">
+					<div class="col-sm-9 form-item">
+						<label for="detalle_materia" class="form-label">Descripci&oacute;n de la Materia:</label>
+						<input type="text" class="form-control" name="detalle_materia" id="input_detalle_materia" placeholder="Detalle de la materia" required>
+					</div>
+					<div class="col-sm-3 form-item">
 						<label for="precio" class="form-label">Precio:</label>
 						<input type="number" class="form-control" id="input_precio" name="precio" placeholder="Precio">
 					</div>
@@ -49,8 +53,9 @@
 					<thead>
 						<tr>
 							<th>Nro</th>
-							<th>Clase</th>
+							<th>Curso</th>
 							<th>Materia</th>
+							<th>Descripci&oacute;n</th>
 							<th>Precio</th>
 							<th>Acciones</th>
 						</tr>
@@ -60,11 +65,12 @@
 						foreach ($lista_materias as $key) {
 							echo "<tr>";
 							echo "<td>".$key->nro."</td>";
-							echo "<td>".$key->tipo_materia."</td>";
+							echo "<td>".$key->curso."</td>";
 							echo "<td>".$key->nombre_materia."</td>";
-							echo "<td>".$key->precio." Bs.</td>";
-							echo "<td><button class='btn btn-warning' name='editar' onclick='modificar_materia(".$key->id_materia.")'><i class='bi bi-pen-fill' title='Editar'></i>";
-							echo "<button class='btn btn-danger' name='eliminar' onclick='eliminar_materia(".$key->id_materia.")'><i class='bi bi-trash-fill' title='Eliminar'></i></button></td>";
+							echo "<td>".$key->detalle."</td>";
+							echo "<td>".$key->precio."</td>";
+							echo "<td><button class='btn btn-warning' name='editar' onclick='modificar_materia(".$key->id_precios.")'><i class='bi bi-pen-fill' title='Editar'></i>";
+							echo "<button class='btn btn-danger' name='eliminar' onclick='eliminar_materia(".$key->id_precios.")'><i class='bi bi-trash-fill' title='Eliminar'></i></button></td>";
 							echo "</tr>";
 						}
 						?>
@@ -113,14 +119,19 @@
 				if (resp2.success) {
 					$(document).ready(function(){
 						id=document.getElementById('input_id');
+						curso=document.getElementById('curso');
 						id_tipo=document.getElementById('input_default');
 						nombre_materia=document.getElementById('input_nombre_materia');
+						detalle_materia=document.getElementById('input_detalle_materia');
 						precio=document.getElementById('input_precio');
 
-						id.value=resp2.data[0].id_materia;
-						id_tipo.value=resp2.data[0].id_tipo_materia;
-						id_tipo.textContent=resp2.data[0].nombre_tipo_materia;
+						id.value=resp2.data[0].id_precios;
+						id_tipo.value=resp2.data[0].id_categoria;
+						id_tipo.textContent=resp2.data[0].nombre_curso;
+						curso.disabled=true;
 						nombre_materia.value=resp2.data[0].nombre_materia;
+						nombre_materia.disabled=true;
+						detalle_materia.value=resp2.data[0].detalle;
 						precio.value=resp2.data[0].precio;
 						//botones
 						var btnexit=document.getElementById('salir_edicion');
@@ -191,8 +202,26 @@
 			}
 		});
 	}
+	$('#input_nombre_materia').autocomplete({
+		source:function(request,response){
+			$.ajax({
+				url:"<?php echo base_url()?>materias/autocompletar_materia",
+				type:"POST",
+				data:{request:request.term},
+				success:function(resp){
+					resp=JSON.parse(resp);
+					var nombres = resp.data.map(function(item) {
+			            return item.nombre_materia;
+			        });
+			        response(nombres);
+				}
+			})
+		}
+	})
 	function limpiar_form(){
 		limpieza_form();
+		curso=document.getElementById('curso');
+		curso.disabled=false
 		var form=document.getElementById('form_materia');
 		form.action="<?php echo base_url()?>materias/registrar_materia";
 	}
