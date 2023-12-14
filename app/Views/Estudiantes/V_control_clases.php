@@ -261,7 +261,6 @@
 		});
 	});
 	function editar_clase(id){
-		console.log(id);
 		$('#modal_agregar_clase').modal('show');
 		limpiar_modal();
 		tablah=document.getElementById("table_hidden");
@@ -308,7 +307,7 @@
 								celda2=nueva_fila.insertCell(1);
 								celda2.innerHTML="<td>"+item.fec_inicio+"</td>";
 								celda3=nueva_fila.insertCell(2);
-								celda3.innerHTML="<td>aun no se ha calculado</td>";
+								celda3.innerHTML="<td>"+item.fec_fin+"</td>";
 								celda2=nueva_fila.insertCell(3);
 								celda2.innerHTML="<td>acciones??</td>";
 							}

@@ -34,6 +34,7 @@
 	function limpieza_form(){
 		var inputs=document.querySelectorAll("[id^=input]");
 		for(var i=0;i<inputs.length;i++){
+			inputs[i].disabled=false;
 			inputs[i].value="";
 			inputs[i].textContent="";
 		}
@@ -41,8 +42,8 @@
 		var btnad=document.getElementById('Registrar');
 		var btnmd=document.getElementById('Modificar');
 		btnad.classList.add("btn-primary");
-		btnmd.classList.remove("btn-primary");
 		btnclosed.hidden=true;
 		btnad.disabled=false;
+		btnmd.classList.remove("btn-primary");
 		btnmd.disabled=true;
 	}

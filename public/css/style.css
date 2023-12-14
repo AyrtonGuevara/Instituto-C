@@ -186,6 +186,13 @@ Ayrton Jhonny Guevara Montaño
 			margin: 15px 0px ;
 			font-size: 16px;
 		}
+
+		.table-basic th:last-child, .table-basic td:last-child{
+			position:sticky;
+			right: 0;
+			background-color: #fff;
+			z-index: 1;
+		}
 		.button-absolute{
 			height: 100%;
 			width: 100%;

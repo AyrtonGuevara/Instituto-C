@@ -69,6 +69,7 @@ $routes->post('/materias/registrar_materia','Cursos\C_materias::registrar_materi
 $routes->post('/materias/mostrar_materia','Cursos\C_materias::mostrar_materia');
 $routes->post('/materias/modificar_materia','Cursos\C_materias::modificar_materia');
 $routes->post('/materias/eliminar_materia','Cursos\C_materias::eliminar_materia');
+$routes->post('/materias/autocompletar_materia','Cursos\C_materias::autocompletar_materia');
 
 //AMBIENTES
 //Ambientes
@@ -99,6 +100,8 @@ $routes->post('/estudiantes/aulas','Estudiantes\C_estudiantes::aulas');
 $routes->post('/estudiantes/aulas_esp','Estudiantes\C_estudiantes::aulas_esp');
 $routes->post('/estudiantes/horarios_materia_esp','Estudiantes\C_estudiantes::horarios_materia_esp');
 $routes->post('/estudiantes/registrar_estudiante','Estudiantes\C_estudiantes::registrar_estudiante');
+$routes->post('/estudiantes/ver_estudiante','Estudiantes\C_estudiantes::ver_estudiante');
+$routes->post('/estudiantes/modificar_estudiante_tutor','Estudiantes\C_estudiantes::modificar_estudiante_tutor');
 //asistecnia estudiantes
 $routes->get('asistencia','Estudiantes\C_asistencia_estudiantes::index');
 $routes->post('asistencia/clases_activas','Estudiantes\C_asistencia_estudiantes::clases_activas');
@@ -119,6 +122,9 @@ $routes->post('/control_asistencia/buscar_estudiantes_asistencias','Estudiantes\
 $routes->post('/control_asistencia/lista_clases_aulas','Estudiantes\C_control_asistencia::lista_clases_aula');
 //lista_estudiantes
 $routes->get('/lista_estudiantes','Estudiantes\C_lista_estudiantes::index');
+$routes->post('/lista_estudiantes/ver_estudiante','Estudiantes\C_lista_estudiantes::ver_estudiante');
+
+
 //permisos
 $routes->get('/permisos','Estudiantes\C_permisos::index');
 $routes->post('/permisos/autocompletar_estudiantes','Estudiantes\C_permisos::autocompletar_estudiantes');

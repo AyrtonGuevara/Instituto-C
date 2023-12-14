@@ -24,7 +24,7 @@
 					when extract (dow from t1.fec) = 5 then 'viernes'
 					when extract (dow from t1.fec) = 6 then 'sabado'
 					when extract (dow from t1.fec) = 0 then 'domingo'
-				end as dia
+					end as dia
 				from
 				(select generate_series(
 					(date_trunc('month',('$comp_mes'||'-01')::date)),
@@ -87,4 +87,3 @@
 		}
 	}
 ?>
-

@@ -9,16 +9,13 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Login</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- Latest compiled JavaScript -->	
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<link href="public/css/bootstrap.min.css" rel="stylesheet">
+	<script src="public/js/bootstrap.bundle.min.js"></script>
 	<!--JQUERY-->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<script>
 		document.addEventListener("DOMContentLoaded",function(){
-			console.log("pasajson");
 			error=document.getElementById('anuncio_error');
 			<?php 
 			if (session()->getFlashData('error_usuario')) {
