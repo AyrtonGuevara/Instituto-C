@@ -118,7 +118,7 @@
 			$respuesta=$this->db->query("select * from public.fn_agregar_estudiante('$usuario','$inscripcion_estudiante'::JSON)");
 			return $respuesta->getResult();
 		}
-		public function ver_estudiante($id){
+		public function ver_estudiante($id,$tipo){
 			$respuesta=$this->db->query("
 select ae.id_estudiante, 
 	rp.nom_persona,
@@ -154,16 +154,26 @@ from aca_estudiante ae,
 		from com_tutor ct, 
 			ral_persona rp2
 		where ct.id_persona=rp2.id_persona
-		and rp2.estado='activo'
-		and ct.estado='activo')
-	as tutor
+		and case when $tipo=2 then
+			(rp2.estado='inactivo'
+			and ct.estado='inactivo')
+		else 
+			(rp2.estado='activo'
+			and ct.estado='activo')
+		end
+)as tutor
 where ae.id_persona=rp.id_persona
 and fuente.id_categoria=tutor.fuente_tutor
 and turno.id_categoria=ae.turno
 and nivel.id_categoria=ae.nivel
 and tutor.id_tutor=ae.id_tutor
-and rp.estado ='activo'
-and ae.estado ='activo'
+and case when $tipo=2 then
+	(rp.estado ='inactivo'
+	and ae.estado ='inactivo')
+else 
+	(rp.estado ='activo'
+	and ae.estado ='activo')
+end
 and ae.id_estudiante=$id;
 				");
 			return $respuesta->getResult();
@@ -192,11 +202,3 @@ and ae.id_estudiante=$id;
 		}
 	}
 ?>
-
-
-
-
-
-
-
-

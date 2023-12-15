@@ -127,8 +127,9 @@
 		public function ver_estudiante(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
 				$id=$_POST['id'];
+				$tipo=$_POST['tipo'];
 			}
-			$respuesta=$this->estudiantes->ver_estudiante($id);
+			$respuesta=$this->estudiantes->ver_estudiante($id,$tipo);
 			echo json_encode($resp = array('success'=>true,'data'=>$respuesta));
 		}
 		public function modificar_estudiante_tutor(){

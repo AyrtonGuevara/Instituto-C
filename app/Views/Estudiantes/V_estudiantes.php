@@ -563,7 +563,7 @@
 		$.ajax({
 			url:'<?php echo base_url()?>estudiantes/ver_estudiante',
 			type:"POST",
-			data:{id:id},
+			data:{id:id,tipo:tipo},
 			success:function(resp){
 				resp=JSON.parse(resp);
 				document.getElementById("input_apellido_paterno").value=resp.data[0].ap_pat_persona;
@@ -591,7 +591,7 @@
 				document.getElementById("input_t_celular0").value=resp.data[0].celular_tutor;
 				if(tipo===2){
 					document.getElementById("Registrar").value="Re-inscribir";
-					document.getElementById("form_estudiante").action="<?php echo base_url()?>estudiantesregistrar_estudiante";
+					document.getElementById("form_estudiante").action="<?php echo base_url()?>estudiantes/registrar_estudiante";
 					document.getElementById("id").value=id;
 				}else{
 					document.getElementById("card-clase").hidden=true;
@@ -614,5 +614,33 @@
 </script>
 <?php
 	$this->endSection();
+
+
+
+/*
+-asistencia estudiante_________(mañana 13) nota (modal//los meses necesarios no todos)
+-conteo de asistencia **_______(si hay tiempo mañana 13 o 14)
+-reprogramacion horarios **??__(jueves 14)
+-conteo inscripciones__________
+
+
+-pagos lista____________________(lunes 17)
+-cancelar deuda_________________(lunes 17)
+
+
+MODULOS DE CONFIGURACION
+-personal_______________________(martes 18)
+-usuarios_______________________(martes 18)
+-permisos_______________________(martes 18 / miercoles 19)
+-ral_configuracion______________(jueves 20)
+-administracion de bdd*_________(viernes 21)
+
+-pdf (inscripcion / boleta)_____(cagamos)
+
+-trigers_______________________(final)
+		estado de los permisos
+		estado de los estudiantes-inscripciones -personas- y tutores
+*/
+
 ?>
 

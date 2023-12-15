@@ -123,6 +123,8 @@ $routes->post('/control_asistencia/lista_clases_aulas','Estudiantes\C_control_as
 //lista_estudiantes
 $routes->get('/lista_estudiantes','Estudiantes\C_lista_estudiantes::index');
 $routes->post('/lista_estudiantes/ver_estudiante','Estudiantes\C_lista_estudiantes::ver_estudiante');
+//reinscripciones
+$routes->get('/reinscripcion','Estudiantes\C_reinscripcion::index');
 
 
 //permisos
