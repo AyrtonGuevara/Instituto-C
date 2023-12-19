@@ -154,7 +154,7 @@ from aca_estudiante ae,
 		from com_tutor ct, 
 			ral_persona rp2
 		where ct.id_persona=rp2.id_persona
-		and case when $tipo=2 then
+		and case when $tipo=2 or $tipo=3 then
 			(rp2.estado='inactivo'
 			and ct.estado='inactivo')
 		else 
@@ -167,7 +167,7 @@ and fuente.id_categoria=tutor.fuente_tutor
 and turno.id_categoria=ae.turno
 and nivel.id_categoria=ae.nivel
 and tutor.id_tutor=ae.id_tutor
-and case when $tipo=2 then
+and case when $tipo=2 or $tipo=3 then
 	(rp.estado ='inactivo'
 	and ae.estado ='inactivo')
 else 

@@ -28,6 +28,10 @@
 			<li><a href="<?php echo base_url()?>permisos" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Permisos</button></a></li>
 			<li><a href="<?php echo base_url()?>reinscripcion" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Reinscripciones</button></a></li>
 		</ul>
+		<li><a class="btn" data-bs-toggle="collapse" href="#col4"><button type="button" class="btn btn-primary btn-menu">Pagos</button></a></li>
+		<ul id="col4" class="collapse" data-bs-parent="#accordion">
+			<li><a href="<?php echo base_url()?>lista_pagos" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Lista Pagos</button></a></li>
+		</ul>
 		<ul id="col3" class="collapse" data-bs-parent="#accordion">
 		</ul>
 

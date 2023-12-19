@@ -546,7 +546,7 @@
 		var inputs=document.querySelectorAll("[id^=input]");
 		document.getElementById("salir_edicion").hidden=false;
 		//0 es para solo ver
-		if (tipo===0) {
+		if (tipo===0 || tipo===3) {
 			for(var i=0;i<inputs.length;i++){
 				inputs[i].disabled=true;
 			}
@@ -616,31 +616,6 @@
 	$this->endSection();
 
 
-
-/*
--asistencia estudiante_________(mañana 13) nota (modal//los meses necesarios no todos)
--conteo de asistencia **_______(si hay tiempo mañana 13 o 14)
--reprogramacion horarios **??__(jueves 14)
--conteo inscripciones__________
-
-
--pagos lista____________________(lunes 17)
--cancelar deuda_________________(lunes 17)
-
-
-MODULOS DE CONFIGURACION
--personal_______________________(martes 18)
--usuarios_______________________(martes 18)
--permisos_______________________(martes 18 / miercoles 19)
--ral_configuracion______________(jueves 20)
--administracion de bdd*_________(viernes 21)
-
--pdf (inscripcion / boleta)_____(cagamos)
-
--trigers_______________________(final)
-		estado de los permisos
-		estado de los estudiantes-inscripciones -personas- y tutores
-*/
 
 ?>
 

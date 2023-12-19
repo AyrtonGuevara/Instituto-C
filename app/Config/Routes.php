@@ -125,6 +125,9 @@ $routes->get('/lista_estudiantes','Estudiantes\C_lista_estudiantes::index');
 $routes->post('/lista_estudiantes/ver_estudiante','Estudiantes\C_lista_estudiantes::ver_estudiante');
 //reinscripciones
 $routes->get('/reinscripcion','Estudiantes\C_reinscripcion::index');
+//pagos
+$routes->get('/lista_pagos','Pagos\C_lista_pagos::index');
+$routes->post('/lista_pagos/registrar_pago','Pagos\C_lista_pagos::registrar_pago');
 
 
 //permisos
