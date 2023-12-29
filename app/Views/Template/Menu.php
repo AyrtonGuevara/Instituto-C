@@ -32,17 +32,16 @@
 		<ul id="col4" class="collapse" data-bs-parent="#accordion">
 			<li><a href="<?php echo base_url()?>lista_pagos" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Lista Pagos</button></a></li>
 		</ul>
-		<ul id="col3" class="collapse" data-bs-parent="#accordion">
+
+		<li><a class="btn" data-bs-toggle="collapse" href="#col5"><button type="button" class="btn btn-primary btn-menu">Personal</button></a></li>
+		<ul id="col5" class="collapse" data-bs-parent="#accordion">
+			<li><a href="<?php echo base_url()?>personal" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Personal</button></a></li>
+			<li><a href="<?php echo base_url()?>usuario" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Usuarios</button></a></li>
 		</ul>
 
-		<li>----------------------</li>
-		<li><a class="btn" data-bs-toggle="collapse" href="#col111">Usuario</a></li>
-		<ul id="col111" class="collapse" data-bs-parent="#accordion">
-			<li><a href="<?php echo base_url()?>usuario" id="item_collapse">Usuario</a></li>
-		</ul>
-		<li><a class="btn" data-bs-toggle="collapse" href="#col112">Personal</a></li>
-		<ul id="col112" class="collapse" data-bs-parent="#accordion">
-			<li><a href="<?php echo base_url()?>personal" id="item_collapse">Personal</a></li>
+		<li><a class="btn" data-bs-toggle="collapse" href="#col6"><button type="button" class="btn btn-primary btn-menu">Configuraci&oacute;n</button></a></li>
+		<ul id="col6" class="collapse" data-bs-parent="#accordion">
+			<li><a href="<?php echo base_url()?>conf_permisos" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Permisos</button></a></li>
 		</ul>
 	</ul>
 </div>

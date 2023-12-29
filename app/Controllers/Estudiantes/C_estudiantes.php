@@ -5,12 +5,18 @@
 	namespace App\Controllers\Estudiantes;
 	use App\Controllers\BaseController;
 	use App\Models\Estudiantes\M_estudiantes;
+	use App\Controllers\Security\sesion;
 
 	class C_estudiantes extends BaseController{
 		public function __construct(){
+			$this->seguridad= new sesion();
 			$this->estudiantes=new M_estudiantes();
 		}
 		public function index(){
+			$nivel_usuario=$this->session->get('nivel');
+			if(!$this->seguridad->comprobar_modulo(3,1,$nivel_usuario)){
+				throw new \App\Controllers\Error\C_403();
+			}
 			$lista_fuentes=$this->estudiantes->lista_fuentes();
 			$lista_nivel=$this->estudiantes->lista_nivel();
 			$lista_turno=$this->estudiantes->lista_turno();

@@ -40,7 +40,7 @@
 								<option value="" id="input_default2" default></option>
 								<?php 
 								foreach ($nivel->getResult() as $key) {
-									echo "<option value=".$key->id_categoria.">".$key->detalle."</option>";
+									echo "<option value=".$key->id_cargo.">".$key->cargo."</option>";
 								}
 								?>
 							</select>
@@ -70,9 +70,9 @@
 							foreach($list->getResult() as $key){
 								echo "<tr>";
 								echo "<td>".$key->nro."</td>";
-								echo "<td>".$key->concat."</td>";
+								echo "<td>".$key->nombre."</td>";
 								echo "<td>".$key->usuario."</td>";
-								echo "<td>".$key->detalle."</td>";
+								echo "<td>".$key->cargo."</td>";
 								echo "<td><button class='btn btn-warning' name='modificar_usuario' value='Modificar' onclick='modificar_usuario(".$key->id_usuario.")'><i class='bi bi-pen-fill' title='Editar'></i></button>
 									<button class='btn btn-danger' name='eliminar_usuario' value='Eliminar' onclick='eliminar_usuario(".$key->id_usuario.")'><i class='bi bi-trash-fill' title='Eliminar'></i></button></td>";
 								echo "</tr>";

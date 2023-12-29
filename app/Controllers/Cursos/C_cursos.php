@@ -5,12 +5,18 @@
 	namespace App\Controllers\Cursos;
 	use App\Controllers\BaseController;
 	use App\Models\Cursos\M_cursos;
+	use App\Controllers\Security\sesion;
 
 	class C_cursos extends BaseController{
 		public function __construct(){
 			$this->cursos=new M_cursos();
+			$this->seguridad= new sesion();
 		}
 		public function index(){
+			$nivel_usuario=$this->session->get('nivel');
+			if(!$this->seguridad->comprobar_modulo(1,1,$nivel_usuario)){
+				throw new \App\Controllers\Error\C_403();
+			}
 			$lista_cursos=$this->cursos->listar_cursos();
 			return view('Cursos/V_cursos',['lista_cursos'=>$lista_cursos]);
 		}

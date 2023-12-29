@@ -15,14 +15,14 @@
 		}
 		public function iniciar_sesion($usuario){
 			$respuesta=$this->db->query("
-				SELECT concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona) as usuario,
-				ru.usuario as id_usuario,
-				(SELECT rc.detalle FROM ral_categoria rc WHERE ru.nivel=rc.id_categoria)as nivel
-				FROM ral_usuario ru, ral_persona rp 
-				WHERE ru.estado='activo' 
-				AND rp.estado ='activo'
-				AND ru.usuario = 'admin'
-				AND ru.id_persona = rp.id_persona 
+				select concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona) as usuario,ru.usuario as id_usuario,ac.cargo as nivel
+				from ral_usuario ru, ral_persona rp, adm_cargo ac
+				where ru.nivel = ac.id_cargo 
+				and ru.id_persona = rp.id_persona
+				and ru.usuario='$usuario'
+				and ru.estado ='activo'
+				and rp.estado ='activo'
+				and ac.estado ='activo'
 			");
 			return $respuesta;
 		}

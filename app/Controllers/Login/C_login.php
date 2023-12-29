@@ -27,7 +27,6 @@
 				$contraseña_ingresada=$psswrd.$salt;
 				$contraseña_bdd=$respuesta1->psswd;
 				if (password_verify($contraseña_ingresada, $contraseña_bdd)) {
-					echo "INGRESAR!!!";
 					//se hace una nueva consulta y se guarda en la sesion y se va al dasboard
 					$resp2=$this->login->iniciar_sesion($usuario);
 					$resp2=$resp2->getRow();

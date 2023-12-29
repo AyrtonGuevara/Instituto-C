@@ -615,7 +615,5 @@
 <?php
 	$this->endSection();
 
-
-
 ?>
 

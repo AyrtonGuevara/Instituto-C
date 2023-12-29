@@ -5,14 +5,20 @@
 	namespace App\Controllers\Usuario;
 	use App\Models\Usuario\M_usuario;
 	use App\Controllers\BaseController;
+	use App\Controllers\Security\sesion;	
 
 	class C_usuario extends BaseController{
 		public function __construct(){
 			$this->usuario=new M_usuario();
+			$this->seguridad= new sesion();
 			//$this->session=\config\Services::session();
 			//$this->encripter=\config\Services::encrypter();
 		}
 		public function index(){
+			$nivel_usuario=$this->session->get('nivel');
+			if(!$this->seguridad->comprobar_modulo(5,2,$nivel_usuario)){
+				throw new \App\Controllers\Error\C_403();
+			}
 			$lista_personas=$this->usuario->listar_personas_pusuario();
 			$lista_lvl=$this->usuario->listar_nivel();
 			$list=$this->usuario->listar_usuario();

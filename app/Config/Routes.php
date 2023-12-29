@@ -40,7 +40,7 @@ $routes->get('/categorias','Categoria\C_categorias::index');
 //login
 $routes->get('/login','Login\C_login::index');
 $routes->post('/login/autenticar','Login\C_login::autenticar');
-$routes->get('/cerrar_sesion','Security\session::cerrar_sesion');
+$routes->get('/cerrar_sesion','Security\sesion::cerrar_sesion');
 
 //Personal
 $routes->get('/personal','Personal\C_personal::index');
@@ -146,6 +146,9 @@ $routes->post('/usuario/mostrar_usuario','Usuario\C_usuario::mostrar_usuario');
 $routes->post('/usuario/modificar_usuario','Usuario\C_usuario::modificar_usuario');
 $routes->post('usuario/eliminar_usuario','Usuario\C_usuario::eliminar_usuario');
 
+//CONFIGURACIONES
+//persmisos
+$routes->get('/conf_permisos','Configuracion\C_permisos::index');
 
 /*
  * --------------------------------------------------------------------

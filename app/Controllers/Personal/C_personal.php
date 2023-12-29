@@ -5,12 +5,18 @@
 	namespace App\Controllers\Personal;
 	use App\Controllers\BaseController;
 	use App\Models\Personal\M_personal;
+	use App\Controllers\Security\sesion;
 
 	class C_personal extends BaseController{
 		public function __construct(){
 			$this->personal=new M_personal();
+			$this->seguridad= new sesion();
 		}
 		public function index(){
+			$nivel_usuario=$this->session->get('nivel');
+			if(!$this->seguridad->comprobar_modulo(5,1,$nivel_usuario)){
+				throw new \App\Controllers\Error\C_403();
+			}
 			$cargos=$this->personal->listar_cargos();
 			$lista=$this->personal->listar_personal();
 			return view('Personal/V_personal', ['list'=>$lista, 'cargos'=>$cargos]);

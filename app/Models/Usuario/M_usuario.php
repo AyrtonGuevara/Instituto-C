@@ -12,15 +12,13 @@
 		}
 		public function listar_usuario(){
 			$respuesta=$this->db->query("
-				SELECT generate_series(1,(SELECT count(id_usuario) FROM ral_usuario ru2 )) as nro ,
-				ru.id_usuario,
-					(SELECT concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona) 
-						FROM ral_persona rp
-						WHERE rp.id_persona=ru.id_persona),
-					ru.usuario,
-					(SELECT rc.detalle FROM ral_categoria rc WHERE rc.id_categoria=ru.nivel) 
-				FROM ral_usuario ru
-				WHERE ru.estado='activo'
+				select row_number()over() as nro, ru.id_usuario,concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona) as nombre,ru.usuario,ac.cargo
+				from ral_usuario ru, ral_persona rp, adm_cargo ac
+				where ru.id_persona=rp.id_persona
+				and ru.nivel=ac.id_cargo
+				and ac.estado='activo'
+				and ru.estado='activo'
+				and rp.estado='activo';
 				");
 			return $respuesta;
 		}
@@ -37,11 +35,10 @@
 		}
 		public function listar_nivel(){
 			$respuesta=$this->db->query("
-				SELECT id_categoria, detalle 
-				FROM ral_categoria rc 
-				WHERE nombre_categoria = 'nivel' 
-				AND estado='activo'
-				ORDER BY id_categoria;
+				select id_cargo,cargo 
+				from adm_cargo 
+				where estado='activo' 
+				order by id_cargo; 
 			");
 			return $respuesta;
 		}

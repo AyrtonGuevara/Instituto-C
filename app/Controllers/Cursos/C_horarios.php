@@ -5,14 +5,19 @@
 	namespace App\Controllers\Cursos;
 	use App\Controllers\BaseController;
 	use App\Models\Cursos\M_horarios;
-
+	use App\Controllers\Security\sesion;
+	
 	class C_horarios extends BaseController{
 		public function __construct(){
 			$this->horarios=new M_horarios();
+			$this->seguridad= new sesion();
 		}
 		public function index(){
+			$nivel_usuario=$this->session->get('nivel');
+			if(!$this->seguridad->comprobar_modulo(1,2,$nivel_usuario)){
+				throw new \App\Controllers\Error\C_403();
+			}
 			$lista_horarios=$this->horarios->listar_horarios();
-			//return view('Cursos/V_horarios',['lista_horarios'=>$lista_horarios]);
 			$lista_dia=$this->horarios->lista_dia();
 			return view('Cursos/V_horarios',['dia'=>$lista_dia,'lista_horarios'=>$lista_horarios]);
 		}

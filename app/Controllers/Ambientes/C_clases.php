@@ -6,11 +6,18 @@
 	use App\Controllers\BaseController;
 	use App\Models\Ambientes\M_clases;
 
+	use App\Controllers\Security\sesion;
+
 	class C_clases extends BaseController{
 		public function __construct(){
 			$this->clases=new M_clases();
+			$this->seguridad= new sesion();
 		}
 		public function index(){
+			$nivel_usuario=$this->session->get('nivel');
+			if(!$this->seguridad->comprobar_modulo(2,2,$nivel_usuario)){
+				throw new \App\Controllers\Error\C_403();
+			}
 			$lista_materia=$this->clases->lista_materias();
 			$lista_horario=$this->clases->lista_horarios();
 			$lista_aula=$this->clases->lista_aulas();
