@@ -15,6 +15,7 @@
 			//$this->encripter=\config\Services::encrypter();
 		}
 		public function index(){
+			$menu_permisos=$this->session->get('permisos');
 			$nivel_usuario=$this->session->get('nivel');
 			if(!$this->seguridad->comprobar_modulo(5,2,$nivel_usuario)){
 				throw new \App\Controllers\Error\C_403();
@@ -22,7 +23,7 @@
 			$lista_personas=$this->usuario->listar_personas_pusuario();
 			$lista_lvl=$this->usuario->listar_nivel();
 			$list=$this->usuario->listar_usuario();
-			return view('Usuario/V_usuario',['list'=>$list, 'persona'=>$lista_personas,'nivel'=>$lista_lvl]);
+			return view('Usuario/V_usuario',['list'=>$list, 'persona'=>$lista_personas,'nivel'=>$lista_lvl,'menu_permisos'=>$menu_permisos]);
 		}
 		public function registrar_usuario(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

@@ -29,13 +29,14 @@
 				if (password_verify($contraseña_ingresada, $contraseña_bdd)) {
 					//se hace una nueva consulta y se guarda en la sesion y se va al dasboard
 					$resp2=$this->login->iniciar_sesion($usuario);
-					$resp2=$resp2->getRow();
+					$permisos=explode(',',$resp2[0]->codigo_pagina);
 					//nivel
 					$datasession=[
 						'login'=>true,
-						'usuario'=>$resp2->usuario,
-						'id_usuario'=>$resp2->id_usuario,
-						'nivel'=>$resp2->nivel
+						'usuario'=>$resp2[0]->usuario,
+						'id_usuario'=>$resp2[0]->id_usuario,
+						'nivel'=>$resp2[0]->nivel,
+						'permisos'=>$permisos
 					];
 					$this->session->set($datasession);
 					return redirect()->to(base_url('usuario'));
