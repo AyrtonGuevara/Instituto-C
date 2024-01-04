@@ -48,7 +48,6 @@
 				resp=JSON.parse(resp);
 				cont=0;
 				for(key of resp.data){
-					console.log(key);
 					acordion="<div class='accordion' id='accordionExample'>"+
 					  	"<div class='accordion-item'>"+
 					    	"<h2 class='accordion-header' id='heading"+cont+"'>"+
@@ -82,10 +81,7 @@
 		document.getElementById("listas_alumnos"+cont).innerHTML="";
 		if(comp_mes===""){
 			comp_mes="2023-11";
-			console.log(comp_mes);
-		}else{
-			console.log(comp_mes);
-		}
+		}else{}
 		//se inicia con la busqueda de fechas de la clase en el mes seleccionado
 		$.ajax({
 			url:"<?php echo base_url()?>control_asistencia/buscar_fechas_clase",

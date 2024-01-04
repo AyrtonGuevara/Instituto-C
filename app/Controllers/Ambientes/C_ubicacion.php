@@ -12,6 +12,7 @@
 		}
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
+			//comprobando el permiso de accesso al modulo
 			if(array_search('2-1',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
@@ -32,7 +33,6 @@
 			}
 				$usuario=$this->session->get('id_usuario');
 				$valores_ubicacion=json_encode($valores_ubicacion);
-
 				$respuesta=$this->ubicacion->agregar_ubicacion($usuario,$valores_ubicacion);
 				
 			if ($respuesta[0]->success==='t') {

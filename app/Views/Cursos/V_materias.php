@@ -49,7 +49,7 @@
 		<div class="card-footer">
 			<div class="table-responsive">
 				<table class="table table-hover table-basic">
-					<caption>table title and/or explanatory text</caption>
+					<caption></caption>
 					<thead>
 						<tr>
 							<th>Nro</th>
@@ -109,7 +109,6 @@
 		?>
 	})
 	function modificar_materia(id){
-		console.log(id);
 		$.ajax({
 			url:"<?php echo base_url()?>materias/mostrar_materia",
 			type:"POST",

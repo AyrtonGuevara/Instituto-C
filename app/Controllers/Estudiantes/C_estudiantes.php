@@ -12,6 +12,7 @@
 		}
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
+			//comprobando el permiso de accesso al modulo
 			if(array_search('3-1',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
@@ -50,6 +51,7 @@
 		}
 		public function registrar_estudiante(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
+				//si es actualizacion de datos de estudiante se captura el id
 				if(isset($_POST['id'])){
 					$id=$_POST['id'];
 				}else{
@@ -82,7 +84,7 @@
 					
 					'f_inicio'=>$_POST['f_inicio'],
 					'cantidad'=>$_POST['cantidad'],
-					//???
+					//?
 					'materia'=>$_POST['materia'],
 					'horarios'=>$_POST['horarios'],
 					'aulas'=>$_POST['aulas'],
@@ -92,7 +94,7 @@
 					'a_cuenta'=>$_POST['cuenta'],
 					'f_pago'=>$_POST['f_pago']
 					);
-
+				//se almacena dependiendo del tipo de horario elegido
 				if (isset($_POST['tipo_horarios'])) {
 					//asi o null??
 					$inscripcion_estudiante2 = array(

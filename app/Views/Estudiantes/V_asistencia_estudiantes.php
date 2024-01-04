@@ -21,6 +21,7 @@
 	var cells;
 	document.addEventListener("DOMContentLoaded",function(){
 		div_asistencia="";
+		//se buscan las clases que se esten llevando ese momento
 		$.ajax({
 			url:"<?php echo base_url()?>asistencia/clases_activas",
 			type:"POST",
@@ -34,17 +35,10 @@
 				}else{		
 					for(const key2 of clases){
 						contador=0;
-						//console.log(key);
-						//for(const key2 of key){
-							
 						var idClase = key2.id_clase;
 						var nombre_clase=key2.nombre_clase;
 			        	var alumnosClase = key2.alumnos_clase;
 			        	var empty=(alumnosClase!==null)?true:false;
-			        	/*console.log(key2);
-			        	console.log(key2.id_clase);
-			        	console.log(key2.nombre_clase);
-			        	console.log(key2.alumnos_clase);*/
 						div_asistencia=div_asistencia+"<div class='accordion-item'>"+
     						"<h2 class='accordion-header' id='headingTwo'>"+
       							"<button class='accordion-button collapsed' type='button' data-bs-toggle='collapse' data-bs-target='#collapse"+idClase+"' aria-expanded='false' aria-controls='collapseTwo' onclick='refresh_asistencias("+empty+","+idClase+")'>"+
@@ -93,7 +87,8 @@
 				$('#respuesta').text('Error al conectar con el servidor');
 			}
 		});
-	});	
+	});
+	//se registra el valor de la asistencia
 	function cambio_asistencia(checkbox) {
 	    const nombre = checkbox.name;
 	    const valor = checkbox.value;
@@ -105,7 +100,6 @@
 	    	success : function(resp){
 	    		resp=JSON.parse(resp);
 	    		if(resp.data[0].success==='t'){
-	    			//console.log("registrado");
 	    		}else{
 	    			Swal.fire({
 						title:'Error inesperado',
@@ -126,6 +120,7 @@
 	    	}
 	    });
 	}
+	//se muestra asistencias registradas si ya las habia
 	function refresh_asistencias(alumnosClase,id_clase){
 		if (alumnosClase) {
 			$.ajax({

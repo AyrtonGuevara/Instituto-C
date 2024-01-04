@@ -32,7 +32,7 @@
 		<div class="card-footer">
 			<div class="table-responsive">
 				<table class="table table-hover table-basic">
-					<caption>table title and/or explanatory text</caption>
+					<caption></caption>
 					<thead>
 						<tr>
 							<th>Dias/<br>Horarios</th>
@@ -153,6 +153,7 @@
 <script>
 	var select_aula=document.getElementById('aula_mostrar');
 	document.addEventListener("DOMContentLoaded",function(){
+		//por si existe redireccion a una clase en especifico
 		<?php
 			if (session()->getFlashData('id_clase')) {
 				$id=session()->getFlashData('id_clase');
@@ -162,10 +163,10 @@
 			}
 		?>
 	});
-
+	//para mostrar las clases de una determinada ubicacion
 	select_aula.addEventListener('change', function(){
 		var cells = document.querySelectorAll("td[id]");
-		console.log(cells);
+		//se limpia el cronograma
 		for (var j = 0; j < cells.length; j++) {
 			cells[j].style.backgroundColor = "";
 			cells[j].title="";
@@ -174,30 +175,29 @@
 			cells[j].rowSpan=1;
 			cells[j].style.display = "";
 		}
-
 		var g=0;
 		var id=document.getElementById("aula_mostrar").value;
+		//se buscan las clases de la ubicacion
 		$.ajax({
 			url:'<?php echo base_url()?>control_clases/cronograma_clases',
 			type:"POST",
 			data:{id:id},
 			success:function(resp){
 				var resp2=JSON.parse(resp);
+				//se establecen los parametros de las clases
 				for(const info of resp2.data){
 					var nombre_materia=info.materia;
 					var dat=info.horarios;
 					var id=info.id_clase;
 					var timeSlots = dat.split(" || ");
 					var timeData = {};
-					
+					//se rescatan los horarios
 					for (var i = 0; i < timeSlots.length; i++) {
 					    var parts = timeSlots[i].split(": ");
 					    var day = parts[0];
 					    var timeRange = parts[1].split(" - ");
 					    timeData[day] = timeRange;
 					}
-					console.log(timeData);
-					console.log("uno"+id);
 					for (var day in timeData) {
 				    	var ndia=0
 				        var timeRange = timeData[day];
@@ -223,14 +223,14 @@
 				        	ndia=5;
 				        	break;
 				        }
-				        console.log(ndia);
+				        //se seleccionan todas las celdas del cronograma
 				        var cells = document.querySelectorAll("td[id^='" + ndia + "']");
 				        var contador_collspan=0;
 				        var fij=0;
 				        var pasa=1;
+				        //se busca las celdas que coincidan con el horario de las clases
 				        for (var j = 0; j < cells.length; j++) {
 				            var cellTime = cells[j].getAttribute("id").substr(2, 5);
-				            //console.log(cellTime);
 				            if (cellTime >= startTime && cellTime < endTime) {
 				            	fij=j+1;
 				            	contador_collspan++;
@@ -243,6 +243,7 @@
 				                }*/
 				            }
 				    	}
+				    	//se modifica la celda si corresponde a una clase
 				    	if(pasa===0){
 				    		cells[fij-contador_collspan].rowSpan=contador_collspan;
 					    	cells[fij-contador_collspan].style.backgroundColor = "green";
@@ -284,7 +285,7 @@
 				personal.value=resp2.data[0].docente;
 				caption.innerHTML="Capacidad de estudiantes en esta aula : "+resp2.data[0].capacidad + " estudiantes.";
 				
-				//solicitud axaj para mostrar la lista de estudiantes del curso
+				//solicitud ajax para mostrar la lista de estudiantes del curso
 				$.ajax({
 					url:"<?php echo base_url()?>control_clases/lista_estudiantes",
 					type:"POST",
@@ -293,7 +294,6 @@
 						resp=JSON.parse(resp);
 						resp2=resp.data;
 						var cells = document.querySelectorAll('#tabla_estudiantes tr');
-						console.log("tamaño tabla"+cells.length);
 						for(var i=1; i<cells.length; i++){
 							tabla=document.getElementById("tabla_estudiantes");
 							tabla.deleteRow(1);

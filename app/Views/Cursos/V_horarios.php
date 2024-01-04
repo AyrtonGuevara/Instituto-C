@@ -53,7 +53,7 @@
 		<div class="card-footer">
 			<div class="table-responsive">
 				<table class="table table-hover table-basic">
-					<caption>table title and/or explanatory text</caption>
+					<caption></caption>
 					<thead>
 						<tr>
 							<th>Nº</th>

@@ -12,6 +12,7 @@
 		}
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
+			//comprobando el permiso de accesso al modulo
 			if(array_search('5-2',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
@@ -52,8 +53,8 @@
 				$hora_inicio=$_POST['horario_inicio'];
 				$hora_fin= $_POST['horario_fin'];	
 			}
-
 			$respuesta1=$this->horarios->mostrar_horarios($id_conf_horarios);
+			//se recupera los ids de los horarios antes de la edicion y los eliminados para guardar los cambios
 			$ids_originales=array();
 			foreach ($respuesta1 as $key) {
 				array_push($ids_originales, $key->id_horarios);

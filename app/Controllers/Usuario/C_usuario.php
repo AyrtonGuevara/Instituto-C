@@ -14,6 +14,7 @@
 		}
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
+			//comprobando el permiso de accesso al modulo
 			if(array_search('5-2',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}

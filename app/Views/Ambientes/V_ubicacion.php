@@ -125,7 +125,7 @@
 	      			<input type="text" name="id_ubicacion" id="id_ubicacion" hidden>
 		      		<div class="container table-responsive">
 			      		<table class="table table-hover table-basic" id="tabla_modal_aulas">
-			      			<caption>table title and/or explanatory text</caption>
+			      			<caption></caption>
 			      			<thead>
 			      				<tr>
 			      					<th>Nº</th>
@@ -294,7 +294,7 @@
 	}
 	function modal_ubicacion_aulas(id){
 		contador_aulas_modal=0;
-		//se agarra y se elimina las filas dentro del modal si lo hay
+		//se elimina las filas dentro del modal si lo hay
 		var cells = document.querySelectorAll('#tbody_aulas tr');
 		for(var i=1; i<=cells.length; i++){
 			document.getElementById("tabla_modal_aulas").deleteRow(1);

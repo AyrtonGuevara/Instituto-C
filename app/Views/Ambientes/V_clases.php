@@ -71,7 +71,7 @@
 		<div class="card-footer">
 			<div class="table-responsive">
 				<table class="table table-hover table-basic">
-					<caption>table title and/or explanatory text</caption>
+					<caption></caption>
 					<thead>
 						<tr>
 							<th>Nº</th>
@@ -158,6 +158,7 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded",function(){
+		//alertas de registro de datos
 		<?php
 			if(session()->getFlashData('exito')){
 				//exito
@@ -185,7 +186,6 @@
 		?>
 	});
 	/*function lista_asistencias(id){
-		console.log(id);
 		$('#modal_control_asistencia').modal('show');
 		limpiar_modal()
 		$.ajax({
@@ -294,7 +294,6 @@
 		})
 	}*/
 	function editar_clase(id){
-		console.log(id);
 		$.ajax({
 			url:"<?php echo base_url()?>clases/mostrar_clases",
 			type:"POST",

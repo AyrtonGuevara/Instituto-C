@@ -55,7 +55,7 @@
 			<div class="card-footer">
 				<div class="table-responsive">
 					<table class="table table-hover table-basic">
-						<caption>table title and/or explanatory text</caption>
+						<caption></caption>
 						<thead>
 							<tr>
 								<th>Nº</th>
@@ -123,7 +123,6 @@
 				nombre=document.getElementById('input_usuario');
 				nivel=document.getElementById('input_default2');
 				id.value=resp2.data[0].id_usuario;
-				console.log(resp2.data[0].id_usuario);
 				usuario.value=resp2.data[0].id_persona;
 				usuario.textContent=resp2.data[0].concat;
 				nombre.value=resp2.data[0].usuario;

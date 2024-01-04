@@ -30,7 +30,6 @@
 		<div class="card-footer">
 			<div class="table-responsive">
 				<table class="table table-hover table-basic">
-					<caption>table title and/or explanatory text</caption>
 					<thead>
 						<tr>
 							<th>Nº</th>
@@ -85,7 +84,6 @@
 	})
 
 	function editar_curso(id){
-		console.log(id);
 		$.ajax({
 			url:"<?php echo base_url()?>cursos/mostrar_curso",
 			type:"POST",

@@ -176,7 +176,6 @@
 			success:function(resp){
 				resp=JSON.parse(resp);
 				for(const key of resp.data){
-					console.log(key);
 					var opcion=document.createElement('option');
 					opcion.value=key.id_clase;
 					opcion.innerHTML=key.concat;
@@ -188,7 +187,6 @@
 		})
 	}
 	function editar_permiso(id){
-		console.log(id);
 		$.ajax({
 			url:"<?php echo base_url()?>permisos/mostrar_permiso",
 			type:"POST",

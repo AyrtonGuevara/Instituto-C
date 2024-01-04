@@ -14,7 +14,7 @@
 			<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-hover table-basic text-nowrap" id="tbl_est">
-					<caption>table title and/or explanatory text</caption>
+					<caption></caption>
 					<thead>
 						<tr>
 							<th>Nº</th>
