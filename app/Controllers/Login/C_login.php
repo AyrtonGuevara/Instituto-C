@@ -29,7 +29,7 @@
 				if (password_verify($contraseña_ingresada, $contraseña_bdd)) {
 					//se hace una nueva consulta y se guarda en la sesion y se va al dasboard
 					$resp2=$this->login->iniciar_sesion($usuario);
-					$permisos=explode(',',$resp2[0]->codigo_pagina);
+					$permisos=explode(',',str_replace(array('{','}',' '),'',$resp2[0]->codigo_pagina));
 					//nivel
 					$datasession=[
 						'login'=>true,

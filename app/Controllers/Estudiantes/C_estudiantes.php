@@ -5,16 +5,14 @@
 	namespace App\Controllers\Estudiantes;
 	use App\Controllers\BaseController;
 	use App\Models\Estudiantes\M_estudiantes;
-	use App\Controllers\Security\sesion;
 
 	class C_estudiantes extends BaseController{
 		public function __construct(){
-			$this->seguridad= new sesion();
 			$this->estudiantes=new M_estudiantes();
 		}
 		public function index(){
-			$nivel_usuario=$this->session->get('nivel');
-			if(!$this->seguridad->comprobar_modulo(3,1,$nivel_usuario)){
+			$menu_permisos=$this->session->get('permisos');
+			if(array_search('3-1',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
 			$lista_fuentes=$this->estudiantes->lista_fuentes();
@@ -22,7 +20,7 @@
 			$lista_turno=$this->estudiantes->lista_turno();
 			$lista_materias=$this->estudiantes->lista_materias();
 			$lista_lapso=$this->estudiantes->lista_lapso();
-			return view('Estudiantes/V_estudiantes',["lista_fuentes"=>$lista_fuentes,"lista_nivel"=>$lista_nivel,"lista_turno"=>$lista_turno,"lista_materias"=>$lista_materias,"lista_lapso"=>$lista_lapso]);
+			return view('Estudiantes/V_estudiantes',["lista_fuentes"=>$lista_fuentes,"lista_nivel"=>$lista_nivel,"lista_turno"=>$lista_turno,"lista_materias"=>$lista_materias,"lista_lapso"=>$lista_lapso,'menu_permisos'=>$menu_permisos]);
 		}
 		public function horarios(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

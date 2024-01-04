@@ -5,20 +5,18 @@
 	namespace App\Controllers\Estudiantes;
 	use App\Controllers\BaseController;
 	use App\Models\Estudiantes\M_control_asistencia;
-	use App\Controllers\Security\sesion;
 
 	class C_control_asistencia extends BaseController{
 		public function __construct(){
 			$this->control_asistencia=new M_control_asistencia();
-			$this->seguridad= new sesion();
 		}
 		public function index(){
-			$nivel_usuario=$this->session->get('nivel');
-			if(!$this->seguridad->comprobar_modulo(3,4,$nivel_usuario)){
+			$menu_permisos=$this->session->get('permisos');
+			if(array_search('3-4',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
 			$lista_cursos=$this->control_asistencia->lista_cursos();
-			return view('Estudiantes/V_control_asistencia',['lista_cursos'=>$lista_cursos]);
+			return view('Estudiantes/V_control_asistencia',['lista_cursos'=>$lista_cursos,'menu_permisos'=>$menu_permisos]);
 		}
 		public function buscar_fechas_clase(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

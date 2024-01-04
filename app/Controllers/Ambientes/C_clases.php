@@ -6,16 +6,13 @@
 	use App\Controllers\BaseController;
 	use App\Models\Ambientes\M_clases;
 
-	use App\Controllers\Security\sesion;
-
 	class C_clases extends BaseController{
 		public function __construct(){
 			$this->clases=new M_clases();
-			$this->seguridad= new sesion();
 		}
 		public function index(){
-			$nivel_usuario=$this->session->get('nivel');
-			if(!$this->seguridad->comprobar_modulo(2,2,$nivel_usuario)){
+			$menu_permisos=$this->session->get('permisos');
+			if(array_search('2-2',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
 			$lista_materia=$this->clases->lista_materias();
@@ -23,7 +20,7 @@
 			$lista_aula=$this->clases->lista_aulas();
 			$lista_personal=$this->clases->lista_docentes();
 			$lista_clases=$this->clases->lista_clases();
-			return view('Ambientes/V_clases',['lista_clases'=>$lista_clases,'lista_materia'=>$lista_materia,'lista_horario'=>$lista_horario,'lista_aula'=>$lista_aula,'lista_personal'=>$lista_personal]);
+			return view('Ambientes/V_clases',['lista_clases'=>$lista_clases,'lista_materia'=>$lista_materia,'lista_horario'=>$lista_horario,'lista_aula'=>$lista_aula,'lista_personal'=>$lista_personal,'menu_permisos'=>$menu_permisos]);
 		}
 		public function editar_clase(){
 			$id=$_GET['id'];

@@ -5,19 +5,17 @@
 	namespace App\Controllers\Estudiantes;
 	use App\Controllers\BaseController;
 	use App\Models\Estudiantes\M_asistencia_estudiantes;
-	use App\Controllers\Security\sesion;
 	
 	class C_asistencia_estudiantes extends BaseController{
 		public function __construct(){
 			$this->asistencia_estudiantes=new M_asistencia_estudiantes();
-			$this->seguridad= new sesion();
 		}
 		public function index(){
-			$nivel_usuario=$this->session->get('nivel');
-			if(!$this->seguridad->comprobar_modulo(3,3,$nivel_usuario)){
+			$menu_permisos=$this->session->get('permisos');
+			if(array_search('3-3',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
-			return view("Estudiantes/V_asistencia_estudiantes");
+			return view("Estudiantes/V_asistencia_estudiantes",['menu_permisos'=>$menu_permisos]);
 		}
 		public function clases_activas(){
 			$respuesta=$this->asistencia_estudiantes->clases_activas();

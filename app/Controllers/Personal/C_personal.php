@@ -5,21 +5,19 @@
 	namespace App\Controllers\Personal;
 	use App\Controllers\BaseController;
 	use App\Models\Personal\M_personal;
-	use App\Controllers\Security\sesion;
 
 	class C_personal extends BaseController{
 		public function __construct(){
 			$this->personal=new M_personal();
-			$this->seguridad= new sesion();
 		}
 		public function index(){
-			$nivel_usuario=$this->session->get('nivel');
-			if(!$this->seguridad->comprobar_modulo(5,1,$nivel_usuario)){
+			$menu_permisos=$this->session->get('permisos');
+			if(array_search('5-1',$menu_permisos===false){
 				throw new \App\Controllers\Error\C_403();
 			}
 			$cargos=$this->personal->listar_cargos();
 			$lista=$this->personal->listar_personal();
-			return view('Personal/V_personal', ['list'=>$lista, 'cargos'=>$cargos]);
+			return view('Personal/V_personal', ['list'=>$lista, 'cargos'=>$cargos,'menu_permisos'=>$menu_permisos]);
 		}
 		public function registrar_personal(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

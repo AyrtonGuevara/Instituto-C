@@ -5,20 +5,18 @@
 	namespace App\Controllers\Ambientes;
 	use App\Controllers\BaseController;
 	use App\Models\Ambientes\M_ubicacion;
-	use App\Controllers\Security\sesion;
 
 	class C_ubicacion extends BaseController{
 		public function __construct(){
 			$this->ubicacion = new M_ubicacion;
-			$this->seguridad= new sesion();
 		}
 		public function index(){
-			$nivel_usuario=$this->session->get('nivel');
-			if(!$this->seguridad->comprobar_modulo(2,1,$nivel_usuario)){
+			$menu_permisos=$this->session->get('permisos');
+			if(array_search('2-1',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
 			$list=$this->ubicacion->listar_ubicacion();
-			return view('Ambientes/V_ubicacion', ['list'=>$list]);
+			return view('Ambientes/V_ubicacion', ['list'=>$list,'menu_permisos'=>$menu_permisos]);
 		}
 
 		public function registrar_ubicacion(){

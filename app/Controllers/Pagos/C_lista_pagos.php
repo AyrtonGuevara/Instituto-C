@@ -5,20 +5,18 @@
 	namespace App\Controllers\Pagos;
 	use App\Controllers\BaseController;
 	use App\Models\Pagos\M_lista_pagos;
-	use App\Controllers\Security\sesion;
 	
 	class C_lista_pagos extends BaseController{
 		public function __construct(){
 			$this->lista_pagos=new M_lista_pagos();
-			$this->seguridad= new sesion();
 		}
 		public function index(){
-			$nivel_usuario=$this->session->get('nivel');
-			if(!$this->seguridad->comprobar_modulo(4,1,$nivel_usuario)){
+			$menu_permisos=$this->session->get('permisos');
+			if(array_search('4-1',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
 			$lista_pagos=$this->lista_pagos->lista_pagos();
-			return view('Pagos/V_lista_pagos',['lista_pagos'=>$lista_pagos]);
+			return view('Pagos/V_lista_pagos',['lista_pagos'=>$lista_pagos,'menu_permisos'=>$menu_permisos]);
 		}
 		public function registrar_pago(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

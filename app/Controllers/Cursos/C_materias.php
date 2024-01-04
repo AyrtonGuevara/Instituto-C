@@ -5,21 +5,19 @@
 	namespace App\Controllers\Cursos;
 	use App\Controllers\BaseController;
 	use App\Models\Cursos\M_materias;
-	use App\Controllers\Security\sesion;
 
 	class C_materias extends BaseController{
 		public function __construct(){
 			$this->materias=new M_materias();
-			$this->seguridad= new sesion();
 		}
 		public function index(){
-			$nivel_usuario=$this->session->get('nivel');
-			if(!$this->seguridad->comprobar_modulo(1,3,$nivel_usuario)){
+			$menu_permisos=$this->session->get('permisos');
+			if(array_search('1-3',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
 			$lista_materias=$this->materias->lista_materias();
 			$lista_cursos=$this->materias->lista_cursos();
-			return view('Cursos/V_materias',['lista_cursos'=>$lista_cursos,'lista_materias'=>$lista_materias]);
+			return view('Cursos/V_materias',['lista_cursos'=>$lista_cursos,'lista_materias'=>$lista_materias,'menu_permisos'=>$menu_permisos]);
 		}
 		public function registrar_materias(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
