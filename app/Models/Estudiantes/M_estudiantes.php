@@ -10,15 +10,30 @@
 			$this->db=db_connect();
 		}
 		public function lista_fuentes(){
-			$respuesta=$this->db->query("select id_categoria, detalle from ral_categoria where nombre_categoria='fuente-informacion' and estado='activo'");
+			$respuesta=$this->db->query("
+				select id_categoria, detalle 
+				from ral_categoria 
+				where nombre_categoria='fuente-informacion' 
+				and estado='activo';
+			");
 			return $respuesta->getResult();
 		}
 		public function lista_turno(){
-			$respuesta=$this->db->query("select id_categoria, detalle from ral_categoria where nombre_categoria='turno-estudiante' and estado='activo'");
+			$respuesta=$this->db->query("
+				select id_categoria, detalle 
+				from ral_categoria 
+				where nombre_categoria='turno-estudiante' 
+				and estado='activo';
+			");
 			return $respuesta->getResult();
 		}
 		public function lista_nivel(){
-			$respuesta=$this->db->query("select id_categoria, detalle from ral_categoria where nombre_categoria='nivel-estudiante' and estado='activo'");
+			$respuesta=$this->db->query("
+				select id_categoria, detalle 
+				from ral_categoria 
+				where nombre_categoria='nivel-estudiante' 
+				and estado='activo';
+			");
 			return $respuesta->getResult();
 		}
 		public function lista_materias(){
@@ -32,14 +47,19 @@
 			return $respuesta->getResult();
 		}
 		public function lista_lapso(){
-			$respuesta=$this->db->query("select id_categoria, detalle from ral_categoria where nombre_categoria='tiempo-inscripcion' and estado='activo'");
+			$respuesta=$this->db->query("
+				select id_categoria, detalle 
+				from ral_categoria 
+				where nombre_categoria='tiempo-inscripcion' 
+				and estado='activo';
+			");
 			return $respuesta->getResult();
 		}
 		public function horarios_materia($id){
 			$respuesta=$this->db->query("
 				select ach.id_conf_horarios, h.dias_horarios, cp.precio
 				FROM adm_conf_horarios ach, aca_clase ac2, aca_materia am, com_precios cp,
-				(SELECT ac.id_conf_horarios, string_agg(concat((select rc.detalle 
+					(SELECT ac.id_conf_horarios, string_agg(concat((select rc.detalle 
 						from ral_categoria rc 
 						where rc.id_categoria=ac.dias 
 						and rc.estado='activo' ),': ' ,replace(ac.horarios,' || ',' - ')), ' || ') as dias_horarios 
@@ -61,7 +81,7 @@
 		public function aulas_materia($id_horarios,$id_precios){
 			$respuesta=$this->db->query("
 				select aula.id_aula, 
-				concat('Direccion : ',au.direccion, ' || Aula :  ' ,aula.nombre_aula) as aula 
+					concat('Direccion : ',au.direccion, ' || Aula :  ' ,aula.nombre_aula) as aula 
 				from adm_ubicacion au,
 				aca_clase ac,
 				com_precios cp,
@@ -99,7 +119,7 @@
 				and ach.estado = 'activo'
 				and ah.estado = 'activo'
 				and cp.estado='activo'
-				");
+			");
 			return $respuesta->getResult();
 		}
 		public function horarios_conf_materia_esp($id_horarios){
@@ -109,78 +129,77 @@
 				and ah.id_horarios = $id_horarios
 				and ah.estado ='activo' 
 				and ach.estado = 'activo';
-				");
+			");
 			$respuesta=$respuesta->getRow()->id_conf_horarios;
 			return $respuesta;
 		}
 		public function registrar_estudiante($usuario,$inscripcion_estudiante){
-			//echo "select * from public.fn_agregar_estudiante('$usuario','$inscripcion_estudiante'::JSON)";
-			$respuesta=$this->db->query("select * from public.fn_agregar_estudiante('$usuario','$inscripcion_estudiante'::JSON)");
+			$respuesta=$this->db->query("
+				select * from public.fn_agregar_estudiante('$usuario','$inscripcion_estudiante'::JSON);
+			");
 			return $respuesta->getResult();
 		}
 		public function ver_estudiante($id,$tipo){
 			$respuesta=$this->db->query("
-select ae.id_estudiante, 
-	rp.nom_persona,
-	rp.ap_pat_persona,
-	rp.ap_mat_persona, 
-	rp.fec_nacimiento,
-	extract(year from age(current_date,rp.fec_nacimiento::date)) as edad,
-	rp.celular, 
-	ae.unid_educativa, 
-	ae.zona,ae.direccion, 
-	ae.grado, 
-	tutor.*, 
-	turno.id_categoria as id_turno, 
-	turno.detalle as turno, 
-	nivel.id_categoria as id_nivel , 
-	nivel.detalle as nivel,
-	fuente.id_categoria as id_fuente,
-	fuente.detalle as fuente
-from aca_estudiante ae, 
-	ral_persona rp,
-	(select id_categoria, detalle from ral_categoria where nombre_categoria='fuente-informacion' and estado='activo') as fuente,
-	(select id_categoria, detalle from ral_categoria where nombre_categoria='turno-estudiante' and estado='activo')as turno,
-	(select id_categoria, detalle from ral_categoria where nombre_categoria='nivel-estudiante' and estado='activo')as nivel,
-	(select ct.id_tutor, 
-			rp2.nom_persona as nom_tutor, 
-			rp2.ap_pat_persona as pat_tutor,
-			rp2.ap_mat_persona as mat_tutor, 
-			ct.act_tutor, 
-			ct.trab_tutor, 
-			ct.telefono_tutor, 
-			rp2.celular as celular_tutor,
-			ct.fuente as fuente_tutor
-		from com_tutor ct, 
-			ral_persona rp2
-		where ct.id_persona=rp2.id_persona
-		and case when $tipo=2 or $tipo=3 then
-			(rp2.estado='inactivo'
-			and ct.estado='inactivo')
-		else 
-			(rp2.estado='activo'
-			and ct.estado='activo')
-		end
-)as tutor
-where ae.id_persona=rp.id_persona
-and fuente.id_categoria=tutor.fuente_tutor
-and turno.id_categoria=ae.turno
-and nivel.id_categoria=ae.nivel
-and tutor.id_tutor=ae.id_tutor
-and case when $tipo=2 or $tipo=3 then
-	(rp.estado ='inactivo'
-	and ae.estado ='inactivo')
-else 
-	(rp.estado ='activo'
-	and ae.estado ='activo')
-end
-and ae.id_estudiante=$id;
-				");
+				select ae.id_estudiante, 
+					rp.nom_persona,
+					rp.ap_pat_persona,
+					rp.ap_mat_persona, 
+					rp.fec_nacimiento,
+					extract(year from age(current_date,rp.fec_nacimiento::date)) as edad,
+					rp.celular, 
+					ae.unid_educativa, 
+					ae.zona,ae.direccion, 
+					ae.grado, 
+					tutor.*, 
+					turno.id_categoria as id_turno, 
+					turno.detalle as turno, 
+					nivel.id_categoria as id_nivel , 
+					nivel.detalle as nivel,
+					fuente.id_categoria as id_fuente,
+					fuente.detalle as fuente
+				from aca_estudiante ae, 
+					ral_persona rp,
+					(select id_categoria, detalle from ral_categoria where nombre_categoria='fuente-informacion' and estado='activo') as fuente,
+					(select id_categoria, detalle from ral_categoria where nombre_categoria='turno-estudiante' and estado='activo')as turno,
+					(select id_categoria, detalle from ral_categoria where nombre_categoria='nivel-estudiante' and estado='activo')as nivel,
+					(select ct.id_tutor, 
+							rp2.nom_persona as nom_tutor, 
+							rp2.ap_pat_persona as pat_tutor,
+							rp2.ap_mat_persona as mat_tutor, 
+							ct.act_tutor, 
+							ct.trab_tutor, 
+							ct.telefono_tutor, 
+							rp2.celular as celular_tutor,
+							ct.fuente as fuente_tutor
+						from com_tutor ct, 
+							ral_persona rp2
+						where ct.id_persona=rp2.id_persona
+						and case when $tipo=2 or $tipo=3 then
+							(rp2.estado='inactivo'
+							and ct.estado='inactivo')
+						else 
+							(rp2.estado='activo'
+							and ct.estado='activo')
+						end
+				)as tutor
+				where ae.id_persona=rp.id_persona
+				and fuente.id_categoria=tutor.fuente_tutor
+				and turno.id_categoria=ae.turno
+				and nivel.id_categoria=ae.nivel
+				and tutor.id_tutor=ae.id_tutor
+				and case when $tipo=2 or $tipo=3 then
+					(rp.estado ='inactivo'
+					and ae.estado ='inactivo')
+				else 
+					(rp.estado ='activo'
+					and ae.estado ='activo')
+				end
+				and ae.id_estudiante=$id;
+			");
 			return $respuesta->getResult();
 		}
 		public function modificar_estudiante_tutor($id, $array, $usuario){
-			print_r($array);
-			echo "<br>".$array['ue'];
 			$respuesta=$this->db->query("
 				update aca_estudiante 
 				set unid_educativa='$array[ue]',grado=$array[grado], nivel=$array[nivel], turno=$array[turno], zona='$array[zona]' , direccion='$array[calle]', usu_modificado='$usuario', fec_modificado=now() 

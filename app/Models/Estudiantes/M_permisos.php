@@ -86,15 +86,19 @@
 			return $respuesta->getResult();
 		}
 		public function registrar_permiso($nombre,$f_permiso,$f_reemplazo,$usuario,$clase_remp,$id_mod){
-			//echo "select * from fn_crear_reprogramacion('$nombre',$clase,'$f_permiso','$f_reemplazo','$usuario')";
 			$respuesta=$this->db->query("
-				select * from fn_crear_reprogramacion('$nombre','$f_permiso','$f_reemplazo','$usuario',$clase_remp, $id_mod);
+				select * from public.fn_crear_reprogramacion('$nombre','$f_permiso','$f_reemplazo','$usuario',$clase_remp, $id_mod);
 				");
 			return $respuesta->getResult();
 		}
 		public function lista_permisos(){
 			$respuesta=$this->db->query("
-				select row_number()over() as nro, arh.id_reprogramacion_horario as id_rep, concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',ap_mat_persona) as estudiante, arh.fec_reprogramacion, arh.fec_reemplazo, t1.dia ,concat(au.direccion,' ',aa.nombre_aula,' ',replace(ah.horarios,'||','-')) as detalle
+				select row_number()over() as nro, 
+					arh.id_reprogramacion_horario as id_rep, 
+					concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',ap_mat_persona) as estudiante, 
+					arh.fec_reprogramacion, 
+					arh.fec_reemplazo, 
+					t1.dia ,concat(au.direccion,' ',aa.nombre_aula,' ',replace(ah.horarios,'||','-')) as detalle
 				from aca_reprogramacion_horario arh, aca_inscripcion ai, aca_estudiante ae, ral_persona rp, aca_clase ac, aca_aula aa, adm_ubicacion au, aca_horarios ah, adm_conf_horarios ach, ral_categoria rc,
 					(select arh1.id_reprogramacion_horario, case 
 							when extract (dow from arh1.fec_reemplazo::date) = 1 then 'lunes'
@@ -131,7 +135,13 @@
 		}
 		public function mostrar_permiso($id){
 			$respuesta=$this->db->query("
-				select arh.id_reprogramacion_horario as id_rep, concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',ap_mat_persona) as estudiante, am.id_materia, am.nombre_materia, arh.fec_reprogramacion, arh.fec_reemplazo, arh.id_clase,concat(au.direccion,' ',aa.nombre_aula,' ',ah.horarios) as detalle
+				select arh.id_reprogramacion_horario as id_rep, 
+				concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',ap_mat_persona) as estudiante, 
+				am.id_materia, 
+				am.nombre_materia, 
+				arh.fec_reprogramacion, 
+				arh.fec_reemplazo, 
+				arh.id_clase,concat(au.direccion,' ',aa.nombre_aula,' ',ah.horarios) as detalle
 				from aca_reprogramacion_horario arh, aca_inscripcion ai, aca_estudiante ae, ral_persona rp, aca_clase ac, aca_aula aa, adm_ubicacion au, aca_horarios ah, adm_conf_horarios ach, ral_categoria rc,aca_materia am,
 					(select arh1.id_reprogramacion_horario, case 
 							when extract (dow from arh1.fec_reemplazo::date) = 1 then 'lunes'

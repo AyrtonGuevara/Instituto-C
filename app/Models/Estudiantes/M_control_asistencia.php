@@ -62,8 +62,14 @@
 		}
 		public function lista_cursos(){
 			$respuesta=$this->db->query("
-				select aula.id_aula, concat('Direccion : ',au.direccion, ' || Aula :  ' ,aula.nombre_aula) as aula from adm_ubicacion au,(select aa.id_ubicacion,aa.id_aula, aa.nombre_aula from aca_aula aa where aa.estado='activo') as aula where au.id_ubicacion=aula.id_ubicacion and au.estado='activo'  order by au.fec_creado desc;
-				");
+				select aula.id_aula, 
+					concat('Direccion : ',au.direccion, ' || Aula :  ' ,aula.nombre_aula) as aula 
+				from adm_ubicacion au,
+					(select aa.id_ubicacion,aa.id_aula, aa.nombre_aula from aca_aula aa where aa.estado='activo') as aula 
+				where au.id_ubicacion=aula.id_ubicacion 
+				and au.estado='activo'  
+				order by au.fec_creado desc;
+			");
 			return $respuesta;
 		}
 		public function lista_clases_aula($id){

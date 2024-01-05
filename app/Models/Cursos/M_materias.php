@@ -9,11 +9,20 @@
 			$this->db=db_connect();
 		}
 		public function lista_cursos(){
-			$respuesta=$this->db->query("SELECT id_categoria, detalle FROM ral_categoria WHERE cod_categoria='CUR-CRE-04' AND tipo='curso' AND nombre_categoria='materia-curso' AND estado='activo';");
+			$respuesta=$this->db->query("
+				select id_categoria, detalle 
+				from ral_categoria 
+				where cod_categoria='CUR-CRE-04' 
+				and tipo='curso' 
+				and nombre_categoria='materia-curso' 
+				and estado='activo';
+			");
 			return $respuesta->getResult();
 		}
 		public function registrar_materia($curso,$nombre_materia,$detalle_materia,$precio,$usuario){
-			$respuesta=$this->db->query("SELECT * FROM public.fn_agregar_materia($curso,'$nombre_materia','$detalle_materia',$precio,'$usuario')");
+			$respuesta=$this->db->query("
+				select * from public.fn_agregar_materia($curso,'$nombre_materia','$detalle_materia',$precio,'$usuario');
+			");
 			return $respuesta;
 		}
 		public function lista_materias(){
@@ -24,7 +33,8 @@
 				and am.tipo_materia = rc.id_categoria 
 				and am.estado ='activo' 
 				and cp.estado='activo'
-				and rc.estado='activo';");
+				and rc.estado='activo';
+			");
 			return $respuesta->getResult();
 		}
 		public function mostrar_materia($id){
@@ -37,17 +47,26 @@
 				and cp.estado = 'activo'
 				and rc.estado = 'activo'
 				and cp.id_precios = $id;
-				");
+			");
 			return $respuesta->getResult();
 		}
 		public function modificar_materia($id,$detalle_materia,$precio,$usuario){
 			$respuesta=$this->db->query("
-				UPDATE com_precios SET detalle='$detalle_materia',precio=$precio,usu_modificado='$usuario', fec_modificado=now() WHERE id_precios=$id;
-				");
+				update com_precios 
+				set detalle='$detalle_materia',
+					precio=$precio,
+					usu_modificado='$usuario', 
+					fec_modificado=now() 
+				where id_precios=$id;
+			");
 			return $respuesta;
 		}
 		public function eliminar_materia($id){
-			$respuesta=$this->db->query("UPDATE com_precios SET estado='inactivo' WHERE id_precios='$id' ");
+			$respuesta=$this->db->query("
+				update com_precios 
+				set estado='inactivo' 
+				where id_precios='$id' 
+			");
 		}
 		public function autocompletar_materia($nombre_materia){
 			$respuesta=$this->db->query("
@@ -55,7 +74,7 @@
 				from aca_materia 
 				where estado='activo'
 				and nombre_materia ilike '%$nombre_materia%';
-				");
+			");
 			return $respuesta->getResult();
 		}
 	}
