@@ -34,9 +34,6 @@ $routes->set404Override();
 
 $routes->get('/', 'Home::index');
 
-//categorias
-$routes->get('/categorias','Categoria\C_categorias::index');
-
 //login
 $routes->get('/login','Login\C_login::index');
 $routes->post('/login/autenticar','Login\C_login::autenticar');
@@ -149,7 +146,13 @@ $routes->post('usuario/eliminar_usuario','Usuario\C_usuario::eliminar_usuario');
 //CONFIGURACIONES
 //persmisos
 $routes->get('/conf_permisos','Configuracion\C_permisos::index');
-
+$routes->post('/conf_permisos/permisos_usuario','Configuracion\C_permisos::permisos_usuario');
+$routes->post('/conf_permisos/modificar_permisos','Configuracion\C_permisos::modificar_permisos');
+//categorias
+$routes->get('/categorias','Configuracion\C_categorias::index');
+$routes->post('/categorias/buscar_categorias','Configuracion\C_categorias::buscar_categorias');
+$routes->post('/categorias/registrar_categoria','Configuracion\C_categorias::registrar_categorias');
+$routes->post('/categorias/eliminar_categorias','Configuracion\C_categorias::eliminar_categorias');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

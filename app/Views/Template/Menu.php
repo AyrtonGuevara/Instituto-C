@@ -127,6 +127,11 @@
 			<li><a href="<?php echo base_url()?>conf_permisos" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Permisos</button></a></li>
 			<?php
 			}
+			if(array_search('6-2',$menu_permisos)!==false){
+			?>
+			<li><a href="<?php echo base_url()?>categorias" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Categorias</button></a></li>
+			<?php
+			}
 			?>
 		</ul>
 		<?php } ?>
