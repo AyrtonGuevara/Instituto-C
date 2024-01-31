@@ -16,12 +16,16 @@
 			if(array_search('3-1',$menu_permisos)===false){
 				throw new \App\Controllers\Error\C_403();
 			}
-			$lista_fuentes=$this->estudiantes->lista_fuentes();
-			$lista_nivel=$this->estudiantes->lista_nivel();
-			$lista_turno=$this->estudiantes->lista_turno();
-			$lista_materias=$this->estudiantes->lista_materias();
-			$lista_lapso=$this->estudiantes->lista_lapso();
-			return view('Estudiantes/V_estudiantes',["lista_fuentes"=>$lista_fuentes,"lista_nivel"=>$lista_nivel,"lista_turno"=>$lista_turno,"lista_materias"=>$lista_materias,"lista_lapso"=>$lista_lapso,'menu_permisos'=>$menu_permisos]);
+			$data=[
+				'menu_permisos'=>$menu_permisos,
+				'lista_fuentes'=>$this->estudiantes->lista_fuentes(),
+				'lista_nivel'=>$this->estudiantes->lista_nivel(),
+				'lista_turno'=>$this->estudiantes->lista_turno(),
+				'lista_materias'=>$this->estudiantes->lista_materias(),
+				'lista_lapso'=>$this->estudiantes->lista_lapso(),
+				'title'=>'Registro Estudiante'
+			];
+			return view('Estudiantes/V_estudiantes',$data);
 		}
 		public function horarios(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

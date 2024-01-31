@@ -23,7 +23,7 @@
 				and rc.estado='activo'
 				and rp.estado='activo';
 				");
-			return $respuesta;
+			return $respuesta->getResult();
 		}
 		public function listar_cargos(){
 			$respuesta=$this->db->query("

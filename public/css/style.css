@@ -179,6 +179,10 @@ Ayrton Jhonny Guevara Montaño
 		.form-autocompletar{
 			overflow-x: hidden;
 		}
+		.readonly-checkbox {
+            pointer-events: none;
+            opacity: 0.5;
+        }
 
 
 		/*-------------elementos de la tabla----------*/
