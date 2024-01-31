@@ -13,10 +13,12 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('3-3',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			return view("Estudiantes/V_asistencia_estudiantes",['menu_permisos'=>$menu_permisos]);
+			$this->control_pagina('3-3');
+			$data=[
+				'menu_permisos'=>$menu_permisos,
+				'title'=>'Asistencia Estudiante'
+			];
+			return view("Estudiantes/V_asistencia_estudiantes",$data);
 		}
 		public function clases_activas(){
 			$respuesta=$this->asistencia_estudiantes->clases_activas();

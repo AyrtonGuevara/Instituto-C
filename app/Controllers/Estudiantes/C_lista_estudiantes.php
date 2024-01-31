@@ -13,11 +13,17 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('3-5',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
+			$this->control_pagina('3-5');
 			$lista=$this->lista_estudiantes->lista_estudiantes();
-			return view("Estudiantes/V_lista_estudiantes",["lista"=>$lista,'menu_permisos'=>$menu_permisos]);
+			$pagination=$this->pagination($lista);
+			$data=[
+				'lista'=>$pagination['pagedResults'],
+				'pager'=>$pagination['pager_links'],
+				'menu_permisos'=>$menu_permisos,
+				'title'=>'Lista Estudiantes'
+			];
+			
+			return view("Estudiantes/V_lista_estudiantes",$data);
 		}
 		public function ver_estudiante(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

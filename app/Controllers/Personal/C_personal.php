@@ -9,25 +9,20 @@
 	class C_personal extends BaseController{
 		public function __construct(){
 			$this->personal=new M_personal();
-			$this->pager = \Config\Services::pager();
 		}
 		public function index(){
 			$menu_permisos=session('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('5-1',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			//realizando experimento de paginacion
+			$this->control_pagina('5-1');
 			//obteniendo resultados de la cunsulta
         	$lista = $this->personal->listar_personal();
-
-			$respuesta=$this->pagination($lista);
-
+			$paginacion=$this->pagination($lista);
 			$data=[
 				'menu_permisos'=>$menu_permisos,
 				'cargos'=>$this->personal->listar_cargos(),
-				'lista'=>$respuesta['pagedResults'],
-				'pager'=>$respuesta['pager_links']
+				'lista'=>$paginacion['pagedResults'],
+				'pager'=>$paginacion['pager_links'],
+				'title'=>'Personal'
 			];
 			return view('Personal/V_personal', $data);
 		}

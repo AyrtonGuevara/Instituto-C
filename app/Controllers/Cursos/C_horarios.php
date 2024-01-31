@@ -13,12 +13,17 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('5-2',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			$lista_horarios=$this->horarios->listar_horarios();
-			$lista_dia=$this->horarios->lista_dia();
-			return view('Cursos/V_horarios',['dia'=>$lista_dia,'lista_horarios'=>$lista_horarios,'menu_permisos'=>$menu_permisos]);
+			$this->control_pagina('5-2');
+			$lista=$this->horarios->listar_horarios();
+			$paginacion=$this->pagination($lista);
+			$data=[
+				'dia'=>$this->horarios->lista_dia(),
+				'menu_permisos'=>$menu_permisos,
+				'lista_horarios'=>$paginacion['pagedResults'],
+				'pager'=>$paginacion['pager_links'],
+				'title'=>'Horarios'
+			];
+			return view('Cursos/V_horarios',$data);
 		}
 		public function registrar_horarios(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

@@ -13,12 +13,18 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('1-3',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			$lista_materias=$this->materias->lista_materias();
-			$lista_cursos=$this->materias->lista_cursos();
-			return view('Cursos/V_materias',['lista_cursos'=>$lista_cursos,'lista_materias'=>$lista_materias,'menu_permisos'=>$menu_permisos]);
+			$this->control_pagina('1-3');
+			//obteniendo paginacion
+			$lista=$this->materias->lista_materias();
+			$paginacion=$this->pagination($lista);
+			$data=[
+				'lista_cursos'=>$this->materias->lista_cursos(),
+				'menu_permisos'=>$menu_permisos,
+				'lista_materias'=>$paginacion['pagedResults'],
+				'pager'=>$paginacion['pager_links'],
+				'title'=>'Materias'
+			];
+			return view('Cursos/V_materias',$data);
 		}
 		public function registrar_materias(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

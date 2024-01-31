@@ -13,10 +13,12 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('6-2',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			return view("Configuracion/V_categorias",['menu_permisos'=>$menu_permisos]);
+			$this->control_pagina('6-2');
+			$data=[
+				'menu_permisos'=>$menu_permisos,
+				'title'=>'Editar Categorias'
+			];
+			return view("Configuracion/V_categorias",$data);
 		}
 		public function buscar_categorias(){
 			if ($_SERVER['REQUEST_METHOD']==="POST") {

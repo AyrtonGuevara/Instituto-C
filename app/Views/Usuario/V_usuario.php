@@ -67,7 +67,7 @@
 						</thead>
 						<tbody>
 							<?php
-							foreach($list->getResult() as $key){
+							foreach($lista as $key){
 								echo "<tr>";
 								echo "<td>".$key->nro."</td>";
 								echo "<td>".$key->nombre."</td>";
@@ -80,6 +80,7 @@
 							?>
 						</tbody>
 					</table>
+					<?= $pager ?>
 				</div>
 		</div>
 	</div>

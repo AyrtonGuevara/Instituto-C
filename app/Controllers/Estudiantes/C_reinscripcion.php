@@ -13,11 +13,16 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('3-7',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			$lista_reinscripcion=$this->reinscripcion->lista_reinscripcion();
-			return view("Estudiantes/V_reinscripcion",['lista_reinscripcion'=>$lista_reinscripcion,'menu_permisos'=>$menu_permisos]);
+			$this->control_pagina('3-7');
+			$lista=$this->reinscripcion->lista_reinscripcion();
+			$pagination=$this->pagination($lista);
+			$data=[
+				'lista_reinscripcion'=>$pagination['pagedResults'],
+				'pager'=>$pagination['pager_links'],
+				'menu_permisos'=>$menu_permisos,
+				'title'=>'Reinscripciones'
+			];
+			return view("Estudiantes/V_reinscripcion",$data);
 		}
 	}
 ?>

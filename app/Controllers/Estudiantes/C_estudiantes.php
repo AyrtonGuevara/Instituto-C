@@ -13,9 +13,7 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('3-1',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
+			$this->control_pagina('3-1');
 			$data=[
 				'menu_permisos'=>$menu_permisos,
 				'lista_fuentes'=>$this->estudiantes->lista_fuentes(),

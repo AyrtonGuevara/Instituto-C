@@ -20,7 +20,7 @@
 				and ru.estado='activo'
 				and rp.estado='activo';
 				");
-			return $respuesta;
+			return $respuesta->getResult();
 		}
 		public function listar_personas_pusuario(){
 			$respuesta=$this->db->query("	

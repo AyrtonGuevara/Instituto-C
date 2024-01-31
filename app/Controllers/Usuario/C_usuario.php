@@ -15,13 +15,18 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('5-2',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			$lista_personas=$this->usuario->listar_personas_pusuario();
-			$lista_lvl=$this->usuario->listar_nivel();
-			$list=$this->usuario->listar_usuario();
-			return view('Usuario/V_usuario',['list'=>$list, 'persona'=>$lista_personas,'nivel'=>$lista_lvl,'menu_permisos'=>$menu_permisos]);
+			$this->control_pagina('5-2');
+			$lista=$this->usuario->listar_usuario();
+			$paginacion=$this->pagination($lista);
+			$data=[
+				'lista'=>$paginacion['pagedResults'], 
+				'pager'=>$paginacion['pager_links'], 
+				'persona'=>$this->usuario->listar_personas_pusuario(),
+				'nivel'=>$this->usuario->listar_nivel(),
+				'menu_permisos'=>$menu_permisos,
+				'title'=>'Usuarios'
+			];			
+			return view('Usuario/V_usuario',$data);
 		}
 		public function registrar_usuario(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

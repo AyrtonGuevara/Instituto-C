@@ -13,12 +13,14 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('6-1',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			$lista_niveles=$this->permisos->lista_niveles();
-			$lista_paginas=$this->permisos->lista_paginas();
-			return view("Configuracion/V_permisos",['menu_permisos'=>$menu_permisos,'lista_niveles'=>$lista_niveles,'lista_paginas'=>$lista_paginas]);
+			$this->control_pagina('6-1');
+			$data=[
+				'menu_permisos'=>$menu_permisos,
+				'lista_niveles'=>$this->permisos->lista_niveles(),
+				'lista_paginas'=>$this->permisos->lista_paginas(),
+				'title'=>'Permisos de los Modulos'
+			];
+			return view("Configuracion/V_permisos",$data);
 		}
 		public function permisos_usuario(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

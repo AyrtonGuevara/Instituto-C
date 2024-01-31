@@ -13,11 +13,13 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('3-4',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			$lista_cursos=$this->control_asistencia->lista_cursos();
-			return view('Estudiantes/V_control_asistencia',['lista_cursos'=>$lista_cursos,'menu_permisos'=>$menu_permisos]);
+			$this->control_pagina('3-4');
+			$data=[
+				'lista_cursos'=>$this->control_asistencia->lista_cursos(),
+				'menu_permisos'=>$menu_permisos,
+				'title'=>'Control Asistencia'
+			];
+			return view('Estudiantes/V_control_asistencia',$data);
 		}
 		public function buscar_fechas_clase(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

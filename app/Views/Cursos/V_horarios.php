@@ -66,7 +66,7 @@
 					</thead>
 					<tbody>
 						<?php
-						foreach ($lista_horarios->getResult() as $key) {
+						foreach ($lista_horarios as $key) {
 							echo "<tr>";
 							echo "<td>".$key->nro."</td>";
 							echo "<td>";
@@ -91,6 +91,7 @@
 						?>
 					</tbody>
 				</table>
+				<?= $pager ?>
 			</div>
 		</div>
 	</div>

@@ -23,7 +23,7 @@
 			$respuesta=$this->db->query("
 				select * from public.fn_listar_ubicacion();
 			");
-			return $respuesta;
+			return $respuesta->getResult();
 		}
 		public function mostrar_ubicacion($id)
 		{

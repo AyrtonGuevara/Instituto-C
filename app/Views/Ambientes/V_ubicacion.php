@@ -59,7 +59,6 @@
 		<div class="card-footer">
 			<div class="table-responsive">
 				<table class="table table-hover table-basic">
-					<caption>table title and/or explanatory text</caption>
 					<thead>
 						<tr>
 							<th>Nº</th>
@@ -74,7 +73,7 @@
 					</thead>
 					<tbody>
 							<?php
-							foreach ($list->getResult() as $key) {
+							foreach ($lista as $key) {
 								echo "<tr>";
 								echo "<td>".$key->nro."</td>";
 								echo "<td>".$key->zona."</td>";
@@ -102,6 +101,7 @@
 							?>
 					</tbody>
 				</table>
+				<?= $pager ?>
 			</div>
 		</div>
 	</div>

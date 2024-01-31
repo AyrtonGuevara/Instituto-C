@@ -57,7 +57,7 @@
 			}
 			if(array_search('3-2',$menu_permisos)!==false){
 			?>
-			<li><a href="<?php echo base_url()?>control_clases" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Control Aulas</button></a></li>
+			<li><a href="<?php echo base_url()?>control_clases" id="item_collapse"><button type="button" class="btn btn-primary btn-menu">Control Clases</button></a></li>
 			<?php
 			}
 			if(array_search('3-3',$menu_permisos)!==false){

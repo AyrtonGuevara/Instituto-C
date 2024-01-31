@@ -13,11 +13,16 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('4-1',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			$lista_pagos=$this->lista_pagos->lista_pagos();
-			return view('Pagos/V_lista_pagos',['lista_pagos'=>$lista_pagos,'menu_permisos'=>$menu_permisos]);
+			$this->control_pagina('4-1');
+			$lista=$this->lista_pagos->lista_pagos();
+			$paginacion=$this->pagination($lista);
+			$data=[
+				'lista_pagos'=>$paginacion['pagedResults'],
+				'pager'=>$paginacion['pager_links'],
+				'menu_permisos'=>$menu_permisos,
+				'title'=>'Pagos'
+			];
+			return view('Pagos/V_lista_pagos',$data);
 		}
 		public function registrar_pago(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

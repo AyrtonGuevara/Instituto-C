@@ -13,15 +13,20 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('2-2',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			$lista_materia=$this->clases->lista_materias();
-			$lista_horario=$this->clases->lista_horarios();
-			$lista_aula=$this->clases->lista_aulas();
-			$lista_personal=$this->clases->lista_docentes();
+			$this->control_pagina('2-2');
 			$lista_clases=$this->clases->lista_clases();
-			return view('Ambientes/V_clases',['lista_clases'=>$lista_clases,'lista_materia'=>$lista_materia,'lista_horario'=>$lista_horario,'lista_aula'=>$lista_aula,'lista_personal'=>$lista_personal,'menu_permisos'=>$menu_permisos]);
+			$paginacion=$this->pagination($lista_clases);
+			$data=[
+				'lista_materia'=>$this->clases->lista_materias(),
+				'lista_horario'=>$this->clases->lista_horarios(),
+				'lista_aula'=>$this->clases->lista_aulas(),
+				'lista_personal'=>$this->clases->lista_docentes(),
+				'menu_permisos'=>$menu_permisos,
+				'lista_clases'=>$paginacion['pagedResults'],
+				'pager'=>$paginacion['pager_links'],
+				'title'=>'Clases'
+			];
+			return view('Ambientes/V_clases',$data);
 		}
 		public function editar_clase(){
 			$id=$_GET['id'];

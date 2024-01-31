@@ -48,6 +48,7 @@
 						?>
 					</tbody>
 				</table>
+				<?= $pager ?>
 			</div>
 		</div>
 		</div>

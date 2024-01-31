@@ -13,11 +13,16 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('1-1',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
+			$this->control_pagina('1-1');
 			$lista_cursos=$this->cursos->listar_cursos();
-			return view('Cursos/V_cursos',['lista_cursos'=>$lista_cursos,'menu_permisos'=>$menu_permisos]);
+			$paginacion=$this->pagination($lista_cursos);
+			$data=[
+				'menu_permisos'=>$menu_permisos,
+				'lista_cursos'=>$paginacion['pagedResults'],
+				'pager'=>$paginacion['pager_links'],
+				'title'=>'Cursos'
+			];
+			return view('Cursos/V_cursos',$data);
 		}
 		public function registrar_curso(){
 			if ($_SERVER['REQUEST_METHOD']==='POST') {

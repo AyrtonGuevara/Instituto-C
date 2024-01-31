@@ -13,7 +13,7 @@
 			$respuesta=$this->db->query("
 				select * from public.fn_listar_horarios();
 			");
-			return $respuesta;
+			return $respuesta->getResult();
 		}
 		public function lista_dia(){
 			$respuesta=$this->db->query("

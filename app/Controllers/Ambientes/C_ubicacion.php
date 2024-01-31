@@ -13,11 +13,17 @@
 		public function index(){
 			$menu_permisos=$this->session->get('permisos');
 			//comprobando el permiso de accesso al modulo
-			if(array_search('2-1',$menu_permisos)===false){
-				throw new \App\Controllers\Error\C_403();
-			}
-			$list=$this->ubicacion->listar_ubicacion();
-			return view('Ambientes/V_ubicacion', ['list'=>$list,'menu_permisos'=>$menu_permisos]);
+			$this->control_pagina('2-1');
+			//obteniendo resultados de la consulta
+			$lista=$this->ubicacion->listar_ubicacion();
+			$paginacion=$this->pagination($lista);
+			$data=[
+				'menu_permisos'=>$menu_permisos,
+				'lista'=>$paginacion['pagedResults'],
+				'pager'=>$paginacion['pager_links'],
+				'title'=>'Ubicacion'
+			];
+			return view('Ambientes/V_ubicacion', $data);
 		}
 
 		public function registrar_ubicacion(){
