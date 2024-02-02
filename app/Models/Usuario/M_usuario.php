@@ -13,9 +13,11 @@
 		public function listar_usuario(){
 			$respuesta=$this->db->query("
 				select row_number()over() as nro, ru.id_usuario,concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona) as nombre,ru.usuario,ac.cargo
-				from ral_usuario ru, ral_persona rp, adm_cargo ac
+				from ral_usuario ru, ral_persona rp, adm_cargo ac, adm_personal ap
 				where ru.id_persona=rp.id_persona
+				and ap.id_persona=rp.id_persona
 				and ru.nivel=ac.id_cargo
+				and ap.estado='activo'
 				and ac.estado='activo'
 				and ru.estado='activo'
 				and rp.estado='activo';
@@ -24,12 +26,15 @@
 		}
 		public function listar_personas_pusuario(){
 			$respuesta=$this->db->query("	
-				select ru.id_persona, concat(ru.nom_persona,' ',ru.ap_pat_persona,' ',ru.ap_mat_persona) as nombre
-				from ral_persona ru
-				left join ral_usuario rp
+				select rp.id_persona, concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona) as nombre
+				from ral_persona rp
+				left join ral_usuario ru
 				on ru.id_persona = rp.id_persona
-				where rp.id_persona is null
-				and ru.estado = 'activo';
+				join adm_personal ap
+				on ap.id_persona=rp.id_persona
+				where ru.id_persona is null
+				and rp.estado = 'activo'
+				and ap.estado='activo';
 			");
 			return $respuesta;
 		}
@@ -41,6 +46,16 @@
 				order by id_cargo; 
 			");
 			return $respuesta;
+		}
+		public function duplicidad_usuario($usuario){
+			$respuesta=$this->db->query("
+				select coalesce(
+					(select id_usuario::bool
+					from ral_usuario
+					where usuario ilike '$usuario'
+					and estado='activo'),'f') as usuario;
+			");
+			return $respuesta->getResult();
 		}
 		public function agregar_usuario($usuario,$id,$psswd,$salt,$lvl){
 			$respuesta=$this->db->query("

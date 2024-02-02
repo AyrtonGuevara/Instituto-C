@@ -72,8 +72,13 @@
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
 				$id=$_POST['id'];
 			}
-			$respuesta=$this->personal->eliminar_personal($id);
-			echo json_encode($res=array('success'=>true,'data'=>$respuesta));
+			$cascada=$this->personal->cascada_docentes($id);
+			if ($cascada[0]->column==='f'){
+				$respuesta=$this->personal->eliminar_personal($id);
+				echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
+			}else{
+				echo json_encode($resp=array('success'=>false,'data'=>'Existen datos relacionados con esta informacion. Asegurese de borrar los servicios dependientes de la misma'));
+			}
 		}
 	}
 ?>

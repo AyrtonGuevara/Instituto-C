@@ -85,5 +85,20 @@
 			");
 			return $respuesta->getResult();
 		}
+		public function cascada_ubicacion($id){
+			$respuesta=$this->db->query("
+				select coalesce(
+					(select au.id_ubicacion::bool
+					from adm_ubicacion au, aca_aula aa, aca_clase ac
+					where au.id_ubicacion=aa.id_ubicacion
+					and aa.id_aula=ac.id_aula
+					and aa.estado='activo'
+					and au.estado='activo'
+					and ac.estado='activo'
+					and au.id_ubicacion=$id
+					limit 1),'f')as column;
+			");
+			return $respuesta->getResult();
+		}
 	}
 ?>

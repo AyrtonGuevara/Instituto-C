@@ -60,8 +60,13 @@
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
 				$id=$_POST['id'];
 			}
-			$respuesta=$this->cursos->eliminar_curso($id);
-			echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
+			$cascada=$this->cursos->cascada_cursos($id);
+			if ($cascada[0]->column==='f'){
+				$respuesta=$this->cursos->eliminar_curso($id);
+				echo json_encode($resp=array('success'=>true,'data'=>$respuesta));
+			}else{
+				echo json_encode($resp=array('success'=>false,'data'=>'Existen datos relacionados con esta informacion. Asegurese de borrar los servicios dependientes de la misma'));
+			}
 		}
 		
 	}

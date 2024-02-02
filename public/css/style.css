@@ -183,6 +183,10 @@ Ayrton Jhonny Guevara Montaño
             pointer-events: none;
             opacity: 0.5;
         }
+        .alert-div{
+        	align-content: center;
+        	color:rgb(250, 125, 125);
+        }
 
 
 		/*-------------elementos de la tabla----------*/

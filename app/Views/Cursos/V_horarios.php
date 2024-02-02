@@ -228,7 +228,15 @@
 							}).then(function(result){
 								location.reload();
 							})
-						}//mensaje de la bdd
+						}else{
+							Swal.fire({
+								title:'Error al borrar el registro',
+								text:resp3.data,
+								icon:'error',
+								confirmButtonText:'aceptar',
+								confirmButtonColor: '#666666',
+							})
+						}
 					},error:function(){
 						$('#mensaje').text('Error al conectarse con el servidor');
 					}

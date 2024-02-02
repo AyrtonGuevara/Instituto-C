@@ -29,19 +29,31 @@
 			return view('Usuario/V_usuario',$data);
 		}
 		public function registrar_usuario(){
+			$respuesta=false;
 			if ($_SERVER['REQUEST_METHOD']==='POST') {
 				$persona=$_POST['persona'];
 				$usuario=$_POST['usuario'];
 				$pasword=$_POST['password'];
+				$pasword2=$_POST['password2'];
 				$nivel=$_POST['nivel'];
 			}
-			$salt=bin2hex(random_bytes(16));
-			$psswd=password_hash($pasword.$salt, PASSWORD_DEFAULT);
-			$respuesta=$this->usuario->agregar_usuario($persona,$usuario,$psswd,$salt,$nivel);
-			if ($respuesta) {
-				$this->session->setFlashData("exito","Se registro con exito");
+			if (strcmp($pasword, $pasword2) === 0) {
+				$dupl_usuario=$this->usuario->duplicidad_usuario($usuario);
+				if($dupl_usuario[0]->usuario==='f'){
+					$salt=bin2hex(random_bytes(16));
+					$psswd=password_hash($pasword.$salt, PASSWORD_DEFAULT);
+					$respuesta=$this->usuario->agregar_usuario($persona,$usuario,$psswd,$salt,$nivel);
+					if ($respuesta) {
+						$this->session->setFlashData("exito","Se registro con exito");
+					}else{
+						$this->session->setFlashData("fracaso","No se pudo registrar. Error en la base de datos");
+					}
+				}else{
+					echo "duplicado";
+					$this->session->setFlashData("fracaso","El usuario ya existe");
+				}
 			}else{
-				$this->session->setFlashData("fracaso","no se pudo registrar");
+				$this->session->setFlashData("fracaso","La contraseña no coincide");
 			}
 			return redirect()->to(base_url('usuario'));
 		}

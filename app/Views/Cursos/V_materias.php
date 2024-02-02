@@ -161,7 +161,8 @@
 			data:{id:id},
 			success:function(resp){
 				var resp2=JSON.parse(resp);
-				var inf=resp2.data[0].nombre_materia+" de los cursos de "+resp2.data[0].nombre_tipo_materia;
+				var inf=resp2.data[0].nombre_materia+" de "+resp2.data[0].detalle+"(ADVERTENCIA: procure que no existan datos dependientes de este registro)";
+				console.log(resp2);
 				if (resp2.success) {
 					Swal.fire({
 						title:'Seguro que quiere borrar el registro de :',

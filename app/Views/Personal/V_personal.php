@@ -170,14 +170,25 @@
 							type:"POST",
 							data:{id:id},
 							success:function(resp){
-								Swal.fire({
-									title:"Se elimino el registro",
-									icon:"success",
-									confirmButtonText:"Aceptar",
-									confirmButtonColor:"#111111",
-								}).then(function(result){
-									location.reload();
-								})
+								resp=JSON.parse(resp);
+								if (resp.success) {
+									Swal.fire({
+										title:"Se elimino el registro",
+										icon:"success",
+										confirmButtonText:"Aceptar",
+										confirmButtonColor:"#111111",
+									}).then(function(result){
+										location.reload();
+									})
+								}else{
+									Swal.fire({
+										title:"Error al eliminar el registro",
+										text:resp.data,
+										icon:"error",
+										confirmButtonText:"Aceptar",
+										confirmButtonColor:"#111111",
+									})
+								}
 							},error:function(){
 								$('#mesaje').text('Error al conectarse con el servidor');
 							}

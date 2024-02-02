@@ -29,12 +29,6 @@
 							<input type="text" class="form-control" name="usuario" id="input_usuario" placeholder="Nombre de usuario" required/>
 						</div>
 						<div class="col-sm-4 form-item">
-							<label for="password" class="form-label">Contraseña:</label>
-							<input type="password" class="form-control" name="password" id="input_password" placeholder="Contraseña" required>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4 form-item">
 							<label for="nivel" class="form-label">Nivel:</label>
 							<select name="nivel" class="form-control"  required>
 								<option value="" id="input_default2" default></option>
@@ -44,6 +38,17 @@
 								}
 								?>
 							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 form-item">
+							<label for="password" class="form-label">Contraseña:</label>
+							<input type="password" class="form-control" name="password" id="input_password" placeholder="Contraseña" required>
+							<div id="label_pass" class="alert-div"></div>
+						</div>
+						<div class="col-sm-6 form-item">
+							<label for="password" class="form-label">Repetir Contraseña:</label>
+							<input type="password" class="form-control" name="password2" id="input_password2" placeholder="Contraseña" required>
 						</div>
 					</div>
 					<div class="btn-form form-item"> 
@@ -103,6 +108,7 @@
 				//fracaso
 				Swal.fire({
 					title:'Error en el registro',
+					text:'<?php echo session()->getFlashData('fracaso'); ?>',
 					icon:'Error',
 					confirmButtonColor:'#111111',
 					confirmButtonText:'Aceptar'
@@ -187,6 +193,21 @@
 			}
 		});
 	}
+
+	const pass=document.querySelectorAll('input[id^=input_password]');
+	pass.forEach((check)=>{
+		check.addEventListener('change',function(){
+			const pas1=document.getElementById("input_password").value;
+			const pas2=document.getElementById("input_password2").value;
+			const label_pas=document.getElementById("label_pass");
+			if(pas1!==pas2){
+				label_pas.innerHTML="Las contraseñas no coiniden";
+			}else{
+				label_pas.innerHTML="";
+			}
+		})
+	})
+
 	function limpiar_form(){
 		limpieza_form();
 		form=document.getElementById("form_usuario");

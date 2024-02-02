@@ -40,11 +40,11 @@
 				values ('$nombre','$apellidoP','$apellidoM','$fecnac',$celular,'activo'); 
 
 				insert 
-				into adm_personal (id_persona,puesto,estado) 
+				into adm_personal (id_persona,puesto,estado,fec_creado) 
 				values((select id_persona 
 					from ral_persona 
 					order by id_persona 
-					desc limit 1),$cargo,'activo');");
+					desc limit 1),$cargo,'activo',now());");
 			return $respuesta;
 		}
 		public function mostrar_personal($id){
@@ -95,8 +95,25 @@
 				update adm_personal 
 				set estado='inactivo' 
 				where id_personal=$id;
+
+				update ral_usuario 
+				set estado='inactivo'
+				where id_persona=(select id_persona from adm_personal where id_personal = $id);
 			");
 			return $respuesta;
+		}
+		public function cascada_docentes($id){
+			$respuesta=$this->db->query("
+				select coalesce(
+					(select ap.id_personal::bool
+					from adm_personal ap, aca_clase ac
+					where ap.id_personal=ac.id_personal
+					and ap.estado='activo'
+					and ac.estado='activo'
+					and ap.id_personal=$id
+					limit 1),'f')as column;
+			");
+			return $respuesta->getResult();	
 		}
 	}
 ?>

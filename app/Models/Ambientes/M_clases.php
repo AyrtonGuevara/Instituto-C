@@ -137,5 +137,18 @@
 				");
 			return $respuesta;
 		}
+		public function cascada_clases($id){
+			$respuesta=$this->db->query("
+				select coalesce(
+					(select ac.id_clase::bool
+					from aca_clase ac, aca_inscripcion ai
+					where ac.id_clase = ai.id_clase
+					and ac.id_clase='$id'
+					and ac.estado='activo'
+					and ai.estado='activo'
+					limit 1),'f') as column;
+			");
+			return $respuesta->getResult();
+		}
 	}
 ?>

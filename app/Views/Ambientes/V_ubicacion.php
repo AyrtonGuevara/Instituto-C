@@ -254,7 +254,15 @@
 										}).then(function(result){
 											location.reload();
 										})
-									}//mensaje de la bdd
+									}else{
+										Swal.fire({
+											title:'Error al eliminar el registro',
+											text:resp3.data,
+											icon:'error',
+											confirmButtonText:'aceptar',
+											confirmButtonColor: '#666666',
+										})
+									}
 								},error:function(){
 									$('#mensaje').text('Error al conectarse con el servidor');
 								}
@@ -341,11 +349,24 @@
 	    var celda3 = nuevaFila.insertCell(2);
 	    celda3.innerHTML = "<input type='text' class='form-control' name='modal_detalle_aula[]' id='modal_detalle_aula"+(contador_aulas_modal-1)+"' placeholder='Capacidad del aula'>";
 	    var celda4 = nuevaFila.insertCell(3);
-	    celda4.innerHTML = "<button class= 'btn btn-danger' name='Eliminar' value='Eliminar' onclick='modal_eliminar_fila(this)'><i class='bi bi-trash-fill' title='Eliminar'></i></button>";
+	    celda4.innerHTML = "<button type='button' class= 'btn btn-danger' name='Eliminar' value='Eliminar' onclick='modal_eliminar_fila(this)'><i class='bi bi-trash-fill' title='Eliminar'></i></button>";
 	}
 	function modal_eliminar_fila(boton){
-		var fila=boton.parentNode.parentNode;
-		fila.parentNode.removeChild(fila);
+		Swal.fire({
+			title:'Seguro que quiere borrar el registro?',
+			text:'ADVERTENCIA: asegurese que no existan clases registradas en esta aula',
+			icon:'question',
+			denyButtonText: 'No',
+			confirmButtonText:'Si',
+			showDenyButton:true
+		}).then((result)=>{
+			if (result.isConfirmed) {
+				var fila=boton.parentNode.parentNode;
+				fila.parentNode.removeChild(fila);
+			}else if(result.isDenied){
+				Swal.fire('No se elimino el registro','','warning')
+			}
+		});
 	}
 	function limpiar_form(){
 		limpieza_form();

@@ -69,5 +69,18 @@
 			");
 			return $respuesta;
 		}
+		public function cascada_horarios($id){
+			$respuesta=$this->db->query("
+				select coalesce(
+					(select ach.id_conf_horarios::bool
+					from adm_conf_horarios ach, aca_clase am
+					where ach.id_conf_horarios=am.id_horarios
+					and ach.estado='activo'
+					and am.estado='activo'
+					and ach.id_conf_horarios=$id
+					limit 1),'f')as column;
+			");
+			return $respuesta->getResult();
+		}
 	}
 ?>

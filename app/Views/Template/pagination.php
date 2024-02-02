@@ -1,10 +1,4 @@
 <?php
-
-/**
- * bs_full.php - - Bootstrap 4.5.2 Pager Template.
- * @var \CodeIgniter\Pager\PagerRenderer $pager
- */
-
 $pager->setSurroundCount(2);
 ?>
 

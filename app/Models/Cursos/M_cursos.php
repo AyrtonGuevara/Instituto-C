@@ -54,5 +54,18 @@
 			");
 			return $respuesta;
 		}
+		public function cascada_cursos($id){
+			$respuesta=$this->db->query("
+				select coalesce(
+					(select id_categoria::bool
+					from ral_categoria rc, aca_materia am
+					where rc.id_categoria=am.tipo_materia
+					and rc.estado='activo'
+					and am.estado='activo'
+					and rc.id_categoria=$id
+					limit 1), 'f') as column;
+			");
+			return $respuesta->getResult();
+		}
 	}
 ?>
