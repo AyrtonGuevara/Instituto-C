@@ -43,9 +43,10 @@ class Autoload extends AutoloadConfig
         APP_NAMESPACE => APPPATH, // For custom app namespace
         'Config'      => APPPATH . 'Config',
         'App'         => APPPATH,
-        'Codeigniter' => SYSTEMPATH. 'CodeIgniter',
-        'Test\Support'=> TESTPATH. '_suport',
-        'Postgre'     => APPPATH.   'Postgre',
+        'tFPDF'        => APPPATH . 'Libraries/fpdf/tfpdf.php',
+        'Codeigniter' => SYSTEMPATH . 'CodeIgniter',
+        'Test\Support'=> TESTPATH . '_suport',
+        'Postgre'     => APPPATH .   'Postgre',
     ];
 
     /**
@@ -65,7 +66,9 @@ class Autoload extends AutoloadConfig
      *
      * @var array<string, string>
      */
-    public $classmap = [];
+    public $classmap = [
+        'tFPDF'        => APPPATH . 'Libraries/fpdf/tfpdf.php'
+    ];
 
     /**
      * -------------------------------------------------------------------

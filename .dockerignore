@@ -1,0 +1,8 @@
+.git
+.gitignore
+.env
+.vscode/
+writable/cache/
+writable/logs/
+writable/session/
+writable/debugbar/

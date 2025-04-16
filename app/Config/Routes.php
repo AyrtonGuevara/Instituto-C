@@ -33,7 +33,9 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 
 $routes->get('/', 'Home::index');
-
+//dasboard
+$routes->get('/inicio', 'Login\C_dasboard::index');
+$routes->get('/inicio/funcion_inicio','Login\C_dasboard::funcion_inicio');
 //login
 $routes->get('/login','Login\C_login::index');
 $routes->post('/login/autenticar','Login\C_login::autenticar');
@@ -153,6 +155,16 @@ $routes->get('/categorias','Configuracion\C_categorias::index');
 $routes->post('/categorias/buscar_categorias','Configuracion\C_categorias::buscar_categorias');
 $routes->post('/categorias/registrar_categoria','Configuracion\C_categorias::registrar_categorias');
 $routes->post('/categorias/eliminar_categorias','Configuracion\C_categorias::eliminar_categorias');
+
+// pruebapdf BORRAR
+$routes->get('pdf', 'Estudiantes\C_estudiantes::pdf_estudiante_fl');
+//$routes->post('/pdf', 'Estudiantes\C_estudiantes::pdf_estudiante_fl');
+$routes->get('pdf2','Estudiantes\C_estudiantes::pdf_estudiante_ins');
+
+//pdf_estudiante_ins();
+//pdf_estudiante_fl();
+
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

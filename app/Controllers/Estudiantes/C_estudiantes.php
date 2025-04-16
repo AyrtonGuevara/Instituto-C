@@ -5,6 +5,7 @@
 	namespace App\Controllers\Estudiantes;
 	use App\Controllers\BaseController;
 	use App\Models\Estudiantes\M_estudiantes;
+	use tFPDF;
 
 	class C_estudiantes extends BaseController{
 		public function __construct(){
@@ -90,7 +91,7 @@
 					'materia'=>$_POST['materia'],
 					'horarios'=>$_POST['horarios'],
 					'aulas'=>$_POST['aulas'],
-
+						
 					'pago_checkbox'=>$_POST['pago_checkbox'],
 					'total'=>$_POST['total'],
 					'a_cuenta'=>$_POST['cuenta'],
@@ -175,6 +176,204 @@
 				$this->session->setFlashdata("fracaso","Error al modificar el estudiante");
 			}
 			return redirect()->to(base_url("lista_estudiantes"));
+		}
+
+		public function pdf_estudiante_fl(){
+			$id = $_GET['id'];
+			//$id = $this->request->getPost('id');
+			if (!$id) {
+		        return $this->response->setStatusCode(400)->setBody('ID no proporcionado');
+		    }
+			//$id=$this->estudiantes->ultimo_registro();
+			//$id = intval($id->id_estudiante);
+			$data=$this->estudiantes->ver_estudiante($id,1);
+
+			// Inicializar FPDF
+	        $pdf = new tFPDF('L', 'mm', array(140, 216)); // 'P' para orientación vertical, 'mm' para unidades de medida, 'Letter' para tamaño de papel captura
+	        $pdf->SetMargins(20,15,10);
+	        $pdf->AddPage();
+	        $pdf->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
+	        $pdf->AddFont('DejaVu','B','DejaVuSans-Bold.ttf',true);
+			$pdf->SetFont('DejaVu','B',13);
+	        $pdf->Cell(0, 10, 'FILIACION ESTUDIATE', 1, 1, 'C');
+
+	        $pdf->Ln(3);
+
+	        // Datos del estudiante
+	        $pdf->SetFont('DejaVu', 'B', 12);
+	        $pdf->Cell(0, 8, 'DATOS DEL ESTUDIANTE', 1, 1, 'L');
+	        $pdf->SetFont('DejaVu', '', 12);
+
+	        $pdf->Ln(3);
+	        
+	        $pdf->Cell(92, 8, 'Apellido Paterno: '.$data->ap_pat_persona , 1, 0);
+	        $pdf->Cell(2, 8, '', 0, 0);
+	        $pdf->Cell(92, 8, 'Unid. Educ.: '.$data->unid_educativa, 1, 1);
+
+	        $pdf->Cell(92, 8, 'Apellido Materno: '.$data->ap_mat_persona , 1, 0);
+	        $pdf->Cell(2, 8, '', 0, 0);
+	        $pdf->Cell(46, 8, 'Grado: '.$data->grado, 1, 0);
+	        $pdf->Cell(46, 8, 'Turno: '.$data->turno, 1, 1);
+
+	        $pdf->Cell(92, 8, 'Nombre(s): '.$data->nom_persona, 1, 0);
+	        $pdf->Cell(2, 8, '', 0, 0);
+	        $pdf->Cell(92, 8, 'Zona en la que vive:'.$data->zona, 1, 1);
+
+	        $pdf->Cell(40, 8, 'Edad: '.$data->edad, 1, 0);
+	        $pdf->Cell(52, 8, 'Fecha Nac.:'.$data->fec_nacimiento, 1, 0);
+	        $pdf->Cell(2, 8, '', 0, 0);
+	        $pdf->Cell(92, 8, 'Direccion: '.$data->direccion, 1, 1);
+
+	        $pdf->Cell(40, 8, 'Celular: '.$data->celular, 1, 0);
+	        $pdf->Cell(52, 8, 'Fecha Ins.: '.$data->fecha_act, 1, 0);
+	        $pdf->Cell(2, 8, '', 0, 0);
+	        $pdf->Cell(92, 8, 'Fuente: '.$data->fuente, 1, 1);
+
+	        $pdf->Ln(3);
+
+	        // Datos del Tutor
+	        $pdf->SetFont('DejaVu', 'B', 12);
+			$pdf->Cell(0, 8, 'DATOS DEL TITULAR   (PAPÁ, MAMÁ O APODERADO)', 1, 1, 'L');
+	        $pdf->SetFont('DejaVu', '', 12);
+
+	        $pdf->Ln(3);
+	        
+	        $pdf->Cell(92, 8, 'Apellido Paterno: '.$data->pat_tutor, 1, 0);
+	        $pdf->Cell(2, 8, '', 0, 0);
+	        $pdf->Cell(92, 8, 'Actividad: '.$data->act_tutor, 1, 1);
+
+	        $pdf->Cell(92, 8, 'Apellido Materno: '.$data->mat_tutor, 1, 0);
+	        $pdf->Cell(2, 8, '', 0, 0);
+	        $pdf->Cell(92, 8, 'Trabajo en: '.$data->trab_tutor, 1, 1);
+
+	        $pdf->Cell(92, 8, 'Nombre(s): '.$data->nom_tutor, 1, 0);
+	        $pdf->Cell(2, 8, '', 0, 0);
+	        $pdf->Cell(46, 8, 'Telf.: '.$data->telefono_tutor, 1, 0);
+	        $pdf->Cell(46, 8, 'Cel.: '.$data->celular_tutor, 1, 1);
+    		
+    		//$pdfPath = WRITEPATH.'upload/pdf.pdf';
+			// Salida del PDF
+			$pdf->Output('I', 'formulario_inscripcion.pdf');
+			exit;
+	        //return $this->response->setJson(['pdf'=>base_url('upload/pdf.pdf')]);
+		}
+
+		public function pdf_estudiante_ins(){
+			$id = $_GET['id'];
+			//$id = $this->request->getPost('id');
+			if (!$id) {
+		        return $this->response->setStatusCode(400)->setBody('ID no proporcionado');
+		    }
+			//$id=$this->estudiantes->ultimo_registro();
+			//$id = intval($id->id_estudiante);
+			$data=$this->estudiantes->boleta_de_pago($id);
+
+			// Inicializar FPDF
+	        $pdf = new tFPDF('L', 'mm', array(165,108)); // medio array(170, 215) cuarta array(165,108) 'P' para orientación vertical, 'mm' para unidades de medida, 'Letter' para tamaño de papel captura
+	        $pdf->SetMargins(10,9,0);
+	        $pdf->AddPage();
+	        $pdf->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
+	        $pdf->AddFont('DejaVu','B','DejaVuSans-Bold.ttf',true);
+
+        // Logo
+
+        //$pdf->Image('logo.png',10,6,30);
+        $pdf->SetFont('DejaVu','B',14);
+
+        $pdf->Cell(72,5,'CREATICA Instituto',0,0,'C');
+        $pdf->Cell(72,4,'BOLETA DE INSCRIPCION',0,1,'C');
+        $pdf->SetFont('DejaVu','',7);
+        $pdf->Cell(72,5,'Miraflores Av. Lucas Jimenez Estr #7 6to Piso',0,0,'C');
+        $pdf->Cell(10,4,'',0,0,'C');
+        $pdf->Cell(17,4,'DIA',0,0,'C');
+        $pdf->Cell(1,4,'',0,0,'C');
+        $pdf->Cell(17,4,'MES',0,0,'C');
+        $pdf->Cell(1,4,'',0,0,'C');
+        $pdf->Cell(17,4,'AÑO',0,1,'C');
+        $pdf->Cell(72,4,'Tel: 2 222748 WhatsApp 612-348323 612-74544',0,0,'C');
+        $pdf->Cell(10,4,'',0,0,'C');
+        $pdf->Cell(17,6,$data->dia_ins,1,0,'C');
+        $pdf->Cell(1,5,'',0,0,'C');
+        $pdf->Cell(17,6,$data->mes_ins,1,0,'C');
+        $pdf->Cell(1,5,'',0,0,'C');
+        $pdf->Cell(17,6,$data->año_ins,1,1,'C');
+        $pdf->Ln(2);
+    
+        $pdf->SetFont('DejaVu','',9);
+		// Nombre del estudiante
+        $pdf->Cell(30, 5, 'Nombre Estudiante:', 0);
+        $pdf->Cell(70, 6, $data->nombre, 1);
+        $pdf->Cell(14, 5, 'Codigo:', 0);
+        $pdf->Cell(30, 6, $data->id_estudiante, 1);
+        $pdf->Ln(7);
+
+        // Materia y Aula Número
+        $pdf->Cell(30, 5, 'Aula Numero:', 0);
+        $pdf->Cell(65, 6, $data->nombre_aula, 1);
+        $pdf->Cell(10, 5, 'Plan:', 0);
+        $pdf->Cell(39, 6, $data->detalle, 1);
+        $pdf->Ln(7);
+        // Segunda fila
+        $pdf->Cell(30, 5, 'Materia:', );
+        //114
+        $pdf->Cell(70, 6, $data->nombre_materia, 1);
+        $pdf->Ln(7);
+        //
+        $pdf->Cell(30, 5, 'Dias:', );
+        $pdf->Cell(70, 6, $data->dias, 1);
+        $pdf->Ln(7);
+        //
+        $pdf->Cell(30, 5, 'Hora de ingreso:', );
+        $pdf->Cell(70, 6, $data->h_inicio, 1);
+        $pdf->Ln(7);
+        //
+        $pdf->Cell(30, 5, 'Hora de salida:', );
+        $pdf->Cell(70, 6, $data->h_fin, 1);
+        $pdf->Ln(7);
+        //
+        $pdf->Cell(30, 5, 'Fecha inicio:', );
+        $pdf->Cell(70, 6, $data->fec_inicio, 1);
+        $pdf->Ln(7);
+        //
+        $pdf->Cell(30, 5, 'Fecha Fin:', );
+        $pdf->Cell(70, 6, $data->fec_fin, 1);
+        $pdf->Ln(7);
+        //
+        if(strcmp($data->estado,'cancelado')==0){
+        	$pdf->Cell(30, 5, 'Precio Total:', );
+	        $pdf->Cell(15, 6, $data->monto_cancelado, 1);
+	        $pdf->Cell(16, 5, 'A cuenta:', );
+	        $pdf->Cell(15, 6, '---', 1);
+	        $pdf->Cell(12, 5, 'Saldo:', );
+	        $pdf->Cell(15, 6, '---', 1);
+	        $pdf->Cell(20, 5, 'Fecha pago:', );
+	        $pdf->Cell(20, 6, '---', 1);
+        }else{
+        	$pdf->Cell(30, 5, 'Precio Total:', );
+	        $pdf->Cell(15, 6, ($data->monto_cancelado+$data->monto_deuda), 1);
+	        $pdf->Cell(16, 5, 'A cuenta:', );
+	        $pdf->Cell(15, 6, $data->monto_cancelado, 1);
+	        $pdf->Cell(12, 5, 'Saldo:', );
+	        $pdf->Cell(15, 6, $data->monto_deuda, 1);
+	        $pdf->Cell(20, 5, 'Fecha pago:', );
+	        $pdf->Cell(20, 6, $data->fec_pago, 1);
+        }
+        
+
+        $pdf->SetXY(111,39);
+        $pdf->Cell(43, 20,'',1,0,'C');
+        $pdf->SetXY(111,60);
+        $pdf->Cell(43, 20,'',1,0,'C');
+
+        $pdf->SetXY(111,52);
+        $pdf->Cell(43, 10,'Recibi Conforme',0,0,'C');
+        $pdf->SetXY(111,73);
+        $pdf->Cell(43, 10,'Entregue Conforme',0,0,'C');
+
+    
+			// Salida del PDF
+			$pdf->Output('I', 'formulario_inscripcion.pdf');
+	        exit;
 		}
 	}
 ?>

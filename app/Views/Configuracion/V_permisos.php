@@ -84,7 +84,9 @@
 			success:function(resp){
 				resp=JSON.parse(resp);
 				//se notifica el cargo o nivel a configurar
-				document.getElementById("titulo_modulo").innerHTML="Perminsos "+resp.data[0].cargo;
+				if (resp.data[0]) {
+					document.getElementById("titulo_modulo").innerHTML="Perminsos "+resp.data[0].cargo;
+				}
 				document.getElementById("id").value=id;
 
 				for(const key of resp.data){

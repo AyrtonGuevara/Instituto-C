@@ -37,9 +37,12 @@
 							echo"<td>".$key->nombre_materia."</td>";
 							echo"<td>".$key->fec_inicio."</td>";
 							echo"<td>".$key->fec_fin."</td>";
-							echo "<td><button type='button' class='btn btn-primary' onclick='ver_datos_estudiante(".$key->id_estudiante.",0)'> <i class='bi bi-eye' title='Ver estudiante'></i></button>";
+							echo "<td><button type='button' class='btn btn-primary' onclick='ver_datos_estudiante(".$key->id_estudiante.",0)' title='Ver detalle'> <i class='bi bi-eye' title='Ver estudiante'></i></button>";
 							echo "<button class='btn btn-warning' onclick='ver_datos_estudiante(".$key->id_estudiante.",1)'><i class='bi bi-pen-fill' title='Editar'></i></button>";
-							echo "<button class= 'btn btn-success' name='Asistencia' value='Asistencia' onclick='asistencia_estudiante(".$key->id_estudiante.")'><i class='bi bi-card-checklist' title='Ver asistencias'></i></button></td>";
+							echo "<button class= 'btn btn-success' name='Asistencia' value='Asistencia' onclick='asistencia_estudiante(".$key->id_estudiante.")'><i class='bi bi-card-checklist' title='Ver asistencias'></i></button>";
+							echo "<button class= 'btn btn-success' name='Asistencia' value='Asistencia' onclick='descargar_inscripcion(".$key->id_estudiante.")'><i class='bi bi-card-checklist' title='Descargar Inscripcion'></i></button>";
+							echo "<button class= 'btn btn-success' name='Asistencia' value='Asistencia' onclick='descargar_filiacion(".$key->id_estudiante.")'><i class='bi bi-card-checklist' title='Descargar Filiacion'></i></button></td>";
+
 							echo "</tr>";
 						}
 						?>
@@ -54,7 +57,6 @@
 <div class="modal fade" id="modal_estudiante">
   	<div class="modal-dialog modal-dialog-centered modal-lg">
     	<div class="modal-content">
-
       		<!-- Modal Header -->
 	      	<div class="modal-header">
 	        	<h3 class="modal-title">Estudiante :</h3>
@@ -109,6 +111,12 @@
 				window.location.href="<?php echo base_url()?>estudiantes";
 			}
 		})
+	}
+	function descargar_filiacion(id){
+		window.open('<?php echo base_url("pdf") ?>?id=' + id, '_blank');
+	}
+	function descargar_inscripcion(id){
+		window.open('<?php echo base_url("pdf2") ?>?id=' + id, '_blank');
 	}
 	function asistencia_estudiante(){
 		$('#modal_estudiante').modal('show');

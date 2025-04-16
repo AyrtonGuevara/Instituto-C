@@ -157,7 +157,8 @@
 					nivel.id_categoria as id_nivel , 
 					nivel.detalle as nivel,
 					fuente.id_categoria as id_fuente,
-					fuente.detalle as fuente
+					fuente.detalle as fuente,
+					now()::date as fecha_act
 				from aca_estudiante ae, 
 					ral_persona rp,
 					(select id_categoria, detalle from ral_categoria where nombre_categoria='fuente-informacion' and estado='activo') as fuente,
@@ -197,7 +198,7 @@
 				end
 				and ae.id_estudiante=$id;
 			");
-			return $respuesta->getResult();
+			return $respuesta->getRow();
 		}
 		public function modificar_estudiante_tutor($id, $array, $usuario){
 			$respuesta=$this->db->query("
@@ -219,5 +220,114 @@
 				");
 			return $respuesta;
 		}
+
+		public function ultimo_registro(){
+			$respuesta=$this->db->query("
+				select id_estudiante 
+				from aca_estudiante 
+				order by fec_creado desc 
+				limit 1;
+			");
+			return $respuesta->getRow();
+		}
+		public function boleta_de_pago($id){
+			$respuesta=$this->db->query("
+				select concat(rp.nom_persona||' '||rp.ap_pat_persona||' '||rp.ap_mat_persona) as nombre,
+extract(day from ai.fec_inscripcion) as dia_ins,
+extract(month from ai.fec_inscripcion) as mes_ins,
+extract(year from ai.fec_inscripcion) as año_ins,
+am.nombre_materia,
+aa.nombre_aula,
+h.dias,
+h.h_inicio,
+h.h_fin,
+ai.fec_inicio::date, 
+(ai.fec_inicio+concat(ai.cantidad,' month')::interval)::date as fec_fin,
+cdp.monto_cancelado,
+cdp.monto_deuda,
+cdp.fec_pago,
+cdp.estado,
+ae.id_estudiante,
+cp2.detalle
+from aca_estudiante ae, ral_persona rp, aca_inscripcion ai, aca_clase ac,aca_materia am,aca_aula aa,com_tutor ct , com_pago cp, com_detalle_pago cdp, com_precios cp2,
+	(select ah.id_conf_horarios,string_agg(rc.detalle,' | ') as dias, string_agg(split_part(ah.horarios,'||',1),'|') as h_inicio,string_agg(split_part(ah.horarios,'||',2),'|') as h_fin
+	from adm_conf_horarios ach, aca_horarios ah , ral_categoria rc
+	where ach.id_conf_horarios = ah.id_conf_horarios 
+	and rc.id_categoria = ah.dias
+	group by ah.id_conf_horarios)as h
+where ae.id_persona = rp.id_persona 
+and ai.id_estudiante = ae.id_estudiante 
+and ai.id_clase = ac.id_clase
+and am.id_materia = ac.id_materia
+and ac.id_aula = aa.id_aula
+and h.id_conf_horarios = ac.id_horarios
+and ct.id_tutor = ae.id_tutor
+and cp.id_tutor = ct.id_tutor
+and cdp.id_pago=cp.id_pago
+and cdp.id_inscripcion = ai.id_inscripcion
+and cp2.id_precios = ai.id_precios
+					and ae.id_estudiante=$id;
+			");
+			return $respuesta->getRow();
+		}
 	}
+	/*
+select ae.id_estudiante, 
+					rp.nom_persona,
+					rp.ap_pat_persona,
+					rp.ap_mat_persona, 
+					rp.fec_nacimiento,
+					extract(year from age(current_date,rp.fec_nacimiento::date)) as edad,
+					rp.celular, 
+					ae.unid_educativa, 
+					ae.zona,ae.direccion, 
+					ae.grado, 
+					tutor.*, 
+					turno.id_categoria as id_turno, 
+					turno.detalle as turno, 
+					nivel.id_categoria as id_nivel , 
+					nivel.detalle as nivel,
+					fuente.id_categoria as id_fuente,
+					fuente.detalle as fuente
+				from aca_estudiante ae, 
+					ral_persona rp,
+					(select id_categoria, detalle from ral_categoria where nombre_categoria='fuente-informacion' and estado='activo') as fuente,
+					(select id_categoria, detalle from ral_categoria where nombre_categoria='turno-estudiante' and estado='activo')as turno,
+					(select id_categoria, detalle from ral_categoria where nombre_categoria='nivel-estudiante' and estado='activo')as nivel,
+					(select ct.id_tutor, 
+							rp2.nom_persona as nom_tutor, 
+							rp2.ap_pat_persona as pat_tutor,
+							rp2.ap_mat_persona as mat_tutor, 
+							ct.act_tutor, 
+							ct.trab_tutor, 
+							ct.telefono_tutor, 
+							rp2.celular as celular_tutor,
+							ct.fuente as fuente_tutor
+						from com_tutor ct, 
+							ral_persona rp2
+						where ct.id_persona=rp2.id_persona
+						and case when 1=2 or 1=3 then
+							(rp2.estado='inactivo'
+							and ct.estado='inactivo')
+						else 
+							(rp2.estado='activo'
+							and ct.estado='activo')
+						end
+				)as tutor
+				where ae.id_persona=rp.id_persona
+				and fuente.id_categoria=tutor.fuente_tutor
+				and turno.id_categoria=ae.turno
+				and nivel.id_categoria=ae.nivel
+				and tutor.id_tutor=ae.id_tutor
+				and case when 1=2 or 1=3 then
+					(rp.estado ='inactivo'
+					and ae.estado ='inactivo')
+				else 
+					(rp.estado ='activo'
+					and ae.estado ='activo')
+				end
+				and ae.id_estudiante=85;
+	*/
 ?>
+
+

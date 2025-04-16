@@ -14,7 +14,7 @@
 			<div class="form-item">
 				<form action="<?php echo base_url()?>categorias/registrar_categoria" method="post" accept-charset="utf-8">
 					<select class = "form-control" name="select_categorias" id="input_categorias" onchange="cambio_categorias()">
-						<option id="inport-default" value=""></option>
+						<option id="inport-default" value="">Seleccione una categoria</option>
 						<option value="cargo">Cargo - Empresa</option>
 						<option value="nivel-sistema">Nivel - Sistema</option>
 						<option value="dia">Dias de la semana</option>
@@ -57,7 +57,7 @@
 			data:{categoria:categoria},
 			success:function(resp){
 				resp=JSON.parse(resp);
-				resp2=resp.data
+				resp2=resp.data;
 				tabla=document.getElementById("tabla-categoria");
 				var cells = document.querySelectorAll('#tabla-categoria tr');
 					for(var i=1; i<cells.length; i++){

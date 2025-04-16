@@ -12,7 +12,7 @@
 			<input type="button" class="btn-close" name="salir_edicion" id="salir_edicion" onclick="limpiar_form()" title="Cerrar" hidden>
 		</div>
 		<div class="card-body">
-			<form method="post" accept-charset="utf-8" name="form_estudiante" id="form_estudiante" action="<?php base_url() ?>estudiantes/registrar_estudiante">
+			<form method="post" accept-charset="utf-8" name="form_estudiante" id="form_estudiante" target="_blank" action="<?php base_url() ?>estudiantes/registrar_estudiante">
 				<input type="text" name="id" id="id" hidden>
 				<div class="card card-internal-card border-primary" id="card-estudiante">
 					<div class="card-header">
@@ -181,7 +181,7 @@
 							</div>
 
 							<div class="row" id="div_horario_especial" hidden>
-								<div class="col-sm-3 form-item">
+								<div class="col-sm-9 form-item">
 									<label for="materia2"class="form-label">Materia:</label>
 									<select name="materia2" id="input_materia_esp" class="form-control">
 										<option id="input_materia21" value="">Materias</option>
@@ -192,7 +192,7 @@
 										?>
 									</select>
 								</div>
-								<div class=" col-sm-9">
+								<div class=" col-sm-3">
 								</div>
 								<div class="col-sm-3 form-item">
 									<label for="horario"class="form-label">Primer Horario:</label>
@@ -400,6 +400,7 @@
 	//select materia
 	document.getElementById("input_materia").addEventListener("change",function(){
 		id_materia=document.getElementById("input_materia").value;
+		console.log(id_materia);
 		$.ajax({
 			url:"<?php echo base_url()?>estudiantes/horarios",
 			type:"POST",
@@ -556,6 +557,8 @@
 			data:{id:id,tipo:tipo},
 			success:function(resp){
 				resp=JSON.parse(resp);
+				console.log(resp);
+				console.log(id);
 				document.getElementById("input_apellido_paterno").value=resp.data[0].ap_pat_persona;
 				document.getElementById("input_apellido_materno").value=resp.data[0].ap_mat_persona;
 				document.getElementById("input_nombre").value=resp.data[0].nom_persona;

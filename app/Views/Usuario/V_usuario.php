@@ -134,7 +134,7 @@
 				usuario.textContent=resp2.data[0].concat;
 				nombre.value=resp2.data[0].usuario;
 				nivel.value=resp2.data[0].nivel;
-				nivel.textContent=resp2.data[0].detalle;
+				nivel.textContent=resp2.data[0].cargo;
 				//botones
 				btnexit=document.getElementById('salir_edicion');
 				btnagregar=document.getElementById("Registrar");

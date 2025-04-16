@@ -1,0 +1,5 @@
+{
+    "intelephense.environment.includePaths": [
+        "\"intelephense.environment.includePaths\":[\"app\",\"system\"]"
+    ]
+}

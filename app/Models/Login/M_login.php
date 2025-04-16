@@ -18,17 +18,23 @@
 				select concat(rp.nom_persona,' ',rp.ap_pat_persona,' ',rp.ap_mat_persona) as usuario,
 				array_agg(concat(codigo_modulo,'-',codigo_submodulo)) as codigo_pagina,
 				ac.cargo as nivel,
-				ru.usuario as id_usuario
-				from adm_paginas ap, adm_cargo ac, ral_usuario ru, ral_persona rp
+				ru.usuario as id_usuario,
+				t1.fecha
+				from adm_paginas ap, adm_cargo ac, ral_usuario ru, ral_persona rp,
+					(select rc2.detalle as fecha
+					from ral_categoria rc, ral_conf rc2
+					where rc.id_categoria =rc2.id_categoria
+					and cod_categoria ilike 'CNF-CRE-00'
+					and rc.estado = 'activo')as t1
 				where ru.nivel=ac.id_cargo
 				and ru.id_persona=rp.id_persona
 				and rp.estado='activo'
 				and ru.estado='activo'
 				and ap.estado='activo'
 				and ac.estado='activo'
-				and ru.usuario='$usuario'
+				and ru.usuario='admin'
 				and ap.id_paginas=any(permisos)
-				group by ac.cargo, ru.usuario, rp.nom_persona, rp.ap_pat_persona, rp.ap_mat_persona
+				group by ac.cargo, ru.usuario, rp.nom_persona, rp.ap_pat_persona, rp.ap_mat_persona, t1.fecha
 			");
 			return $respuesta->getResult();
 		}

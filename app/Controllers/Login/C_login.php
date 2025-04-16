@@ -38,10 +38,11 @@
 						'usuario'=>$resp2[0]->usuario,
 						'id_usuario'=>$resp2[0]->id_usuario,
 						'nivel'=>$resp2[0]->nivel,
-						'permisos'=>$permisos
+						'permisos'=>$permisos,
+						'fecha'=>$resp2[0]->fecha
 					];
 					$this->session->set($datasession);
-					return redirect()->to(base_url('usuario'));
+					return redirect()->to(base_url('inicio'));
 				}else{
 					echo "Contraseña Erronea";
 					$this->session->setFlashdata("error_contraseña","contraseña erronea");

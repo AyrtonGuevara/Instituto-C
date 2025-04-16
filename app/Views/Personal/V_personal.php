@@ -27,7 +27,7 @@
 								</div>
 								<div class="col-sm-3 form-item">
 									<label for="apellidoM" class="form-label">Apellido Materno:</label>
-									<input type="text" class="form-control" name="apellidoM" id="input_apellidoM" placeholder="Apellido Materno" required/>
+									<input type="text" class="form-control" name="apellidoM" id="input_apellidoM" placeholder="Apellido Materno"/>
 								</div>
 								<div class="col-sm-3 form-item">
 									<label for="fecnac" class="form-label">Fecha de Nacimiento:</label>
